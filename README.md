@@ -1,2 +1,2 @@
-# SuperDEXICO
-SuperDEX ICO
+# SuperDEX Token
+SuperDEX Token

@@ -78,8 +78,7 @@ contract ERC20Token {
     // The transferFrom method is used for a withdraw workflow, allowing contracts to send
     // tokens on your behalf, for example to "deposit" to a contract address and/or to charge
     // fees in sub-currencies; the command should fail unless the _from account has
-    // deliberately authorized the sender of the message via some mechanism; we propose
-    // these standardized APIs for approval:
+    // deliberately authorized the sender of the message via the approve(...) function
     function transferFrom(
         address _from,
         address _to,

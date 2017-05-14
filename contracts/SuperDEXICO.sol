@@ -1,5 +1,16 @@
 pragma solidity ^0.4.10;
+// ----------------------------------------------------------------------------
+// Crowdfudning token contract for SuperDEX ICO
+//
+// 
+//
+// Enjoy. (c) BokkyPooBah / Bok Consulting Pty Ltd 2017. The MIT Licence.
+// ----------------------------------------------------------------------------
 
+
+// ----------------------------------------------------------------------------
+// Owned contract
+// ----------------------------------------------------------------------------
 contract Owned {
     address public owner;
     address public newOwner;
@@ -27,8 +38,10 @@ contract Owned {
 }
 
 
+// ----------------------------------------------------------------------------
 // ERC Token Standard #20 - https://github.com/ethereum/EIPs/issues/20
 // With the addition of symbol, name and decimals
+// ----------------------------------------------------------------------------
 contract ERC20Token {
     string public symbol;
     string public name;
@@ -146,4 +159,59 @@ contract ERC20Token {
 
     event Transfer(address indexed _from, address indexed _to, uint256 _value);
     event Approval(address indexed _owner, address indexed _spender, uint256 _value);
+}
+
+
+// ----------------------------------------------------------------------------
+// ERC Token Standard #20 - https://github.com/ethereum/EIPs/issues/20
+// With the addition of symbol, name and decimals
+// ----------------------------------------------------------------------------
+contract SuperDEXICOToken {
+
+    uint256 public constant MINIMUM_FUNDING = 123;
+    uint256 public constant MAXIMUM_SOFT_FUNDING = 345;
+    uint256 public totalFunding;
+
+    uint256 public startingBlock;
+    uint256 public endingBlock;
+
+
+    // ------------------------------------------------------------------------
+    // Only before the funding period
+    // ------------------------------------------------------------------------
+    modified beforeFundingPeriod() {
+        if (blockNumber >= startingBlock) throw;
+        _;
+    }
+
+    // ------------------------------------------------------------------------
+    // Only during the funding period
+    // ------------------------------------------------------------------------
+    modified duringFundingPeriod() {
+        if (blockNumber < startingBlock || blockNumber > endingBlock) throw;
+        _;
+    }
+
+
+    // ------------------------------------------------------------------------
+    // Constructor
+    // ------------------------------------------------------------------------
+    function SuperDEXICOToken(uint256 _startingBlock, uint256 _endingBlock) {
+        startingBlock = _startingBlock;
+        endingBlock = _endingBlock;
+    }
+
+    // ------------------------------------------------------------------------
+    // Precommitment funding can be added before the funding block
+    // ------------------------------------------------------------------------
+    function addPrecommitment() onlyOwner beforeFundingPeriod {
+    }
+
+    // ------------------------------------------------------------------------
+    // Funding can only be added during the funding period
+    // ------------------------------------------------------------------------
+    function addFunding() duringFundingPeriod {
+    }
+
+
 }

@@ -1,6 +1,6 @@
 pragma solidity ^0.4.9;
 // ----------------------------------------------------------------------------
-// Crowdfudning token contract for SuperDEX ICO
+// Crowdfunding token contract for SuperDEX ICO
 //
 // 
 //

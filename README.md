@@ -7,7 +7,7 @@ SuperDEX Token
 Requirements as discussed with Hugh May 11 2017:
 
 * [ ] Accept commitments before deployment of the contract
-* [ ] Min and max limits for contributions
+* [ ] Min and max limits for contributions?
 * [ ] Start and end block for contributions
 * [ ] Early withdrawal if minimum funding reached
 * [ ] Minimum funding amount

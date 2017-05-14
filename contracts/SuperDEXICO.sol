@@ -1,4 +1,4 @@
-pragma solidity ^0.4.10;
+pragma solidity ^0.4.9;
 // ----------------------------------------------------------------------------
 // Crowdfudning token contract for SuperDEX ICO
 //
@@ -204,13 +204,22 @@ contract SuperDEXICOToken {
     // ------------------------------------------------------------------------
     // Precommitment funding can be added before the funding block
     // ------------------------------------------------------------------------
-    function addPrecommitment() onlyOwner beforeFundingPeriod {
+    function addPrecommitment(address participant) onlyOwner beforeFundingPeriod {
+        balances[participant] += msg.value;
+        totalFunding += msg.value;
     }
 
     // ------------------------------------------------------------------------
     // Funding can only be added during the funding period
     // ------------------------------------------------------------------------
     function addFunding() duringFundingPeriod {
+        if (totalFunding < MAXIMUM_SOFT_FUNDING) {
+            if (totalFunding + msg.value > MAXIMUM_SOFT_FUNDING) {
+                endingBlock += HARD_CAP_PERIOD;
+            }
+        }
+        balances[participant] += msg.value;
+        totalFunding += msg.value;
     }
 
 

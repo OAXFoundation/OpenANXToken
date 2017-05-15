@@ -38,3 +38,6 @@ contract Owned {
 }
 
 
+contract SuperDEXKYC is Owned {
+
+}

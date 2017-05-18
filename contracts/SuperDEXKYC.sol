@@ -39,5 +39,19 @@ contract Owned {
 
 
 contract SuperDEXKYC is Owned {
+    mapping(address => uint256) customerStatus;
 
+    function SuperDEXKYC() {
+    }
+
+    function kyc(address customer, uint256 status) onlyOwner {
+        customerStatus[customer] = status;
+    }
+
+    function confirmTokenTransfer(address from, address to, uint256 amount) onlyOwner returns (bool) {
+        if (customerStatus[from] == 1 && customerStatus[to] == 1) {
+            return true;
+        }
+        return false;
+    } 
 }

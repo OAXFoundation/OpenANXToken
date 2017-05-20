@@ -1,18 +1,32 @@
 pragma solidity ^0.4.9;
 // ----------------------------------------------------------------------------
-// Crowdfunding token contract for SuperDEX ICO
+// OpenANX Token with crowdfunding
 //
 // 
 //
-// Enjoy. (c) BokkyPooBah / Bok Consulting Pty Ltd 2017. The MIT Licence.
+// Enjoy. (c) OpenANX and BokkyPooBah / Bok Consulting Pty Ltd 2017. 
+// The MIT Licence.
 // ----------------------------------------------------------------------------
 
 
 // ----------------------------------------------------------------------------
 // KYC Interface
 // ----------------------------------------------------------------------------
-contract SuperDEXKYC {
+contract OpenANXKYC {
     function confirmTokenTransfer(address from, address to, uint256 amount) onlyOwner returns (bool);
+}
+
+
+// ERC Token Standard #20 Interface - https://github.com/ethereum/EIPs/issues/20
+contract ERC20Interface {
+    function totalSupply() constant returns (uint256 totalSupply);
+    function balanceOf(address _owner) constant returns (uint256 balance);
+    function transfer(address _to, uint256 _value) returns (bool success);
+    function transferFrom(address _from, address _to, uint256 _value) returns (bool success);
+    function approve(address _spender, uint256 _value) returns (bool success);
+    function allowance(address _owner, address _spender) constant returns (uint256 remaining);
+    event Transfer(address indexed _from, address indexed _to, uint256 _value);
+    event Approval(address indexed _owner, address indexed _spender, uint256 _value);
 }
 
 
@@ -50,7 +64,7 @@ contract Owned {
 // ERC Token Standard #20 - https://github.com/ethereum/EIPs/issues/20
 // With the addition of symbol, name and decimals
 // ----------------------------------------------------------------------------
-contract ERC20Token {
+contract ERC20Token is ERC20Interface {
     string public symbol;
     string public name;
     uint8 public decimals;
@@ -174,7 +188,7 @@ contract ERC20Token {
 // ERC Token Standard #20 - https://github.com/ethereum/EIPs/issues/20
 // With the addition of symbol, name and decimals
 // ----------------------------------------------------------------------------
-contract SuperDEXICOToken {
+contract OpenANXToken {
 
     uint256 public constant MINIMUM_FUNDING = 123;
     uint256 public constant MAXIMUM_SOFT_FUNDING = 345;

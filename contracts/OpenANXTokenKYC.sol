@@ -1,10 +1,11 @@
 pragma solidity ^0.4.9;
 // ----------------------------------------------------------------------------
-// Crowdfunding token contract for SuperDEX ICO
+// OpenANX Token with crowdfunding
 //
 // 
 //
-// Enjoy. (c) BokkyPooBah / Bok Consulting Pty Ltd 2017. The MIT Licence.
+// Enjoy. (c) OpenANX and BokkyPooBah / Bok Consulting Pty Ltd 2017. 
+// The MIT Licence.
 // ----------------------------------------------------------------------------
 
 

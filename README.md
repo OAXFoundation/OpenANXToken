@@ -1,6 +1,4 @@
-# SuperDEX Token
-SuperDEX Token
-
+# OpenANX Token
 
 # Requirements
 
@@ -29,3 +27,4 @@ SuperDEX Token
   2. Crowdsale contributing accounts will **NOT** be able to move their tokens until they have been KYC-ed
   3. The KYC status in the smart contracts is just a simple KYC - Yes or No
   4. Once the tokens have been transferred from the original crowdsale contributing account, there is **NO** KYC required for transfers. The tokens can trade freely.
+

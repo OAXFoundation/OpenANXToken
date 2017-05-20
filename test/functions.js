@@ -1,10 +1,16 @@
+// May 20 2017
+var ethPriceUSD = 127.2;
+
+// -----------------------------------------------------------------------------
+// Accounts
+// -----------------------------------------------------------------------------
 var accounts = [];
 var accountNames = {};
 
 addAccount(eth.accounts[0], "Account #0 - Miner");
 addAccount(eth.accounts[1], "Account #1 - Token Owner");
-addAccount(eth.accounts[2], "Account #2");
-addAccount(eth.accounts[3], "Account #3");
+addAccount(eth.accounts[2], "Account #2 - KYCed");
+addAccount(eth.accounts[3], "Account #3 - KYCed");
 addAccount(eth.accounts[4], "Account #4");
 addAccount(eth.accounts[5], "Account #5");
 addAccount(eth.accounts[6], "Account #6");
@@ -18,10 +24,6 @@ var account5 = eth.accounts[5];
 var account6 = eth.accounts[6];
 
 var baseBlock = eth.blockNumber;
-var tokenABIFragment=[{"constant":true,"inputs":[{"name":"_owner","type":"address"}],"name":"balanceOf","outputs":[{"name":"balance","type":"uint256"}],"payable":false,"type":"function"}];
-
-var token = null;
-var tokenAddress = null;
 
 function unlockAccounts(password) {
   for (var i = 0; i < 7; i++) {
@@ -34,18 +36,46 @@ function addAccount(account, accountName) {
   accountNames[account] = accountName;
 }
 
+
+// -----------------------------------------------------------------------------
+// KYC Contract
+// -----------------------------------------------------------------------------
+var kycContractAddress = null;
+var kycContractAbi = null;
+
+function addKYCContractAddressAndAbi(address, abi) {
+  kycContractAddress = address;
+  kycContractAbi = abi;
+}
+
+
+// -----------------------------------------------------------------------------
+// Token Contract
+// -----------------------------------------------------------------------------
+var tokenContractAddress = null;
+var tokenContractAbi = null;
+
+function addTokenContractAddressAndAbi(address, abi) {
+  tokenContractAddress = address;
+  tokenContractAbi = abi;
+}
+
+
+// -----------------------------------------------------------------------------
+// Account ETH and token balances
+// -----------------------------------------------------------------------------
 function printBalances() {
-  if (token == null) {
-    token = tokenAddress == null ? null : web3.eth.contract(tokenABIFragment).at(tokenAddress);
-  }
+  console.log("DEBUG: tokenContractAddress: " + tokenContractAddress);
+  console.log("DEBUG: tokenContractAbi: " + tokenContractAbi);
+  var token = tokenContractAddress == null || tokenContractAbi == null ? null : web3.eth.contract(tokenContractAbi).at(tokenContractAddress);
   var i = 0;
-  console.log("RESULT:  # Account                                             EtherBalanceChange                Token Name");
+  console.log("RESULT:  # Account                                             EtherBalanceChange                          Token Name");
   accounts.forEach(function(e) {
     i++;
     var etherBalanceBaseBlock = eth.getBalance(e, baseBlock);
     var etherBalance = web3.fromWei(eth.getBalance(e).minus(etherBalanceBaseBlock), "ether");
-    var tokenBalance = token == null ? new BigNumber(0) : token.balanceOf(e).div(1e8);
-    console.log("RESULT: " + pad2(i) + " " + e  + " " + pad(etherBalance) + " " + padToken(tokenBalance, 8) + " " + accountNames[e]);
+    var tokenBalance = token == null ? new BigNumber(0) : token.balanceOf(e).div(1e18);
+    console.log("RESULT: " + pad2(i) + " " + e  + " " + pad(etherBalance) + " " + padToken(tokenBalance, 18) + " " + accountNames[e]);
   });
 }
 
@@ -74,11 +104,19 @@ function padToken(s, decimals) {
   return o;
 }
 
+
+// -----------------------------------------------------------------------------
+// Transaction status
+// -----------------------------------------------------------------------------
 function printTxData(name, txId) {
   var tx = eth.getTransaction(txId);
   var txReceipt = eth.getTransactionReceipt(txId);
-  console.log("RESULT: " + name + " gas=" + tx.gas + " gasUsed=" + txReceipt.gasUsed + " cost=" + tx.gasPrice.mul(txReceipt.gasUsed).div(1e18) +
-    " block=" + txReceipt.blockNumber + " txId=" + txId);
+  var gasPrice = tx.gasPrice;
+  var gasCostETH = tx.gasPrice.mul(txReceipt.gasUsed).div(1e18);
+  var gasCostUSD = gasCostETH.mul(ethPriceUSD);
+  console.log("RESULT: " + name + " gas=" + tx.gas + " gasUsed=" + txReceipt.gasUsed + " costETH=" + gasCostETH +
+    " costUSD=" + gasCostUSD + " @ ETH/USD=" + ethPriceUSD + " gasPrice=" + gasPrice + " block=" + 
+    txReceipt.blockNumber + " txId=" + txId);
 }
 
 function assertEtherBalance(account, expectedBalance) {
@@ -137,52 +175,75 @@ function failIfGasEqualsGasUsedOrContractAddressNull(contractAddress, tx, msg) {
   }
 }
 
-var contractAddress = null;
-var contractAbi = null;
 
-function addContractAddressAndAbi(address, abi) {
-  contractAddress = address;
-  contractAbi = abi;
+// -----------------------------------------------------------------------------
+// KYC Contract details
+// -----------------------------------------------------------------------------
+var kycDetailsFromBlock = 0;
+function printKYCContractDetails() {
+  if (kycContractAddress != null && kycContractAbi != null) {
+    var kycContract = eth.contract(kycContractAbi).at(kycContractAddress);
+    console.log("RESULT: kyc.owner=" + kycContract.owner());
+    console.log("RESULT: kyc.newOwner=" + kycContract.newOwner());
+    var latestBlock = eth.blockNumber;
+    var i;
+    var kycedEvent = kycContract.KYCed({}, { fromBlock: kycDetailsFromBlock, toBlock: latestBlock });
+    i = 0;
+    kycedEvent.watch(function (error, result) {
+      console.log("RESULT: KYCed Event " + i++ + ": customer=" + result.args.customer + " status=" + result.args.status + " " +
+        result.blockNumber);
+    });
+    kycedEvent.stopWatching();
+    kycDetailsFromBlock = latestBlock + 1;
+  }
 }
 
-function printContractStaticDetails() {
-  var contract = eth.contract(contractAbi).at(contractAddress);
-  console.log("RESULT: token.symbol=" + contract.symbol());
-  console.log("RESULT: token.name=" + contract.name());
-  console.log("RESULT: token.decimals=" + contract.decimals());
-  console.log("RESULT: token.totalSupply=" + contract.totalSupply().div(1e8));
+
+// -----------------------------------------------------------------------------
+// Token Contract details
+// -----------------------------------------------------------------------------
+function printTokenContractStaticDetails() {
+  if (tokenContractAddress != null && tokenContractAbi != null) {
+    var contract = eth.contract(tokenContractAbi).at(tokenContractAddress);
+    console.log("RESULT: token.symbol=" + contract.symbol());
+    console.log("RESULT: token.name=" + contract.name());
+    console.log("RESULT: token.decimals=" + contract.decimals());
+    console.log("RESULT: token.totalSupply=" + contract.totalSupply().div(1e8));
+  }
 }
 
 var dynamicDetailsFromBlock = 0;
-function printContractDynamicDetails() {
-  var contract = eth.contract(contractAbi).at(contractAddress);
-  console.log("RESULT: token.owner=" + contract.owner());
-  console.log("RESULT: token.newOwner=" + contract.newOwner());
+function printTokenContractDynamicDetails() {
+  if (tokenContractAddress != null && tokenContractAbi != null) {
+    var contract = eth.contract(tokenContractAbi).at(tokenContractAddress);
+    console.log("RESULT: token.owner=" + contract.owner());
+    console.log("RESULT: token.newOwner=" + contract.newOwner());
 
-  var latestBlock = eth.blockNumber;
-  var i;
-  var ownershipTransferredEvent = contract.OwnershipTransferred({}, { fromBlock: dynamicDetailsFromBlock, toBlock: latestBlock });
-  i = 0;
-  ownershipTransferredEvent.watch(function (error, result) {
-    console.log("RESULT: OwnershipTransferred Event " + i++ + ": from=" + result.args._from + " to=" + result.args._to + " " + 
-      result.blockNumber);
-  });
-  ownershipTransferredEvent.stopWatching();
+    var latestBlock = eth.blockNumber;
+    var i;
+    var ownershipTransferredEvent = contract.OwnershipTransferred({}, { fromBlock: dynamicDetailsFromBlock, toBlock: latestBlock });
+    i = 0;
+    ownershipTransferredEvent.watch(function (error, result) {
+      console.log("RESULT: OwnershipTransferred Event " + i++ + ": from=" + result.args._from + " to=" + result.args._to + " " +
+        result.blockNumber);
+    });
+    ownershipTransferredEvent.stopWatching();
 
-  var approvalEvent = contract.Approval({}, { fromBlock: dynamicDetailsFromBlock, toBlock: latestBlock });
-  i = 0;
-  approvalEvent.watch(function (error, result) {
-    console.log("RESULT: Approval Event " + i++ + ": owner=" + result.args._owner + " spender=" + result.args._spender + " " + 
-      result.args._value.div(1e8) + " block=" + result.blockNumber);
-  });
-  approvalEvent.stopWatching();
-  
-  var transferEvent = contract.Transfer({}, { fromBlock: dynamicDetailsFromBlock, toBlock: latestBlock });
-  i = 0;
-  transferEvent.watch(function (error, result) {
-    console.log("RESULT: Transfer Event " + i++ + ": from=" + result.args.from + " to=" + result.args.to +
-      " value=" + result.args.value.div(1e8) + " block=" + result.blockNumber);
-  });
-  transferEvent.stopWatching();
-  dynamicDetailsFromBlock = latestBlock + 1;
+    var approvalEvent = contract.Approval({}, { fromBlock: dynamicDetailsFromBlock, toBlock: latestBlock });
+    i = 0;
+    approvalEvent.watch(function (error, result) {
+      console.log("RESULT: Approval Event " + i++ + ": owner=" + result.args._owner + " spender=" + result.args._spender + " " +
+        result.args._value.div(1e8) + " block=" + result.blockNumber);
+    });
+    approvalEvent.stopWatching();
+
+    var transferEvent = contract.Transfer({}, { fromBlock: dynamicDetailsFromBlock, toBlock: latestBlock });
+    i = 0;
+    transferEvent.watch(function (error, result) {
+      console.log("RESULT: Transfer Event " + i++ + ": from=" + result.args.from + " to=" + result.args.to +
+        " value=" + result.args.value.div(1e8) + " block=" + result.blockNumber);
+    });
+    transferEvent.stopWatching();
+    dynamicDetailsFromBlock = latestBlock + 1;
+  }
 }

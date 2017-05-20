@@ -39,18 +39,28 @@ contract Owned {
 }
 
 
-contract SuperDEXKYC is Owned {
+contract OpenANXTokenKYC is Owned {
     mapping(address => uint256) customerStatus;
 
-    function SuperDEXKYC() {
+    event KYCed(address indexed customer, uint256 status);
+
+    function OpenANXTokenKYC() {
     }
 
     function kyc(address customer, uint256 status) onlyOwner {
         customerStatus[customer] = status;
+        KYCed(customer, status);
     }
 
-    function confirmTokenTransfer(address from, address to, uint256 amount) onlyOwner returns (bool) {
+    function confirmTokenTransfer(address from, address to, uint256 amount) returns (bool) {
         if (customerStatus[from] == 1 && customerStatus[to] == 1) {
+            return true;
+        }
+        return false;
+    }
+
+    function isKyc(address customer) returns (bool) {
+        if (customerStatus[customer] == 1) {
             return true;
         }
         return false;

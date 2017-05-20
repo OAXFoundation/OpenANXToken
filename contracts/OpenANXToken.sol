@@ -13,20 +13,27 @@ pragma solidity ^0.4.9;
 // KYC Interface
 // ----------------------------------------------------------------------------
 contract OpenANXKYC {
-    function confirmTokenTransfer(address from, address to, uint256 amount) onlyOwner returns (bool);
+    function confirmTokenTransfer(address from, address to, uint256 amount) returns (bool);
+    function isKyc(address customer) returns (bool);
 }
 
 
-// ERC Token Standard #20 Interface - https://github.com/ethereum/EIPs/issues/20
+// ----------------------------------------------------------------------------
+// ERC Token Standard #20 Interface
+// https://github.com/ethereum/EIPs/issues/20
+// ----------------------------------------------------------------------------
 contract ERC20Interface {
     function totalSupply() constant returns (uint256 totalSupply);
     function balanceOf(address _owner) constant returns (uint256 balance);
     function transfer(address _to, uint256 _value) returns (bool success);
-    function transferFrom(address _from, address _to, uint256 _value) returns (bool success);
+    function transferFrom(address _from, address _to, uint256 _value) 
+        returns (bool success);
     function approve(address _spender, uint256 _value) returns (bool success);
-    function allowance(address _owner, address _spender) constant returns (uint256 remaining);
+    function allowance(address _owner, address _spender) constant 
+        returns (uint256 remaining);
     event Transfer(address indexed _from, address indexed _to, uint256 _value);
-    event Approval(address indexed _owner, address indexed _spender, uint256 _value);
+    event Approval(address indexed _owner, address indexed _spender, 
+        uint256 _value);
 }
 
 
@@ -61,8 +68,7 @@ contract Owned {
 
 
 // ----------------------------------------------------------------------------
-// ERC Token Standard #20 - https://github.com/ethereum/EIPs/issues/20
-// With the addition of symbol, name and decimals
+// ERC20 Token, with the addition of symbol, name and decimals
 // ----------------------------------------------------------------------------
 contract ERC20Token is ERC20Interface, Owned {
     string public symbol;
@@ -72,7 +78,7 @@ contract ERC20Token is ERC20Interface, Owned {
     // ------------------------------------------------------------------------
     // Total token supply
     // ------------------------------------------------------------------------
-    uint256 public totalSupply;
+    uint256 public totalSupply_;
     
     // ------------------------------------------------------------------------
     // Balances for each account
@@ -92,12 +98,19 @@ contract ERC20Token is ERC20Interface, Owned {
         string _name, 
         uint8 _decimals, 
         uint256 _totalSupply
-    ) {
+    ) Owned() {
         symbol = _symbol;
         name = _name;
         decimals = _decimals;
-        totalSupply = _totalSupply;
+        totalSupply_ = _totalSupply;
         balances[owner] = _totalSupply;
+    }
+
+    // ------------------------------------------------------------------------
+    // Get the total supply
+    // ------------------------------------------------------------------------
+    function totalSupply() constant returns (uint256 totalSupply) {
+        return totalSupply_;
     }
 
     // ------------------------------------------------------------------------
@@ -178,9 +191,6 @@ contract ERC20Token is ERC20Interface, Owned {
     function () {
         throw;
     }
-
-    event Transfer(address indexed _from, address indexed _to, uint256 _value);
-    event Approval(address indexed _owner, address indexed _spender, uint256 _value);
 }
 
 
@@ -188,10 +198,11 @@ contract ERC20Token is ERC20Interface, Owned {
 // ERC Token Standard #20 - https://github.com/ethereum/EIPs/issues/20
 // With the addition of symbol, name and decimals
 // ----------------------------------------------------------------------------
-contract OpenANXToken {
+contract OpenANXToken is ERC20Token {
 
     uint256 public constant MINIMUM_FUNDING = 123;
     uint256 public constant MAXIMUM_SOFT_FUNDING = 345;
+    uint256 public constant HARD_CAP_PERIOD = 678;
     uint256 public totalFunding;
 
     uint256 public startingBlock;
@@ -201,16 +212,16 @@ contract OpenANXToken {
     // ------------------------------------------------------------------------
     // Only before the funding period
     // ------------------------------------------------------------------------
-    modified beforeFundingPeriod() {
-        if (blockNumber >= startingBlock) throw;
+    modifier beforeFundingPeriod {
+        if (block.number >= startingBlock) throw;
         _;
     }
 
     // ------------------------------------------------------------------------
     // Only during the funding period
     // ------------------------------------------------------------------------
-    modified duringFundingPeriod() {
-        if (blockNumber < startingBlock || blockNumber > endingBlock) throw;
+    modifier duringFundingPeriod {
+        if (block.number < startingBlock || block.number > endingBlock) throw;
         _;
     }
 
@@ -218,15 +229,19 @@ contract OpenANXToken {
     // ------------------------------------------------------------------------
     // Constructor
     // ------------------------------------------------------------------------
-    function SuperDEXICOToken(uint256 _startingBlock, uint256 _endingBlock) {
-        startingBlock = _startingBlock;
-        endingBlock = _endingBlock;
+    // function OpenANXToken(uint256 _startingBlock, uint256 _endingBlock)
+    function OpenANXToken() ERC20Token("OAX", "OpenANX Token", 18, 0)
+    {
+        startingBlock = 1;
+        endingBlock = 2;
+        // startingBlock = _startingBlock;
+        // endingBlock = _endingBlock;
     }
 
     // ------------------------------------------------------------------------
     // Precommitment funding can be added before the funding block
     // ------------------------------------------------------------------------
-    function addPrecommitment(address participant) onlyOwner beforeFundingPeriod {
+    function addPrecommitment(address participant) payable onlyOwner beforeFundingPeriod {
         balances[participant] += msg.value;
         totalFunding += msg.value;
     }
@@ -234,20 +249,20 @@ contract OpenANXToken {
     // ------------------------------------------------------------------------
     // Funding can only be added during the funding period
     // ------------------------------------------------------------------------
-    function addFunding() duringFundingPeriod {
+    function addFunding() payable duringFundingPeriod {
         if (totalFunding < MAXIMUM_SOFT_FUNDING) {
             if (totalFunding + msg.value > MAXIMUM_SOFT_FUNDING) {
                 endingBlock += HARD_CAP_PERIOD;
             }
         }
-        balances[participant] += msg.value;
+        balances[msg.sender] += msg.value;
         totalFunding += msg.value;
     }
     
     // ------------------------------------------------------------------------
     // Transfer out any accidentally sent ERC20 tokens
     // ------------------------------------------------------------------------
-    function transferAnyERC20Token(address tokenAddress, uint256 amount) onlyOwner {
+    function transferAnyERC20Token(address tokenAddress, uint256 amount) onlyOwner returns (bool success) {
         return ERC20Interface(tokenAddress).transfer(owner, amount);
     }
 }

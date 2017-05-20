@@ -1,10 +1,10 @@
 IPCFILE=ipc:./testchain/geth.ipc
 PASSWORD=testtest
 
-TOKENSOL=../contracts/OpenANXToken.sol
-TOKENJS=OpenANXToken.js
 KYCSOL=../contracts/OpenANXTokenKYC.sol
 KYCJS=OpenANXTokenKYC.js
+TOKENSOL=../contracts/OpenANXToken.sol
+TOKENJS=OpenANXToken.js
 
 DEPLOYMENTDATA=deploymentData.txt
 

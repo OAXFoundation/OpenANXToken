@@ -1,15 +1,18 @@
-#!/bin/sh
+#!/bin/bash
 # ----------------------------------------------------------------------------------------------
 # Testing the smart contract
 #
 # Enjoy. (c) BokkyPooBah / Bok Consulting Pty Ltd 2017. The MIT Licence.
 # ----------------------------------------------------------------------------------------------
 
+MODE=${1:-test}
+
 GETHATTACHPOINT=`grep ^IPCFILE= settings.txt | sed "s/^.*=//"`
 PASSWORD=`grep ^PASSWORD= settings.txt | sed "s/^.*=//"`
 KYCSOL=`grep ^KYCSOL= settings.txt | sed "s/^.*=//"`
 KYCJS=`grep ^KYCJS= settings.txt | sed "s/^.*=//"`
 TOKENSOL=`grep ^TOKENSOL= settings.txt | sed "s/^.*=//"`
+TOKENTEMPSOL=`grep ^TOKENTEMPSOL= settings.txt | sed "s/^.*=//"`
 TOKENJS=`grep ^TOKENJS= settings.txt | sed "s/^.*=//"`
 DEPLOYMENTDATA=`grep ^DEPLOYMENTDATA= settings.txt | sed "s/^.*=//"`
 
@@ -17,19 +20,53 @@ INCLUDEJS=`grep ^INCLUDEJS= settings.txt | sed "s/^.*=//"`
 TEST1OUTPUT=`grep ^TEST1OUTPUT= settings.txt | sed "s/^.*=//"`
 TEST1RESULTS=`grep ^TEST1RESULTS= settings.txt | sed "s/^.*=//"`
 
+CURRENTTIME=`date +%s`
+CURRENTTIMES=`date -r $CURRENTTIME -u`
+
+if [ "$MODE" == "dev" ]; then
+  # Start time now
+  STARTTIME=`echo "$CURRENTTIME" | bc`
+else
+  # Start time 1 minute in the future
+  STARTTIME=`echo "$CURRENTTIME+60" | bc`
+fi
+STARTTIME_S=`date -r $STARTTIME -u`
+ENDTIME=`echo "$CURRENTTIME+60*5" | bc`
+ENDTIME_S=`date -r $ENDTIME -u`
+
+printf "MODE            = '$MODE'\n"
 printf "GETHATTACHPOINT = '$GETHATTACHPOINT'\n"
 printf "PASSWORD        = '$PASSWORD'\n"
 printf "KYCSOL          = '$KYCSOL'\n"
 printf "KYCJS           = '$KYCJS'\n"
 printf "TOKENSOL        = '$TOKENSOL'\n"
+printf "TOKENTEMPSOL    = '$TOKENTEMPSOL'\n"
 printf "TOKENJS         = '$TOKENJS'\n"
 printf "DEPLOYMENTDATA  = '$DEPLOYMENTDATA'\n"
 printf "INCLUDEJS       = '$INCLUDEJS'\n"
 printf "TEST1OUTPUT     = '$TEST1OUTPUT'\n"
 printf "TEST1RESULTS    = '$TEST1RESULTS'\n"
+printf "CURRENTTIME     = '$CURRENTTIME' '$CURRENTTIMES'\n"
+printf "STARTTIME       = '$STARTTIME' '$STARTTIME_S'\n"
+printf "ENDTIME         = '$ENDTIME' '$ENDTIME_S'\n"
+
+# Make copy of SOL file and modify start and end times ---
+`cp $TOKENSOL $TOKENTEMPSOL`
+
+# --- Modify dates ---
+# PRESALE_START_DATE = +1m
+`perl -pi -e "s/START_DATE = 1498089600;/START_DATE = $STARTTIME; \/\/ $STARTTIME_S/" $TOKENTEMPSOL`
+`perl -pi -e "s/END_DATE = 1500595200;/END_DATE = $ENDTIME; \/\/ $ENDTIME_S/" $TOKENTEMPSOL`
+
+# --- Un-internal safeMaths ---
+`perl -pi -e "s/internal/constant/" $TOKENTEMPSOL`
+
+DIFFS=`diff $TOKENSOL $TOKENTEMPSOL`
+echo "--- Differences ---"
+echo "$DIFFS"
 
 echo "var kycOutput=`solc --optimize --combined-json abi,bin,interface $KYCSOL`;" > $KYCJS
-echo "var tokenOutput=`solc --optimize --combined-json abi,bin,interface $TOKENSOL`;" > $TOKENJS
+echo "var tokenOutput=`solc --optimize --combined-json abi,bin,interface $TOKENTEMPSOL`;" > $TOKENJS
 
 geth --verbosity 3 attach $GETHATTACHPOINT << EOF | tee $TEST1OUTPUT
 loadScript("$KYCJS");
@@ -38,16 +75,18 @@ loadScript("functions.js");
 
 var kycAbi = JSON.parse(kycOutput.contracts["$KYCSOL:OpenANXTokenKYC"].abi);
 var kycBin = "0x" + kycOutput.contracts["$KYCSOL:OpenANXTokenKYC"].bin;
-var tokenAbi = JSON.parse(tokenOutput.contracts["$TOKENSOL:OpenANXToken"].abi);
-var tokenBin = "0x" + tokenOutput.contracts["$TOKENSOL:OpenANXToken"].bin;
+var tokenAbi = JSON.parse(tokenOutput.contracts["$TOKENTEMPSOL:OpenANXToken"].abi);
+var tokenBin = "0x" + tokenOutput.contracts["$TOKENTEMPSOL:OpenANXToken"].bin;
 
 console.log("DATA: kycAbi=" + JSON.stringify(kycAbi));
 console.log("DATA: tokenABI=" + JSON.stringify(tokenAbi));
 
 unlockAccounts("$PASSWORD");
 printBalances();
+console.log("RESULT: ");
 
-var skipKycContract = false;
+var skipKycContract = "$MODE" == "dev" ? true : false;
+var skipSafeMath = "$MODE" == "dev" ? true : false;
 
 if (!skipKycContract) {
   // -----------------------------------------------------------------------------
@@ -128,6 +167,68 @@ failIfGasEqualsGasUsed(tokenTx, testMessage);
 printTokenContractStaticDetails();
 printTokenContractDynamicDetails();
 console.log("RESULT: ");
+console.log(JSON.stringify(token));
+
+
+// -----------------------------------------------------------------------------
+var testMessage = "Test 1.4 Buy tokens. 123.456789 ETH = 12345.6789 OAX from account2";
+console.log("RESULT: " + testMessage);
+var tx1_4_1 = eth.sendTransaction({from: account2, to: tokenAddress, gas: 400000, value: web3.toWei("123.456789", "ether")});
+while (txpool.status.pending > 0) {
+}
+printBalances();
+failIfGasEqualsGasUsed(tx1_4_1, testMessage);
+printTokenContractDynamicDetails();
+console.log("RESULT: ");
+
+
+if (!skipSafeMath) {
+  // -----------------------------------------------------------------------------
+  // Notes: 
+  // = To simulate failure, comment out the throw lines in safeAdd() and safeSub()
+  //
+  var testMessage = "Test 2.0 Safe Maths";
+  console.log("RESULT: " + testMessage);
+  console.log(JSON.stringify(token));
+  var result = token.safeAdd("1", "2");
+  if (result == 3) {
+    console.log("RESULT: PASS safeAdd(1, 2) = 3");
+  } else {
+    console.log("RESULT: FAIL safeAdd(1, 2) <> 3");
+  }
+
+  var minusOneInt = "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff";
+  result = token.safeAdd(minusOneInt, "124");
+  if (result == 0) {
+    console.log("RESULT: PASS safeAdd(" + minusOneInt + ", 124) = 0. Result=" + result);
+  } else {
+    console.log("RESULT: FAIL safeAdd(" + minusOneInt + ", 124) = 123. Result=" + result);
+  }
+
+  result = token.safeAdd("124", minusOneInt);
+  if (result == 0) {
+    console.log("RESULT: PASS safeAdd(124, " + minusOneInt + ") = 0. Result=" + result);
+  } else {
+    console.log("RESULT: FAIL safeAdd(124, " + minusOneInt + ") = 123. Result=" + result);
+  }
+
+    result = token.safeSub("124", 1);
+  if (result == 123) {
+    console.log("RESULT: PASS safeSub(124, 1) = 123. Result=" + result);
+  } else {
+    console.log("RESULT: FAIL safeSub(124, 1) <> 123. Result=" + result);
+  }
+
+    result = token.safeSub("122", minusOneInt);
+  if (result == 0) {
+    console.log("RESULT: PASS safeSub(122, " + minusOneInt + ") = 0. Result=" + result);
+  } else {
+    console.log("RESULT: FAIL safeSub(122, " + minusOneInt + ") = 123. Result=" + result);
+  }
+
+}
+
+
 
 exit;
 

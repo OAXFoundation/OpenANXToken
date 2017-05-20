@@ -68,14 +68,15 @@ function printBalances() {
   console.log("DEBUG: tokenContractAddress: " + tokenContractAddress);
   console.log("DEBUG: tokenContractAbi: " + tokenContractAbi);
   var token = tokenContractAddress == null || tokenContractAbi == null ? null : web3.eth.contract(tokenContractAbi).at(tokenContractAddress);
+  var decimals = token == null ? 0 : token.decimals();
   var i = 0;
   console.log("RESULT:  # Account                                             EtherBalanceChange                          Token Name");
   accounts.forEach(function(e) {
     i++;
     var etherBalanceBaseBlock = eth.getBalance(e, baseBlock);
     var etherBalance = web3.fromWei(eth.getBalance(e).minus(etherBalanceBaseBlock), "ether");
-    var tokenBalance = token == null ? new BigNumber(0) : token.balanceOf(e).div(1e18);
-    console.log("RESULT: " + pad2(i) + " " + e  + " " + pad(etherBalance) + " " + padToken(tokenBalance, 18) + " " + accountNames[e]);
+    var tokenBalance = token == null ? new BigNumber(0) : token.balanceOf(e).shift(-decimals);
+    console.log("RESULT: " + pad2(i) + " " + e  + " " + pad(etherBalance) + " " + padToken(tokenBalance, decimals) + " " + accountNames[e]);
   });
 }
 
@@ -208,7 +209,10 @@ function printTokenContractStaticDetails() {
     console.log("RESULT: token.symbol=" + contract.symbol());
     console.log("RESULT: token.name=" + contract.name());
     console.log("RESULT: token.decimals=" + contract.decimals());
-    console.log("RESULT: token.totalSupply=" + contract.totalSupply().div(1e8));
+    var startDate = contract.START_DATE();
+    console.log("RESULT: token.START_DATE=" + startDate + " " + new Date(startDate * 1000).toUTCString());
+    var endDate = contract.END_DATE();
+    console.log("RESULT: token.END_DATE=" + endDate + " " + new Date(endDate * 1000).toUTCString());
   }
 }
 
@@ -216,11 +220,15 @@ var dynamicDetailsFromBlock = 0;
 function printTokenContractDynamicDetails() {
   if (tokenContractAddress != null && tokenContractAbi != null) {
     var contract = eth.contract(tokenContractAbi).at(tokenContractAddress);
+    var decimals = contract.decimals();
+    console.log("RESULT: token.tokensPerEther=" + contract.tokensPerEther());
+    console.log("RESULT: token.totalSupply=" + contract.totalSupply().shift(-decimals));
     console.log("RESULT: token.owner=" + contract.owner());
     console.log("RESULT: token.newOwner=" + contract.newOwner());
 
     var latestBlock = eth.blockNumber;
     var i;
+    
     var ownershipTransferredEvent = contract.OwnershipTransferred({}, { fromBlock: dynamicDetailsFromBlock, toBlock: latestBlock });
     i = 0;
     ownershipTransferredEvent.watch(function (error, result) {
@@ -229,11 +237,18 @@ function printTokenContractDynamicDetails() {
     });
     ownershipTransferredEvent.stopWatching();
 
+    var tokensPerEtherUpdatedEvent = contract.TokensPerEtherUpdated({}, { fromBlock: dynamicDetailsFromBlock, toBlock: latestBlock });
+    i = 0;
+    tokensPerEtherUpdatedEvent.watch(function (error, result) {
+      console.log("RESULT: TokensPerEtherUpdated Event " + i++ + ": from=" + result.args.tokensPerEther + " " + result.blockNumber);
+    });
+    tokensPerEtherUpdatedEvent.stopWatching();
+
     var approvalEvent = contract.Approval({}, { fromBlock: dynamicDetailsFromBlock, toBlock: latestBlock });
     i = 0;
     approvalEvent.watch(function (error, result) {
       console.log("RESULT: Approval Event " + i++ + ": owner=" + result.args._owner + " spender=" + result.args._spender + " " +
-        result.args._value.div(1e8) + " block=" + result.blockNumber);
+        result.args._value.shift(-decimals) + " block=" + result.blockNumber);
     });
     approvalEvent.stopWatching();
 
@@ -241,7 +256,7 @@ function printTokenContractDynamicDetails() {
     i = 0;
     transferEvent.watch(function (error, result) {
       console.log("RESULT: Transfer Event " + i++ + ": from=" + result.args.from + " to=" + result.args.to +
-        " value=" + result.args.value.div(1e8) + " block=" + result.blockNumber);
+        " value=" + result.args.value.shift(-decimals) + " block=" + result.blockNumber);
     });
     transferEvent.stopWatching();
     dynamicDetailsFromBlock = latestBlock + 1;

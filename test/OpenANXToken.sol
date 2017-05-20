@@ -71,13 +71,13 @@ contract Owned {
 // Safe maths
 // ----------------------------------------------------------------------------
 contract SafeMath {
-    function safeAdd(uint256 a, uint256 b) internal returns (uint256) {
+    function safeAdd(uint256 a, uint256 b) constant returns (uint256) {
         uint256 c = a + b;
         if (c < a || c < b) throw;
         return c;
     }
 
-    function safeSub(uint256 a, uint256 b) internal returns (uint256) {
+    function safeSub(uint256 a, uint256 b) constant returns (uint256) {
         uint256 c = a - b;
         if (c > a) throw;
         return c;
@@ -207,10 +207,10 @@ contract OpenANXToken is ERC20Token {
     uint256 public constant HARD_CAP_PERIOD = 678;
     uint256 public totalFunding;
 
-    // Thursday, 22-Jun-17 00:00:00 UTC. Do not use `now`
-    uint256 public constant START_DATE = 1498089600;
-    // Friday, 21-Jul-17 00:00:00 UTC. Do not use `now`
-    uint256 public constant END_DATE = 1500595200;
+    // Thursday, 22-Jun-17 00:00:00 UTC
+    uint256 public constant START_DATE = 1495610867; // Wed 24 May 2017 07:27:47 UTC
+    // Friday, 21-Jul-17 00:00:00 UTC
+    uint256 public constant END_DATE = 1495611167; // Wed 24 May 2017 07:32:47 UTC
 
     // Number of tokens per ether. This can be adjusted as the ETH/USD rate
     // changes. And event is logged when this rate is updated

@@ -2,6 +2,15 @@
 
 # Requirements
 
+## Confirmed Requirements
+
+* [x] Token Identifier
+  * symbol `OAX`
+  * name `OpenANX Token`
+  * decimals `18`
+* [x] START_DATE = 1498089600 Thursday, 22-Jun-17 00:00:00 UTC
+* [x] END_DATE = 1500595200 Friday, 21-Jul-17 00:00:00 UTC
+
 ## Requirements as discussed with Hugh May 11 2017:
 
 * [ ] Accept commitments before deployment of the contract
@@ -28,3 +37,8 @@
   3. The KYC status in the smart contracts is just a simple KYC - Yes or No
   4. Once the tokens have been transferred from the original crowdsale contributing account, there is **NO** KYC required for transfers. The tokens can trade freely.
 
+## Deployment Checklist
+
+* Deploy contract to Mainnet
+* Check START_DATE and END_DATE
+* Check Solidity [release history](https://github.com/ethereum/solidity/releases) for potential bugs 

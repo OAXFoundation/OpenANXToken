@@ -4,6 +4,7 @@ PASSWORD=testtest
 KYCSOL=../contracts/OpenANXTokenKYC.sol
 KYCJS=OpenANXTokenKYC.js
 TOKENSOL=../contracts/OpenANXToken.sol
+TOKENTEMPSOL=OpenANXToken.sol
 TOKENJS=OpenANXToken.js
 
 DEPLOYMENTDATA=deploymentData.txt

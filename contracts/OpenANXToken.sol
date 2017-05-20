@@ -64,7 +64,7 @@ contract Owned {
 // ERC Token Standard #20 - https://github.com/ethereum/EIPs/issues/20
 // With the addition of symbol, name and decimals
 // ----------------------------------------------------------------------------
-contract ERC20Token is ERC20Interface {
+contract ERC20Token is ERC20Interface, Owned {
     string public symbol;
     string public name;
     uint8 public decimals;
@@ -243,6 +243,11 @@ contract OpenANXToken {
         balances[participant] += msg.value;
         totalFunding += msg.value;
     }
-
-
+    
+    // ------------------------------------------------------------------------
+    // Transfer out any accidentally sent ERC20 tokens
+    // ------------------------------------------------------------------------
+    function transferAnyERC20Token(address tokenAddress, uint256 amount) onlyOwner {
+        return ERC20Interface(tokenAddress).transfer(owner, amount);
+    }
 }

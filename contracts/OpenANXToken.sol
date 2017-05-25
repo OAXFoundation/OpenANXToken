@@ -159,7 +159,7 @@ contract ERC20Token is ERC20Interface, SafeMath, Owned {
 
     // ------------------------------------------------------------------------
     // Spender of tokens transfer an amount of tokens from the token owner's
-    // balance to the spender's account. The owner of the tokens must already
+    // balance to another account. The owner of the tokens must already
     // have approve(...)-d this transfer
     // ------------------------------------------------------------------------
     function transferFrom(
@@ -167,7 +167,7 @@ contract ERC20Token is ERC20Interface, SafeMath, Owned {
         address _to,
         uint256 _amount
     ) returns (bool success) {
-        if (balances[_from] >= _amount                  // User has balance
+        if (balances[_from] >= _amount                  // From a/c has balance
             && allowed[_from][msg.sender] >= _amount    // Transfer approved
             && _amount > 0                              // Non-zero transfer
             && balances[_to] + _amount > balances[_to]  // Overflow check
@@ -206,6 +206,7 @@ contract OpenANXToken is ERC20Token {
     uint256 public constant MAXIMUM_SOFT_FUNDING = 345;
     uint256 public constant HARD_CAP_PERIOD = 678;
     uint256 public totalFunding;
+    bool public finalised = false;
 
     // Thursday, 22-Jun-17 00:00:00 UTC. Do not use `now`
     uint256 public constant START_DATE = 1498089600;
@@ -257,6 +258,7 @@ contract OpenANXToken is ERC20Token {
     }
     function buyTokens() payable duringFundingPeriod {
         if (msg.value > 0) {
+            if (finalised) throw;
             uint tokens = msg.value * tokensPerEther;
             balances[msg.sender] = safeAdd(balances[msg.sender], tokens);
             totalSupply = safeAdd(totalSupply, tokens);

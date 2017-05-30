@@ -14,6 +14,11 @@ addAccount(eth.accounts[3], "Account #3 - KYCed");
 addAccount(eth.accounts[4], "Account #4");
 addAccount(eth.accounts[5], "Account #5");
 addAccount(eth.accounts[6], "Account #6");
+addAccount(eth.accounts[7], "Account #7 - Foundation");
+addAccount(eth.accounts[8], "Account #8 - Advisors");
+addAccount(eth.accounts[9], "Account #9 - Directors");
+addAccount(eth.accounts[10], "Account #10 - Early Backers");
+addAccount(eth.accounts[11], "Account #11 - Developers");
 
 var minerAccount = eth.accounts[0];
 var tokenOwnerAccount = eth.accounts[1];
@@ -22,11 +27,17 @@ var account3 = eth.accounts[3];
 var account4 = eth.accounts[4];
 var account5 = eth.accounts[5];
 var account6 = eth.accounts[6];
+var foundationAccount = eth.accounts[7];
+var advisorsAccount = eth.accounts[8];
+var directorsAccount = eth.accounts[9];
+var earlyBackersAccount = eth.accounts[10];
+var developersAccount = eth.accounts[11];
+
 
 var baseBlock = eth.blockNumber;
 
 function unlockAccounts(password) {
-  for (var i = 0; i < 7; i++) {
+  for (var i = 0; i < 12; i++) {
     personal.unlockAccount(eth.accounts[i], password, 100000);
   }
 }

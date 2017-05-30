@@ -9,6 +9,15 @@ MODE=${1:-test}
 
 GETHATTACHPOINT=`grep ^IPCFILE= settings.txt | sed "s/^.*=//"`
 PASSWORD=`grep ^PASSWORD= settings.txt | sed "s/^.*=//"`
+ERC20INTERFACESOL=`grep ^ERC20INTERFACESOL= settings.txt | sed "s/^.*=//"`
+ERC20INTERFACETEMPSOL=`grep ^ERC20INTERFACETEMPSOL= settings.txt | sed "s/^.*=//"`
+OWNEDSOL=`grep ^OWNEDSOL= settings.txt | sed "s/^.*=//"`
+OWNEDTEMPSOL=`grep ^OWNEDTEMPSOL= settings.txt | sed "s/^.*=//"`
+SAFEMATHSOL=`grep ^SAFEMATHSOL= settings.txt | sed "s/^.*=//"`
+SAFEMATHTEMPSOL=`grep ^SAFEMATHTEMPSOL= settings.txt | sed "s/^.*=//"`
+LOCKEDTOKENSSOL=`grep ^LOCKEDTOKENSSOL= settings.txt | sed "s/^.*=//"`
+LOCKEDTOKENSTEMPSOL=`grep ^LOCKEDTOKENSTEMPSOL= settings.txt | sed "s/^.*=//"`
+LOCKEDTOKENSJS=`grep ^LOCKEDTOKENSJS= settings.txt | sed "s/^.*=//"`
 KYCSOL=`grep ^KYCSOL= settings.txt | sed "s/^.*=//"`
 KYCJS=`grep ^KYCJS= settings.txt | sed "s/^.*=//"`
 TOKENSOL=`grep ^TOKENSOL= settings.txt | sed "s/^.*=//"`
@@ -34,24 +43,39 @@ STARTTIME_S=`date -r $STARTTIME -u`
 ENDTIME=`echo "$CURRENTTIME+60*5" | bc`
 ENDTIME_S=`date -r $ENDTIME -u`
 
-printf "MODE            = '$MODE'\n"
-printf "GETHATTACHPOINT = '$GETHATTACHPOINT'\n"
-printf "PASSWORD        = '$PASSWORD'\n"
-printf "KYCSOL          = '$KYCSOL'\n"
-printf "KYCJS           = '$KYCJS'\n"
-printf "TOKENSOL        = '$TOKENSOL'\n"
-printf "TOKENTEMPSOL    = '$TOKENTEMPSOL'\n"
-printf "TOKENJS         = '$TOKENJS'\n"
-printf "DEPLOYMENTDATA  = '$DEPLOYMENTDATA'\n"
-printf "INCLUDEJS       = '$INCLUDEJS'\n"
-printf "TEST1OUTPUT     = '$TEST1OUTPUT'\n"
-printf "TEST1RESULTS    = '$TEST1RESULTS'\n"
-printf "CURRENTTIME     = '$CURRENTTIME' '$CURRENTTIMES'\n"
-printf "STARTTIME       = '$STARTTIME' '$STARTTIME_S'\n"
-printf "ENDTIME         = '$ENDTIME' '$ENDTIME_S'\n"
+printf "MODE                  = '$MODE'\n"
+printf "GETHATTACHPOINT       = '$GETHATTACHPOINT'\n"
+printf "PASSWORD              = '$PASSWORD'\n"
+printf "ERC20INTERFACESOL     = '$ERC20INTERFACESOL'\n"
+printf "ERC20INTERFACETEMPSOL = '$ERC20INTERFACETEMPSOL'\n"
+printf "OWNEDSOL              = '$OWNEDSOL'\n"
+printf "OWNEDTEMPSOL          = '$OWNEDTEMPSOL'\n"
+printf "SAFEMATHSOL           = '$SAFEMATHSOL'\n"
+printf "SAFEMATHTEMPSOL       = '$SAFEMATHTEMPSOL'\n"
+printf "LOCKEDTOKENSSOL       = '$LOCKEDTOKENSSOL'\n"
+printf "LOCKEDTOKENSTEMPSOL   = '$LOCKEDTOKENSTEMPSOL'\n"
+printf "LOCKEDTOKENSJS        = '$LOCKEDTOKENSJS'\n"
+printf "TOKENSOL              = '$TOKENSOL'\n"
+printf "TOKENTEMPSOL          = '$TOKENTEMPSOL'\n"
+printf "KYCSOL                = '$KYCSOL'\n"
+printf "KYCJS                 = '$KYCJS'\n"
+printf "TOKENSOL              = '$TOKENSOL'\n"
+printf "TOKENTEMPSOL          = '$TOKENTEMPSOL'\n"
+printf "TOKENJS               = '$TOKENJS'\n"
+printf "DEPLOYMENTDATA        = '$DEPLOYMENTDATA'\n"
+printf "INCLUDEJS             = '$INCLUDEJS'\n"
+printf "TEST1OUTPUT           = '$TEST1OUTPUT'\n"
+printf "TEST1RESULTS          = '$TEST1RESULTS'\n"
+printf "CURRENTTIME           = '$CURRENTTIME' '$CURRENTTIMES'\n"
+printf "STARTTIME             = '$STARTTIME' '$STARTTIME_S'\n"
+printf "ENDTIME               = '$ENDTIME' '$ENDTIME_S'\n"
 
 # Make copy of SOL file and modify start and end times ---
+`cp $ERC20INTERFACESOL $ERC20INTERFACETEMPSOL`
+`cp $OWNEDSOL $OWNEDTEMPSOL`
 `cp $TOKENSOL $TOKENTEMPSOL`
+`cp $SAFEMATHSOL $SAFEMATHTEMPSOL`
+`cp $LOCKEDTOKENSSOL $LOCKEDTOKENSTEMPSOL`
 
 # --- Modify dates ---
 # PRESALE_START_DATE = +1m
@@ -67,6 +91,7 @@ echo "$DIFFS"
 
 echo "var kycOutput=`solc --optimize --combined-json abi,bin,interface $KYCSOL`;" > $KYCJS
 echo "var tokenOutput=`solc --optimize --combined-json abi,bin,interface $TOKENTEMPSOL`;" > $TOKENJS
+echo "var lockedTokensOutput=`solc --optimize --combined-json abi,bin,interface $LOCKEDTOKENSTEMPSOL`;" > $LOCKEDTOKENSJS
 
 geth --verbosity 3 attach $GETHATTACHPOINT << EOF | tee $TEST1OUTPUT
 loadScript("$KYCJS");

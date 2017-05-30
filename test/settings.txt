@@ -1,6 +1,15 @@
 IPCFILE=ipc:./testchain/geth.ipc
 PASSWORD=testtest
 
+ERC20INTERFACESOL=../contracts/ERC20Interface.sol
+ERC20INTERFACETEMPSOL=ERC20Interface.sol
+OWNEDSOL=../contracts/Owned.sol
+OWNEDTEMPSOL=Owned.sol
+SAFEMATHSOL=../contracts/SafeMath.sol
+SAFEMATHTEMPSOL=SafeMath.sol
+LOCKEDTOKENSSOL=../contracts/LockedTokens.sol
+LOCKEDTOKENSTEMPSOL=LockedTokens.sol
+LOCKEDTOKENSJS=LockedTokens.js
 KYCSOL=../contracts/OpenANXTokenKYC.sol
 KYCJS=OpenANXTokenKYC.js
 TOKENSOL=../contracts/OpenANXToken.sol

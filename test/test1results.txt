@@ -1,29 +1,81 @@
  # Account                                             EtherBalanceChange                          Token Name
- 1 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       20.000000000000000000            0 Account #0 - Miner
+ 1 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e        5.000000000000000000            0 Account #0 - Miner
  2 0xa11aae29840fbb5c86e6fd4cf809eba183aef433        0.000000000000000000            0 Account #1 - Token Owner
  3 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976        0.000000000000000000            0 Account #2 - KYCed
  4 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0        0.000000000000000000            0 Account #3 - KYCed
  5 0xa44a08d3f6933c69212114bb66e2df1813651844        0.000000000000000000            0 Account #4
  6 0xa55a151eb00fded1634d27d1127b4be4627079ea        0.000000000000000000            0 Account #5
  7 0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9        0.000000000000000000            0 Account #6
+ 8 0xa77a2b9d4b1c010a22a7c565dc418cef683dbcec        0.000000000000000000            0 Account #7 - Foundation
+ 9 0xa88a05d2b88283ce84c8325760b72a64591279a2        0.000000000000000000            0 Account #8 - Advisors
+10 0xa99a0ae3354c06b1459fd441a32a3f71005d7da0        0.000000000000000000            0 Account #9 - Directors
+11 0xaaaa9de1e6c564446ebca0fd102d8bd92093c756        0.000000000000000000            0 Account #10 - Early Backers
+12 0xabba43e7594e3b76afb157989e93c6621497fd4b        0.000000000000000000            0 Account #11 - Developers
+
+Test 1.1 Deploy KYC Contract
+ # Account                                             EtherBalanceChange                          Token Name
+ 1 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       15.006484420000000000            0 Account #0 - Miner
+ 2 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.006484420000000000            0 Account #1 - Token Owner
+ 3 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976        0.000000000000000000            0 Account #2 - KYCed
+ 4 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0        0.000000000000000000            0 Account #3 - KYCed
+ 5 0xa44a08d3f6933c69212114bb66e2df1813651844        0.000000000000000000            0 Account #4
+ 6 0xa55a151eb00fded1634d27d1127b4be4627079ea        0.000000000000000000            0 Account #5
+ 7 0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9        0.000000000000000000            0 Account #6
+ 8 0xa77a2b9d4b1c010a22a7c565dc418cef683dbcec        0.000000000000000000            0 Account #7 - Foundation
+ 9 0xa88a05d2b88283ce84c8325760b72a64591279a2        0.000000000000000000            0 Account #8 - Advisors
+10 0xa99a0ae3354c06b1459fd441a32a3f71005d7da0        0.000000000000000000            0 Account #9 - Directors
+11 0xaaaa9de1e6c564446ebca0fd102d8bd92093c756        0.000000000000000000            0 Account #10 - Early Backers
+12 0xabba43e7594e3b76afb157989e93c6621497fd4b        0.000000000000000000            0 Account #11 - Developers
+PASS Test 1.1 Deploy KYC Contract
+
+kycAddress=0xf3d9d349146b55cf4e0b622edc71bc4af76b014c gas=4000000 gasUsed=324221 costETH=0.00648442 costUSD=0.824818224 @ ETH/USD=127.2 gasPrice=20000000000 block=2058 txId=0xf71a8c5fc47b691d6c0c0f11bb6b549f34afbbfde880132d4194f1716b077013
+Test 1.2 KYC account2 (a22a) and account3 (a33a)
+tx1_2_1 gas=90000 gasUsed=44723 costETH=0.00089446 costUSD=0.113775312 @ ETH/USD=127.2 gasPrice=20000000000 block=2060 txId=0x4c265c33d393024e6ea1500c5c8f682eb27862bb8d8fd0f7ec130b6e45582530
+tx1_2_2 gas=90000 gasUsed=44723 costETH=0.00089446 costUSD=0.113775312 @ ETH/USD=127.2 gasPrice=20000000000 block=2060 txId=0x1427bd075e5dae45998f488de98d2c5f5957beaf7817f1de7caf34ea79d1430d
+ # Account                                             EtherBalanceChange                          Token Name
+ 1 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       25.008273340000000000            0 Account #0 - Miner
+ 2 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.008273340000000000            0 Account #1 - Token Owner
+ 3 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976        0.000000000000000000            0 Account #2 - KYCed
+ 4 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0        0.000000000000000000            0 Account #3 - KYCed
+ 5 0xa44a08d3f6933c69212114bb66e2df1813651844        0.000000000000000000            0 Account #4
+ 6 0xa55a151eb00fded1634d27d1127b4be4627079ea        0.000000000000000000            0 Account #5
+ 7 0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9        0.000000000000000000            0 Account #6
+ 8 0xa77a2b9d4b1c010a22a7c565dc418cef683dbcec        0.000000000000000000            0 Account #7 - Foundation
+ 9 0xa88a05d2b88283ce84c8325760b72a64591279a2        0.000000000000000000            0 Account #8 - Advisors
+10 0xa99a0ae3354c06b1459fd441a32a3f71005d7da0        0.000000000000000000            0 Account #9 - Directors
+11 0xaaaa9de1e6c564446ebca0fd102d8bd92093c756        0.000000000000000000            0 Account #10 - Early Backers
+12 0xabba43e7594e3b76afb157989e93c6621497fd4b        0.000000000000000000            0 Account #11 - Developers
+13 0xf3d9d349146b55cf4e0b622edc71bc4af76b014c        0.000000000000000000            0 KYC
+PASS Test 1.2 KYC account2 (a22a) and account3 (a33a) - account2 (a22a)
+PASS Test 1.2 KYC account2 (a22a) and account3 (a33a) - account3 (a33a)
+kyc.owner=0xa11aae29840fbb5c86e6fd4cf809eba183aef433
+kyc.newOwner=0x0000000000000000000000000000000000000000
+KYCed Event 0: customer=0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976 status=1 2060
+KYCed Event 1: customer=0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0 status=1 2060
 
 Test 1.3 Deploy Token Contract
-tokenAddress=0x354059c8c025b0bb359d8a9a6afaf1e550b2ea4b gas=4000000 gasUsed=1221714 costETH=0.02443428 costUSD=3.108040416 @ ETH/USD=127.2 gasPrice=20000000000 block=207 txId=0xa4e04f07dc7844f1da4c155bf54616e4fbcad7e3420da420efc051b634553920
+tokenAddress=0xd53380f36e665634cf48ec4745c7095cde2c9d7f gas=4000000 gasUsed=1220435 costETH=0.0244087 costUSD=3.10478664 @ ETH/USD=127.2 gasPrice=20000000000 block=2062 txId=0x6fc56bb0ba7e53df7eeaacd0916f024a0511e7d83867883839325fd991481983
  # Account                                             EtherBalanceChange                          Token Name
- 1 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       30.024434280000000000           0.000000000000000000 Account #0 - Miner
- 2 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.024434280000000000           0.000000000000000000 Account #1 - Token Owner
+ 1 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       35.032682040000000000           0.000000000000000000 Account #0 - Miner
+ 2 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.032682040000000000           0.000000000000000000 Account #1 - Token Owner
  3 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976        0.000000000000000000           0.000000000000000000 Account #2 - KYCed
  4 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0        0.000000000000000000           0.000000000000000000 Account #3 - KYCed
  5 0xa44a08d3f6933c69212114bb66e2df1813651844        0.000000000000000000           0.000000000000000000 Account #4
  6 0xa55a151eb00fded1634d27d1127b4be4627079ea        0.000000000000000000           0.000000000000000000 Account #5
  7 0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9        0.000000000000000000           0.000000000000000000 Account #6
- 8 0x354059c8c025b0bb359d8a9a6afaf1e550b2ea4b        0.000000000000000000           0.000000000000000000 TOKEN
+ 8 0xa77a2b9d4b1c010a22a7c565dc418cef683dbcec        0.000000000000000000           0.000000000000000000 Account #7 - Foundation
+ 9 0xa88a05d2b88283ce84c8325760b72a64591279a2        0.000000000000000000           0.000000000000000000 Account #8 - Advisors
+10 0xa99a0ae3354c06b1459fd441a32a3f71005d7da0        0.000000000000000000           0.000000000000000000 Account #9 - Directors
+11 0xaaaa9de1e6c564446ebca0fd102d8bd92093c756        0.000000000000000000           0.000000000000000000 Account #10 - Early Backers
+12 0xabba43e7594e3b76afb157989e93c6621497fd4b        0.000000000000000000           0.000000000000000000 Account #11 - Developers
+13 0xf3d9d349146b55cf4e0b622edc71bc4af76b014c        0.000000000000000000           0.000000000000000000 KYC
+14 0xd53380f36e665634cf48ec4745c7095cde2c9d7f        0.000000000000000000           0.000000000000000000 TOKEN
 PASS Test 1.3 Deploy Token Contract
 token.symbol=OAX
 token.name=OpenANX Token
 token.decimals=18
-token.START_DATE=1495610867 Wed, 24 May 2017 07:27:47 UTC
-token.END_DATE=1495611167 Wed, 24 May 2017 07:32:47 UTC
+token.START_DATE=1496130101 Tue, 30 May 2017 07:41:41 UTC
+token.END_DATE=1496130341 Tue, 30 May 2017 07:45:41 UTC
 token.tokensPerEther=100
 token.totalSupply=0
 token.owner=0xa11aae29840fbb5c86e6fd4cf809eba183aef433
@@ -31,17 +83,24 @@ token.newOwner=0x0000000000000000000000000000000000000000
 
 Test 1.4 Buy tokens. 123.456789 ETH = 12345.6789 OAX from account2
  # Account                                             EtherBalanceChange                          Token Name
- 1 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       40.025723480000000000           0.000000000000000000 Account #0 - Miner
- 2 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.024434280000000000           0.000000000000000000 Account #1 - Token Owner
- 3 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976     -123.458078200000000000       12345.678900000000000000 Account #2 - KYCed
+ 1 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       45.033972760000000000           0.000000000000000000 Account #0 - Miner
+ 2 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.032682040000000000           0.000000000000000000 Account #1 - Token Owner
+ 3 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976     -123.458079720000000000       12345.678900000000000000 Account #2 - KYCed
  4 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0        0.000000000000000000           0.000000000000000000 Account #3 - KYCed
  5 0xa44a08d3f6933c69212114bb66e2df1813651844        0.000000000000000000           0.000000000000000000 Account #4
  6 0xa55a151eb00fded1634d27d1127b4be4627079ea        0.000000000000000000           0.000000000000000000 Account #5
  7 0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9        0.000000000000000000           0.000000000000000000 Account #6
- 8 0x354059c8c025b0bb359d8a9a6afaf1e550b2ea4b      123.456789000000000000           0.000000000000000000 TOKEN
+ 8 0xa77a2b9d4b1c010a22a7c565dc418cef683dbcec        0.000000000000000000           0.000000000000000000 Account #7 - Foundation
+ 9 0xa88a05d2b88283ce84c8325760b72a64591279a2        0.000000000000000000           0.000000000000000000 Account #8 - Advisors
+10 0xa99a0ae3354c06b1459fd441a32a3f71005d7da0        0.000000000000000000           0.000000000000000000 Account #9 - Directors
+11 0xaaaa9de1e6c564446ebca0fd102d8bd92093c756        0.000000000000000000           0.000000000000000000 Account #10 - Early Backers
+12 0xabba43e7594e3b76afb157989e93c6621497fd4b        0.000000000000000000           0.000000000000000000 Account #11 - Developers
+13 0xf3d9d349146b55cf4e0b622edc71bc4af76b014c        0.000000000000000000           0.000000000000000000 KYC
+14 0xd53380f36e665634cf48ec4745c7095cde2c9d7f      123.456789000000000000           0.000000000000000000 TOKEN
 PASS Test 1.4 Buy tokens. 123.456789 ETH = 12345.6789 OAX from account2
 token.tokensPerEther=100
 token.totalSupply=12345.6789
 token.owner=0xa11aae29840fbb5c86e6fd4cf809eba183aef433
 token.newOwner=0x0000000000000000000000000000000000000000
 
+Test 2.0 Safe Maths

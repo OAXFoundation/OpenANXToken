@@ -1,4 +1,4 @@
-pragma solidity ^0.4.9;
+pragma solidity ^0.4.10;
 // ----------------------------------------------------------------------------
 // OpenANX Token with crowdfunding
 //
@@ -8,6 +8,9 @@ pragma solidity ^0.4.9;
 // The MIT Licence.
 // ----------------------------------------------------------------------------
 
+import "./ERC20Interface.sol";
+import "./Owned.sol";
+import "./SafeMath.sol";
 
 // ----------------------------------------------------------------------------
 // KYC Interface
@@ -15,73 +18,6 @@ pragma solidity ^0.4.9;
 contract OpenANXKYC {
     function confirmTokenTransfer(address from, address to, uint256 amount) returns (bool);
     function isKyc(address customer) returns (bool);
-}
-
-
-// ----------------------------------------------------------------------------
-// ERC Token Standard #20 Interface
-// https://github.com/ethereum/EIPs/issues/20
-// ----------------------------------------------------------------------------
-contract ERC20Interface {
-    uint256 public totalSupply;
-    function balanceOf(address _owner) constant returns (uint256 balance);
-    function transfer(address _to, uint256 _value) returns (bool success);
-    function transferFrom(address _from, address _to, uint256 _value) 
-        returns (bool success);
-    function approve(address _spender, uint256 _value) returns (bool success);
-    function allowance(address _owner, address _spender) constant 
-        returns (uint256 remaining);
-    event Transfer(address indexed _from, address indexed _to, uint256 _value);
-    event Approval(address indexed _owner, address indexed _spender, 
-        uint256 _value);
-}
-
-
-// ----------------------------------------------------------------------------
-// Owned contract
-// ----------------------------------------------------------------------------
-contract Owned {
-    address public owner;
-    address public newOwner;
-    event OwnershipTransferred(address indexed _from, address indexed _to);
-
-    function Owned() {
-        owner = msg.sender;
-    }
-
-    modifier onlyOwner {
-        if (msg.sender != owner) throw;
-        _;
-    }
-
-    function transferOwnership(address _newOwner) onlyOwner {
-        newOwner = _newOwner;
-    }
- 
-    function acceptOwnership() {
-        if (msg.sender == newOwner) {
-            OwnershipTransferred(owner, newOwner);
-            owner = newOwner;
-        }
-    }
-}
-
-
-// ----------------------------------------------------------------------------
-// Safe maths
-// ----------------------------------------------------------------------------
-contract SafeMath {
-    function safeAdd(uint256 a, uint256 b) constant returns (uint256) {
-        uint256 c = a + b;
-        if (c < a || c < b) throw;
-        return c;
-    }
-
-    function safeSub(uint256 a, uint256 b) constant returns (uint256) {
-        uint256 c = a - b;
-        if (c > a) throw;
-        return c;
-    }
 }
 
 
@@ -159,7 +95,7 @@ contract ERC20Token is ERC20Interface, SafeMath, Owned {
 
     // ------------------------------------------------------------------------
     // Spender of tokens transfer an amount of tokens from the token owner's
-    // balance to the spender's account. The owner of the tokens must already
+    // balance to another account. The owner of the tokens must already
     // have approve(...)-d this transfer
     // ------------------------------------------------------------------------
     function transferFrom(
@@ -167,7 +103,7 @@ contract ERC20Token is ERC20Interface, SafeMath, Owned {
         address _to,
         uint256 _amount
     ) returns (bool success) {
-        if (balances[_from] >= _amount                  // User has balance
+        if (balances[_from] >= _amount                  // From a/c has balance
             && allowed[_from][msg.sender] >= _amount    // Transfer approved
             && _amount > 0                              // Non-zero transfer
             && balances[_to] + _amount > balances[_to]  // Overflow check
@@ -206,11 +142,12 @@ contract OpenANXToken is ERC20Token {
     uint256 public constant MAXIMUM_SOFT_FUNDING = 345;
     uint256 public constant HARD_CAP_PERIOD = 678;
     uint256 public totalFunding;
+    bool public finalised = false;
 
-    // Thursday, 22-Jun-17 00:00:00 UTC
-    uint256 public constant START_DATE = 1495610867; // Wed 24 May 2017 07:27:47 UTC
-    // Friday, 21-Jul-17 00:00:00 UTC
-    uint256 public constant END_DATE = 1495611167; // Wed 24 May 2017 07:32:47 UTC
+    // Thursday, 22-Jun-17 00:00:00 UTC. Do not use `now`
+    uint256 public constant START_DATE = 1496130101; // Tue 30 May 2017 07:41:41 UTC
+    // Friday, 21-Jul-17 00:00:00 UTC. Do not use `now`
+    uint256 public constant END_DATE = 1496130341; // Tue 30 May 2017 07:45:41 UTC
 
     // Number of tokens per ether. This can be adjusted as the ETH/USD rate
     // changes. And event is logged when this rate is updated
@@ -257,6 +194,7 @@ contract OpenANXToken is ERC20Token {
     }
     function buyTokens() payable duringFundingPeriod {
         if (msg.value > 0) {
+            if (finalised) throw;
             uint tokens = msg.value * tokensPerEther;
             balances[msg.sender] = safeAdd(balances[msg.sender], tokens);
             totalSupply = safeAdd(totalSupply, tokens);
@@ -288,11 +226,14 @@ contract OpenANXToken is ERC20Token {
         balances[msg.sender] = safeAdd(balances[msg.sender], msg.value);
         totalFunding = safeAdd(totalFunding, msg.value);
     }
-    
+
     // ------------------------------------------------------------------------
     // Transfer out any accidentally sent ERC20 tokens
     // ------------------------------------------------------------------------
-    function transferAnyERC20Token(address tokenAddress, uint256 amount) onlyOwner returns (bool success) {
+    function transferAnyERC20Token(
+        address tokenAddress, 
+        uint256 amount
+    ) onlyOwner returns (bool success) {
         return ERC20Interface(tokenAddress).transfer(owner, amount);
     }
 }

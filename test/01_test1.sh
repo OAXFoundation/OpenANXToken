@@ -96,15 +96,20 @@ echo "var lockedTokensOutput=`solc --optimize --combined-json abi,bin,interface 
 geth --verbosity 3 attach $GETHATTACHPOINT << EOF | tee $TEST1OUTPUT
 loadScript("$KYCJS");
 loadScript("$TOKENJS");
+loadScript("$LOCKEDTOKENSJS");
 loadScript("functions.js");
 
 var kycAbi = JSON.parse(kycOutput.contracts["$KYCSOL:OpenANXTokenKYC"].abi);
 var kycBin = "0x" + kycOutput.contracts["$KYCSOL:OpenANXTokenKYC"].bin;
 var tokenAbi = JSON.parse(tokenOutput.contracts["$TOKENTEMPSOL:OpenANXToken"].abi);
 var tokenBin = "0x" + tokenOutput.contracts["$TOKENTEMPSOL:OpenANXToken"].bin;
+var lockedTokensAbi = JSON.parse(tokenOutput.contracts["$LOCKEDTOKENSTEMPSOL:LockedTokens"].abi);
+// var lockedTokensAbi = JSON.parse(lockedTokensOutput.contracts["$LOCKEDTOKENSTEMPSOL:LockedTokens"].abi);
+// var lockedTokensBin = "0x" + lockedTokensOutput.contracts["$LOCKEDTOKENSTEMPSOL:LockedTokens"].bin;
 
 console.log("DATA: kycAbi=" + JSON.stringify(kycAbi));
 console.log("DATA: tokenABI=" + JSON.stringify(tokenAbi));
+console.log("DATA: lockedTokensAbi=" + JSON.stringify(lockedTokensAbi));
 
 unlockAccounts("$PASSWORD");
 printBalances();
@@ -170,23 +175,33 @@ var tokenContract = web3.eth.contract(tokenAbi);
 console.log(JSON.stringify(tokenContract));
 var tokenTx = null;
 var tokenAddress = null;
-var token = tokenContract.new({from: tokenOwnerAccount, data: tokenBin, gas: 4000000},
+console.log("DEBUG: Deploy Token 1a");
+var token = tokenContract.new({from: tokenOwnerAccount, data: tokenBin, gas: 6000000},
   function(e, contract) {
     if (!e) {
       if (!contract.address) {
+        console.log("DEBUG: Deploy Token 2a");
         tokenTx = contract.transactionHash;
+        console.log("DEBUG: Deploy Token 2b - tokenTx=" + tokenTx);
       } else {
+        console.log("DEBUG: Deploy Token 3a");
         tokenAddress = contract.address;
+        console.log("DEBUG: Deploy Token 3b");
         addAccount(tokenAddress, "TOKEN");
+        console.log("DEBUG: Deploy Token 3c");
         addTokenContractAddressAndAbi(tokenAddress, tokenAbi);
+        console.log("DEBUG: Deploy Token 3d");
         console.log("DATA: tokenAddress=" + tokenAddress);
         printTxData("tokenAddress=" + tokenAddress, tokenTx);
+        console.log("DEBUG: Deploy Token 3e");
       }
     }
   }
 );
 while (txpool.status.pending > 0) {
 }
+printTxData("tokenAddress=" + tokenAddress, tokenTx);
+console.log("DEBUG: Deploy Token 1b");
 printBalances();
 failIfGasEqualsGasUsed(tokenTx, testMessage);
 printTokenContractStaticDetails();

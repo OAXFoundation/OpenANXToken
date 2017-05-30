@@ -11,6 +11,7 @@ pragma solidity ^0.4.10;
 import "./ERC20Interface.sol";
 import "./Owned.sol";
 import "./SafeMath.sol";
+import "./LockedTokens.sol";
 
 // ----------------------------------------------------------------------------
 // KYC Interface
@@ -153,6 +154,9 @@ contract OpenANXToken is ERC20Token {
     // changes. And event is logged when this rate is updated
     uint256 public tokensPerEther = 100;
 
+    // Locked Tokens
+    LockedTokens public lockedTokens;
+
     // ------------------------------------------------------------------------
     // Before, During and After the funding period
     // ------------------------------------------------------------------------
@@ -174,6 +178,7 @@ contract OpenANXToken is ERC20Token {
     // Constructor
     // ------------------------------------------------------------------------
     function OpenANXToken() ERC20Token("OAX", "OpenANX Token", 18, 0) {
+        lockedTokens = new LockedTokens(this, decimals);
     }
 
     // ------------------------------------------------------------------------

@@ -11,6 +11,7 @@ pragma solidity ^0.4.10;
 import "./ERC20Interface.sol";
 import "./Owned.sol";
 import "./SafeMath.sol";
+import "./LockedTokens.sol";
 
 // ----------------------------------------------------------------------------
 // KYC Interface
@@ -145,13 +146,16 @@ contract OpenANXToken is ERC20Token {
     bool public finalised = false;
 
     // Thursday, 22-Jun-17 00:00:00 UTC. Do not use `now`
-    uint256 public constant START_DATE = 1496130101; // Tue 30 May 2017 07:41:41 UTC
+    uint256 public constant START_DATE = 1496627862; // Mon  5 Jun 2017 01:57:42 UTC
     // Friday, 21-Jul-17 00:00:00 UTC. Do not use `now`
-    uint256 public constant END_DATE = 1496130341; // Tue 30 May 2017 07:45:41 UTC
+    uint256 public constant END_DATE = 1496628162; // Mon  5 Jun 2017 02:02:42 UTC
 
     // Number of tokens per ether. This can be adjusted as the ETH/USD rate
     // changes. And event is logged when this rate is updated
     uint256 public tokensPerEther = 100;
+
+    // Locked Tokens
+    LockedTokens public lockedTokens;
 
     // ------------------------------------------------------------------------
     // Before, During and After the funding period
@@ -174,6 +178,7 @@ contract OpenANXToken is ERC20Token {
     // Constructor
     // ------------------------------------------------------------------------
     function OpenANXToken() ERC20Token("OAX", "OpenANX Token", 18, 0) {
+        lockedTokens = new LockedTokens(this, decimals);
     }
 
     // ------------------------------------------------------------------------

@@ -8,13 +8,17 @@ pragma solidity ^0.4.10;
 // The MIT Licence.
 // ----------------------------------------------------------------------------
 
-import "./OpenANXToken.sol";
+// import "./OpenANXToken.sol";
+import "./ERC20Interface.sol";
+
+// ----------------------------------------------------------------------------
+// OpenANX Interface
+// ----------------------------------------------------------------------------
+contract OpenANXInterface is ERC20Interface {
+    function decimals() constant returns (uint8);
+}
 
 contract LockedTokens {
-
-    // Locked totals
-    uint256 constant LOCKED_TOTAL_1Y = 14000000;
-    uint256 constant LOCKED_TOTAL_2Y = 26000000;
 
     // Thursday, 22-Jun-17 00:00:00 UTC. Do not use `now` + x
     uint256 public constant START_DATE = 1498089600;
@@ -25,53 +29,83 @@ contract LockedTokens {
     // Saturday, 22-Jun-19 00:00:00 UTC. Do not use `now` + x
     uint256 public constant DATE_2Y = 1561161600;
 
+    // Locked totals
+    uint256 constant LOCKED_TOTAL_1Y = 14000000;
+    uint256 constant LOCKED_TOTAL_2Y = 26000000;
+
+    uint256 public totalSupplyLocked1Y;
+    uint256 public totalSupplyLocked2Y;
+
     // Locked tokens mapping
-    mapping (address => uint256) locked1Y;
-    mapping (address => uint256) locked2Y;
+    mapping (address => uint256) public balancesLocked1Y;
+    mapping (address => uint256) public balancesLocked2Y;
 
-    OpenANXToken tokenContract;
+    ERC20Interface public tokenContract;
 
-    function LockedTokens(address _tokenContract) {
-        tokenContract = OpenANXToken(_tokenContract);
+    function LockedTokens(address _tokenContract, uint8 decimals) {
+        tokenContract = ERC20Interface(_tokenContract);
+        uint256 decimalsFactor = 10**uint256(decimals);
 
         // --- 1 Year ---
         // Advisors
-        locked1Y[0xA88A05d2b88283ce84C8325760B72a64591279a2] = 2000000;
+        add1Y(0xA88A05d2b88283ce84C8325760B72a64591279a2, 2000000 * decimalsFactor);
         // Directors
-        locked1Y[0xa99A0Ae3354c06B1459fd441a32a3F71005D7Da0] = 2000000;
+        add1Y(0xa99A0Ae3354c06B1459fd441a32a3F71005D7Da0, 2000000 * decimalsFactor);
         // Early backers
-        locked1Y[0xAAAA9De1E6C564446EBCA0fd102D8Bd92093c756] = 2000000;
+        add1Y(0xAAAA9De1E6C564446EBCA0fd102D8Bd92093c756, 2000000 * decimalsFactor);
         // Developers
-        locked1Y[0xaBBa43E7594E3B76afB157989e93c6621497FD4b] = 8000000;
+        add1Y(0xaBBa43E7594E3B76afB157989e93c6621497FD4b, 8000000 * decimalsFactor);
+        // Confirm 1Y totals
+        assert(totalSupplyLocked1Y == LOCKED_TOTAL_1Y * decimalsFactor);
 
         // --- 2 Years ---
         // Foundation
-        locked2Y[0xa77A2b9D4B1c010A22A7c565Dc418cef683DbceC] = 20000000;
+        add2Y(0xa77A2b9D4B1c010A22A7c565Dc418cef683DbceC, 20000000 * decimalsFactor);
         // Advisors
-        locked2Y[0xA88A05d2b88283ce84C8325760B72a64591279a2] = 2000000;
+        add2Y(0xA88A05d2b88283ce84C8325760B72a64591279a2, 2000000 * decimalsFactor);
         // Directors
-        locked2Y[0xa99A0Ae3354c06B1459fd441a32a3F71005D7Da0] = 2000000;
+        add2Y(0xa99A0Ae3354c06B1459fd441a32a3F71005D7Da0, 2000000 * decimalsFactor);
         // Early backers
-        locked2Y[0xAAAA9De1E6C564446EBCA0fd102D8Bd92093c756] = 2000000;
+        add2Y(0xAAAA9De1E6C564446EBCA0fd102D8Bd92093c756, 2000000 * decimalsFactor);
+        // Confirm 2Y totals
+        assert(totalSupplyLocked2Y == LOCKED_TOTAL_2Y * decimalsFactor);
+    }
+
+    function add1Y(address account, uint256 value) private {
+        balancesLocked1Y[account] += value;
+        totalSupplyLocked1Y += value;
+    }
+
+    function add2Y(address account, uint256 value) private {
+        balancesLocked2Y[account] += value;
+        totalSupplyLocked2Y += value;
+    }
+
+    function balanceOfLocked1Y(address account) constant returns (uint256 balance) {
+        return balancesLocked1Y[account];
+    }
+
+    function balanceOfLocked2Y(address account) constant returns (uint256 balance) {
+        return balancesLocked2Y[account];
+    }
+
+    function totalSupplyLocked() constant returns (uint256) {
+        return totalSupplyLocked1Y + totalSupplyLocked2Y;
     }
 
     function unlock1Y() {
         if (now < DATE_1Y) throw;
-        uint256 amount = locked1Y[msg.sender];
+        uint256 amount = balancesLocked1Y[msg.sender];
         if (amount == 0) throw;
-        uint256 decimals = uint256(tokenContract.decimals());
-        uint256 factor = 10**decimals;
-        locked1Y[msg.sender] = 0;
-        if (!tokenContract.transfer(msg.sender, amount * factor)) throw;
+        balancesLocked1Y[msg.sender] = 0;
+        if (!tokenContract.transfer(msg.sender, amount)) throw;
     }
 
     function unlock2Y() {
         if (now < DATE_2Y) throw;
-        uint256 amount = locked2Y[msg.sender];
+        uint256 amount = balancesLocked2Y[msg.sender];
         if (amount == 0) throw;
-        uint256 decimals = uint256(tokenContract.decimals());
-        uint256 factor = 10**decimals;
-        locked2Y[msg.sender] = 0;
-        if (!tokenContract.transfer(msg.sender, amount * factor)) throw;
+        balancesLocked2Y[msg.sender] = 0;
+        if (!tokenContract.transfer(msg.sender, amount)) throw;
     }
 }

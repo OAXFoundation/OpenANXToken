@@ -80,6 +80,7 @@ function printBalances() {
   console.log("DEBUG: tokenContractAbi: " + tokenContractAbi);
   var token = tokenContractAddress == null || tokenContractAbi == null ? null : web3.eth.contract(tokenContractAbi).at(tokenContractAddress);
   var decimals = token == null ? 0 : token.decimals();
+  var lockedTokenContract = token == null ? 0 : token.lockedTokens();
   var i = 0;
   console.log("RESULT:  # Account                                             EtherBalanceChange                          Token Name");
   accounts.forEach(function(e) {

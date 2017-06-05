@@ -7,7 +7,7 @@
 * [x] Token Identifier
   * symbol `OAX`
   * name `OpenANX Token`
-  * decimals `18`
+  * decimals `9`
 * [x] START_DATE = 1498089600 Thursday, 22-Jun-17 00:00:00 UTC
 * [x] END_DATE = 1500595200 Friday, 21-Jul-17 00:00:00 UTC
 

@@ -177,7 +177,7 @@ contract OpenANXToken is ERC20Token {
     // ------------------------------------------------------------------------
     // Constructor
     // ------------------------------------------------------------------------
-    function OpenANXToken() ERC20Token("OAX", "OpenANX Token", 18, 0) {
+    function OpenANXToken() ERC20Token("OAX", "OpenANX Token", 9, 0) {
         lockedTokens = new LockedTokens(this, decimals);
     }
 
@@ -200,7 +200,7 @@ contract OpenANXToken is ERC20Token {
     function buyTokens() payable duringFundingPeriod {
         if (msg.value > 0) {
             if (finalised) throw;
-            uint tokens = msg.value * tokensPerEther;
+            uint tokens = msg.value * tokensPerEther / 10**uint256(decimals);
             balances[msg.sender] = safeAdd(balances[msg.sender], tokens);
             totalSupply = safeAdd(totalSupply, tokens);
             TokensBought(msg.sender, msg.value, this.balance, tokens,

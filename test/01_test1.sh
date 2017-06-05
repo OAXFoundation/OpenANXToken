@@ -189,7 +189,7 @@ var token = tokenContract.new({from: tokenOwnerAccount, data: tokenBin, gas: 600
         console.log("DEBUG: Deploy Token 3b");
         addAccount(tokenAddress, "TOKEN");
         console.log("DEBUG: Deploy Token 3c");
-        addTokenContractAddressAndAbi(tokenAddress, tokenAbi);
+        addTokenContractAddressAndAbi(tokenAddress, tokenAbi, lockedTokensAbi);
         console.log("DEBUG: Deploy Token 3d");
         console.log("DATA: tokenAddress=" + tokenAddress);
         printTxData("tokenAddress=" + tokenAddress, tokenTx);

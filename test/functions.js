@@ -65,10 +65,12 @@ function addKYCContractAddressAndAbi(address, abi) {
 // -----------------------------------------------------------------------------
 var tokenContractAddress = null;
 var tokenContractAbi = null;
+var lockedTokenContractAbi = null;
 
-function addTokenContractAddressAndAbi(address, abi) {
+function addTokenContractAddressAndAbi(address, tokenAbi, lockedTokenAbi) {
   tokenContractAddress = address;
-  tokenContractAbi = abi;
+  tokenContractAbi = tokenAbi;
+  lockedTokenContractAbi = lockedTokenAbi;
 }
 
 
@@ -80,15 +82,18 @@ function printBalances() {
   console.log("DEBUG: tokenContractAbi: " + tokenContractAbi);
   var token = tokenContractAddress == null || tokenContractAbi == null ? null : web3.eth.contract(tokenContractAbi).at(tokenContractAddress);
   var decimals = token == null ? 0 : token.decimals();
-  var lockedTokenContract = token == null ? 0 : token.lockedTokens();
+  var lockedTokenContract = token == null || lockedTokenContractAbi == null ? null : web3.eth.contract(lockedTokenContractAbi).at(token.lockedTokens());
   var i = 0;
-  console.log("RESULT:  # Account                                             EtherBalanceChange                          Token Name");
+  console.log("RESULT:  # Account                                             EtherBalanceChange                          Token      Locked Tokens 1Y     Locked Tokens 2Y Name");
   accounts.forEach(function(e) {
     i++;
     var etherBalanceBaseBlock = eth.getBalance(e, baseBlock);
     var etherBalance = web3.fromWei(eth.getBalance(e).minus(etherBalanceBaseBlock), "ether");
     var tokenBalance = token == null ? new BigNumber(0) : token.balanceOf(e).shift(-decimals);
-    console.log("RESULT: " + pad2(i) + " " + e  + " " + pad(etherBalance) + " " + padToken(tokenBalance, decimals) + " " + accountNames[e]);
+    var tokenBalance1Y = lockedTokenContract == null ? new BigNumber(0) : lockedTokenContract.balanceOfLocked1Y(e).shift(-decimals);
+    var tokenBalance2Y = lockedTokenContract == null ? new BigNumber(0) : lockedTokenContract.balanceOfLocked2Y(e).shift(-decimals);
+    console.log("RESULT: " + pad2(i) + " " + e  + " " + pad(etherBalance) + " " + padToken(tokenBalance, decimals) + " " + padToken(tokenBalance1Y, decimals) + " " + 
+        padToken(tokenBalance2Y, decimals) + " " + accountNames[e]);
   });
 }
 

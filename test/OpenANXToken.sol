@@ -146,9 +146,9 @@ contract OpenANXToken is ERC20Token {
     bool public finalised = false;
 
     // Thursday, 22-Jun-17 00:00:00 UTC. Do not use `now`
-    uint256 public constant START_DATE = 1496627862; // Mon  5 Jun 2017 01:57:42 UTC
+    uint256 public constant START_DATE = 1496630997; // Mon  5 Jun 2017 02:49:57 UTC
     // Friday, 21-Jul-17 00:00:00 UTC. Do not use `now`
-    uint256 public constant END_DATE = 1496628162; // Mon  5 Jun 2017 02:02:42 UTC
+    uint256 public constant END_DATE = 1496631297; // Mon  5 Jun 2017 02:54:57 UTC
 
     // Number of tokens per ether. This can be adjusted as the ETH/USD rate
     // changes. And event is logged when this rate is updated

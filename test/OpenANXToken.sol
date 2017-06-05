@@ -146,9 +146,9 @@ contract OpenANXToken is ERC20Token {
     bool public finalised = false;
 
     // Thursday, 22-Jun-17 00:00:00 UTC. Do not use `now`
-    uint256 public constant START_DATE = 1496632914; // Mon  5 Jun 2017 03:21:54 UTC
+    uint256 public constant START_DATE = 1496639273; // Mon  5 Jun 2017 05:07:53 UTC
     // Friday, 21-Jul-17 00:00:00 UTC. Do not use `now`
-    uint256 public constant END_DATE = 1496633214; // Mon  5 Jun 2017 03:26:54 UTC
+    uint256 public constant END_DATE = 1496639573; // Mon  5 Jun 2017 05:12:53 UTC
 
     // Number of tokens per ether. This can be adjusted as the ETH/USD rate
     // changes. And event is logged when this rate is updated
@@ -177,7 +177,7 @@ contract OpenANXToken is ERC20Token {
     // ------------------------------------------------------------------------
     // Constructor
     // ------------------------------------------------------------------------
-    function OpenANXToken() ERC20Token("OAX", "OpenANX Token", 9, 0) {
+    function OpenANXToken() ERC20Token("OAX", "OpenANX Token", 18, 0) {
         lockedTokens = new LockedTokens(this, decimals);
     }
 
@@ -200,7 +200,7 @@ contract OpenANXToken is ERC20Token {
     function buyTokens() payable duringFundingPeriod {
         if (msg.value > 0) {
             if (finalised) throw;
-            uint tokens = msg.value * tokensPerEther / 10**uint256(decimals);
+            uint tokens = msg.value * tokensPerEther / 10**uint256(18 - decimals);
             balances[msg.sender] = safeAdd(balances[msg.sender], tokens);
             totalSupply = safeAdd(totalSupply, tokens);
             TokensBought(msg.sender, msg.value, this.balance, tokens,

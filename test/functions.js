@@ -84,7 +84,7 @@ function printBalances() {
   var decimals = token == null ? 0 : token.decimals();
   var lockedTokenContract = token == null || lockedTokenContractAbi == null ? null : web3.eth.contract(lockedTokenContractAbi).at(token.lockedTokens());
   var i = 0;
-  console.log("RESULT:  # Account                                             EtherBalanceChange                 Token             Locked 1Y             Locked 2Y Name");
+  console.log("RESULT:  # Account                                             EtherBalanceChange                 Token                               Locked 1Y                      Locked 2Y Name");
   accounts.forEach(function(e) {
     i++;
     var etherBalanceBaseBlock = eth.getBalance(e, baseBlock);

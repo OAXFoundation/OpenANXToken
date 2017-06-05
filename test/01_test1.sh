@@ -211,9 +211,9 @@ console.log(JSON.stringify(token));
 
 
 // -----------------------------------------------------------------------------
-var testMessage = "Test 1.4 Buy tokens. 123.456789 ETH = 12345.6789 OAX from account2";
+var testMessage = "Test 1.4 Buy tokens. 123.456789012345678901 ETH = 12345.678901234567890100 OAX from account2";
 console.log("RESULT: " + testMessage);
-var tx1_4_1 = eth.sendTransaction({from: account2, to: tokenAddress, gas: 400000, value: web3.toWei("123.456789", "ether")});
+var tx1_4_1 = eth.sendTransaction({from: account2, to: tokenAddress, gas: 400000, value: web3.toWei("123.456789012345678901", "ether")});
 while (txpool.status.pending > 0) {
 }
 printBalances();

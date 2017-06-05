@@ -235,17 +235,23 @@ function printTokenContractStaticDetails() {
 
 var dynamicDetailsFromBlock = 0;
 function printTokenContractDynamicDetails() {
-  if (tokenContractAddress != null && tokenContractAbi != null) {
+  if (tokenContractAddress != null && tokenContractAbi != null && lockedTokenContractAbi != null) {
     var contract = eth.contract(tokenContractAbi).at(tokenContractAddress);
+    var lockedTokenContract = eth.contract(lockedTokenContractAbi).at(contract.lockedTokens());
     var decimals = contract.decimals();
+    var softCapEndDate = contract.softCapEndDate();
+    console.log("RESULT: token.softCapEndDate=" + softCapEndDate + " " + new Date(softCapEndDate * 1000).toUTCString());
     console.log("RESULT: token.tokensPerEther=" + contract.tokensPerEther());
     console.log("RESULT: token.totalSupply=" + contract.totalSupply().shift(-decimals));
+    console.log("RESULT: lockedToken.totalSupplyLocked1Y=" + lockedTokenContract.totalSupplyLocked1Y().shift(-decimals));
+    console.log("RESULT: lockedToken.totalSupplyLocked2Y=" + lockedTokenContract.totalSupplyLocked2Y().shift(-decimals));
+    console.log("RESULT: lockedToken.totalSupplyLocked=" + lockedTokenContract.totalSupplyLocked().shift(-decimals));
     console.log("RESULT: token.owner=" + contract.owner());
     console.log("RESULT: token.newOwner=" + contract.newOwner());
 
     var latestBlock = eth.blockNumber;
     var i;
-    
+
     var ownershipTransferredEvent = contract.OwnershipTransferred({}, { fromBlock: dynamicDetailsFromBlock, toBlock: latestBlock });
     i = 0;
     ownershipTransferredEvent.watch(function (error, result) {

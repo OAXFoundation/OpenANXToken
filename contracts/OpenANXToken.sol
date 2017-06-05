@@ -139,9 +139,10 @@ contract ERC20Token is ERC20Interface, SafeMath, Owned {
 // ----------------------------------------------------------------------------
 contract OpenANXToken is ERC20Token {
 
-    uint256 public constant MINIMUM_FUNDING = 123;
-    uint256 public constant MAXIMUM_SOFT_FUNDING = 345;
-    uint256 public constant HARD_CAP_PERIOD = 678;
+    uint256 public constant TOKENS_MIN = 10000000;
+    uint256 public constant TOKENS_SOFT_CAP = 30000000;
+    uint256 public constant TOKENS_HARD_CAP = 60000000;
+    uint256 public constant SOFT_CAP_PERIOD = 24 hours;
     uint256 public totalFunding;
     bool public finalised = false;
 
@@ -149,6 +150,11 @@ contract OpenANXToken is ERC20Token {
     uint256 public constant START_DATE = 1498089600;
     // Friday, 21-Jul-17 00:00:00 UTC. Do not use `now`
     uint256 public constant END_DATE = 1500595200;
+    uint256 public softCapEndDate = END_DATE;
+    bool public softCapReached = false;
+
+    uint256 public CONTRIBUTIONS_MIN = 0 ether;
+    uint256 public CONTRIBUTIONS_MAX = 250 ether;
 
     // Number of tokens per ether. This can be adjusted as the ETH/USD rate
     // changes. And event is logged when this rate is updated
@@ -157,34 +163,41 @@ contract OpenANXToken is ERC20Token {
     // Locked Tokens
     LockedTokens public lockedTokens;
 
+    uint256 public issuedTokens;
+
+    // Decimal factor for multiplications
+    uint256 decimalsFactor;
+
     // ------------------------------------------------------------------------
     // Before, During and After the funding period
     // ------------------------------------------------------------------------
-    modifier beforeFundingPeriod {
-        if (now >= START_DATE) throw;
-        _;
-    }
-    modifier duringFundingPeriod {
-        if (now < START_DATE || now > END_DATE) throw;
-        _;
-    }
-    modifier afterFundingPeriod {
-        if (now <= END_DATE) throw;
-        _;
-    }
+    // modifier beforeFundingPeriod {
+    //     if (now >= START_DATE) throw;
+    //     _;
+    // }
+    // modifier duringFundingPeriod {
+    //     if (now < START_DATE || now > END_DATE) throw;
+    //     _;
+    // }
+    // modifier afterFundingPeriod {
+    //     if (now <= END_DATE) throw;
+    //     _;
+    // }
 
 
     // ------------------------------------------------------------------------
     // Constructor
     // ------------------------------------------------------------------------
-    function OpenANXToken() ERC20Token("OAX", "OpenANX Token", 18, 0) {
+    function OpenANXToken() ERC20Token("OAX", "openANX Token", 18, 0) {
+        decimalsFactor = 10**uint256(decimals);
         lockedTokens = new LockedTokens(this, decimals);
     }
 
     // ------------------------------------------------------------------------
-    // Constructor
+    // Set number of tokens per ETH. Can only be set before the start date
     // ------------------------------------------------------------------------
-    function setTokensPerEther(uint256 _tokensPerEther) onlyOwner beforeFundingPeriod {
+    function setTokensPerEther(uint256 _tokensPerEther) onlyOwner {
+        if (now >= START_DATE) throw;
         if (_tokensPerEther == 0) throw;
         tokensPerEther = _tokensPerEther;
         TokensPerEtherUpdated(tokensPerEther);
@@ -197,40 +210,75 @@ contract OpenANXToken is ERC20Token {
     function () payable {
         buyTokens();
     }
-    function buyTokens() payable duringFundingPeriod {
-        if (msg.value > 0) {
+    function buyTokens() payable {
+        // Refunds as minimum funding not raised
+        if (now > softCapEndDate && issuedTokens < TOKENS_MIN * decimalsFactor) {
+            uint256 tokensToRefund = balances[msg.sender];
+            if (tokens == 0) throw;
+            balances[msg.sender] = 0;
+            totalSupply -= tokensToRefund;
+            uint256 ethersToRefund = tokensToRefund / tokensPerEther * 10**uint256(18 - decimals);
+            Transfer(msg.sender, 0x0, tokensToRefund);
+            TokensRefunded(msg.sender, ethersToRefund, this.balance - ethersToRefund, tokensToRefund,
+                 totalSupply, tokensPerEther);
+            if (!msg.sender.send(ethersToRefund)) throw;
+
+        } else {
             if (finalised) throw;
+            if (now < START_DATE) throw;
+            if (now > END_DATE) throw;
+            if (now > softCapEndDate) throw;
+            if (msg.value < CONTRIBUTIONS_MIN) throw;
+            if (msg.value > CONTRIBUTIONS_MAX) throw;
+
             uint tokens = msg.value * tokensPerEther / 10**uint256(18 - decimals);
+            if (totalSupply + tokens > TOKENS_HARD_CAP * decimalsFactor) throw;
+
             balances[msg.sender] = safeAdd(balances[msg.sender], tokens);
             totalSupply = safeAdd(totalSupply, tokens);
+            issuedTokens += tokens;
+            Transfer(0x0, msg.sender, tokens);
             TokensBought(msg.sender, msg.value, this.balance, tokens,
                  totalSupply, tokensPerEther);
+
+            // Check if soft cap just reached
+            if (!softCapReached && totalSupply > TOKENS_SOFT_CAP * decimalsFactor) {
+                softCapEndDate = now + SOFT_CAP_PERIOD;
+                softCapReached = true;
+            }
         }
     }
     event TokensBought(address indexed buyer, uint256 ethers, 
         uint256 newEtherBalance, uint256 tokens, uint256 newTotalSupply, 
         uint256 tokensPerEther);
+    event TokensRefunded(address indexed buyer, uint256 ethers, 
+        uint256 newEtherBalance, uint256 tokens, uint256 newTotalSupply, 
+        uint256 tokensPerEther);
+
+    function finalise() {
+        if (finalised) throw;
+        // Allocate locked and premined tokens
+        balances[this] += lockedTokens.totalSupplyLocked();
+        totalSupply += lockedTokens.totalSupplyLocked();
+        finalised = true;
+        // TODO Move funds to wallet
+    }
 
     // ------------------------------------------------------------------------
     // Precommitment funding can be added before the funding block
     // ------------------------------------------------------------------------
-    function addPrecommitment(address participant) payable onlyOwner beforeFundingPeriod {
-        balances[participant] = safeAdd(balances[participant], msg.value);
-        totalFunding = safeAdd(totalFunding, msg.value);
-    }
+    // function addPrecommitment(address participant) payable onlyOwner beforeFundingPeriod {
+    //     balances[participant] = safeAdd(balances[participant], msg.value);
+    //     totalFunding = safeAdd(totalFunding, msg.value);
+    // }
 
     // ------------------------------------------------------------------------
     // Funding can only be added during the funding period
     // ------------------------------------------------------------------------
-    function addFunding() payable duringFundingPeriod {
-        // if (totalFunding < MAXIMUM_SOFT_FUNDING) {
-        //     if (totalFunding + msg.value > MAXIMUM_SOFT_FUNDING) {
-        //         endingBlock += HARD_CAP_PERIOD;
-        //     }
-        // }
-        balances[msg.sender] = safeAdd(balances[msg.sender], msg.value);
-        totalFunding = safeAdd(totalFunding, msg.value);
-    }
+    // function addFunding() payable duringFundingPeriod {
+    //     balances[msg.sender] = safeAdd(balances[msg.sender], msg.value);
+    //     totalFunding = safeAdd(totalFunding, msg.value);
+    // }
 
     // ------------------------------------------------------------------------
     // Transfer out any accidentally sent ERC20 tokens

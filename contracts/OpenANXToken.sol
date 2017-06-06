@@ -221,7 +221,8 @@ contract OpenANXToken is ERC20Token {
             Transfer(msg.sender, 0x0, tokensToRefund);
             TokensRefunded(msg.sender, ethersToRefund, this.balance - ethersToRefund, tokensToRefund,
                  totalSupply, tokensPerEther);
-            if (!msg.sender.send(ethersToRefund)) throw;
+            // Also refund any ethers sent with the transaction
+            if (!msg.sender.send(ethersToRefund + msg.value)) throw;
 
         } else {
             if (finalised) throw;

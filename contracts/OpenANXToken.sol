@@ -168,22 +168,6 @@ contract OpenANXToken is ERC20Token {
     // Decimal factor for multiplications
     uint256 decimalsFactor;
 
-    // ------------------------------------------------------------------------
-    // Before, During and After the funding period
-    // ------------------------------------------------------------------------
-    // modifier beforeFundingPeriod {
-    //     if (now >= START_DATE) throw;
-    //     _;
-    // }
-    // modifier duringFundingPeriod {
-    //     if (now < START_DATE || now > END_DATE) throw;
-    //     _;
-    // }
-    // modifier afterFundingPeriod {
-    //     if (now <= END_DATE) throw;
-    //     _;
-    // }
-
 
     // ------------------------------------------------------------------------
     // Constructor
@@ -208,9 +192,6 @@ contract OpenANXToken is ERC20Token {
     // Accept ethers to buy tokens
     // ------------------------------------------------------------------------
     function () payable {
-        buyTokens();
-    }
-    function buyTokens() payable {
         // Refunds as minimum funding not raised
         if (now > softCapEndDate && issuedTokens < TOKENS_MIN * decimalsFactor) {
             uint256 tokensToRefund = balances[msg.sender];
@@ -257,6 +238,10 @@ contract OpenANXToken is ERC20Token {
         uint256 tokensPerEther);
 
     function finalise() {
+        // Can only finalise once one of the following conditions are met:
+        // - The time is past the softCapEndDate (which is the END_DATE if the 
+        //   soft cap is not reached)
+        // - The funds raised is equal to CONTRIBUTIONS_MAX
         if (finalised) throw;
         // Allocate locked and premined tokens
         balances[this] += lockedTokens.totalSupplyLocked();

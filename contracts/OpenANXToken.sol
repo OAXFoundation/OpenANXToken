@@ -140,8 +140,8 @@ contract ERC20Token is ERC20Interface, SafeMath, Owned {
 contract OpenANXToken is ERC20Token {
 
     uint256 public constant TOKENS_MIN = 10000000;
-    uint256 public constant TOKENS_SOFT_CAP = 30000000;
-    uint256 public constant TOKENS_HARD_CAP = 60000000;
+    uint256 public constant TOKENS_SOFT_CAP = 13000000;
+    uint256 public constant TOKENS_HARD_CAP = 30000000;
     uint256 public constant SOFT_CAP_PERIOD = 24 hours;
     uint256 public totalFunding;
     bool public finalised = false;

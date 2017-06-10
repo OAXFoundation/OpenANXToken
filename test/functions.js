@@ -81,20 +81,35 @@ function printBalances() {
   console.log("DEBUG: tokenContractAddress: " + tokenContractAddress);
   console.log("DEBUG: tokenContractAbi: " + tokenContractAbi);
   var token = tokenContractAddress == null || tokenContractAbi == null ? null : web3.eth.contract(tokenContractAbi).at(tokenContractAddress);
-  var decimals = token == null ? 0 : token.decimals();
+  var decimals = token == null ? 18 : token.decimals();
   var lockedTokenContract = token == null || lockedTokenContractAbi == null ? null : web3.eth.contract(lockedTokenContractAbi).at(token.lockedTokens());
   var i = 0;
-  console.log("RESULT:  # Account                                             EtherBalanceChange                 Token                               Locked 1Y                      Locked 2Y Name");
+  var totalTokenBalanceUnlocked = new BigNumber(0);
+  var totalTokenBalance1Y = new BigNumber(0);
+  var totalTokenBalance2Y = new BigNumber(0);
+  var totalTokenBalance = new BigNumber(0);
+  console.log("RESULT:  # Account                                             EtherBalanceChange                 Unlocked Token                      Locked 1Y                      Locked 2Y                          Total Name");
   accounts.forEach(function(e) {
     i++;
     var etherBalanceBaseBlock = eth.getBalance(e, baseBlock);
     var etherBalance = web3.fromWei(eth.getBalance(e).minus(etherBalanceBaseBlock), "ether");
-    var tokenBalance = token == null ? new BigNumber(0) : token.balanceOf(e).shift(-decimals);
+    var tokenBalanceUnlocked = token == null ? new BigNumber(0) : token.balanceOf(e).shift(-decimals);
     var tokenBalance1Y = lockedTokenContract == null ? new BigNumber(0) : lockedTokenContract.balanceOfLocked1Y(e).shift(-decimals);
     var tokenBalance2Y = lockedTokenContract == null ? new BigNumber(0) : lockedTokenContract.balanceOfLocked2Y(e).shift(-decimals);
-    console.log("RESULT: " + pad2(i) + " " + e  + " " + pad(etherBalance) + " " + padToken(tokenBalance, decimals) + " " + padToken(tokenBalance1Y, decimals) + " " + 
-        padToken(tokenBalance2Y, decimals) + " " + accountNames[e]);
+    var tokenBalance = tokenBalanceUnlocked.add(tokenBalance1Y).add(tokenBalance2Y);
+    totalTokenBalanceUnlocked = totalTokenBalanceUnlocked.add(tokenBalanceUnlocked);
+    totalTokenBalance1Y = totalTokenBalance1Y.add(tokenBalance1Y);
+    totalTokenBalance2Y = totalTokenBalance2Y.add(tokenBalance2Y);
+    totalTokenBalance = totalTokenBalance.add(tokenBalance);
+    console.log("RESULT: " + pad2(i) + " " + e  + " " + pad(etherBalance) + " " + padToken(tokenBalanceUnlocked, decimals) + " " + padToken(tokenBalance1Y, decimals) + " " + 
+        padToken(tokenBalance2Y, decimals) + " " + padToken(tokenBalance, decimals) + " " + accountNames[e]);
   });
+  // 12 0xabba43e7594e3b76afb157989e93c6621497fd4b        0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #11 - Developers
+  // 13 0x90d8927407c79c4a28ee879b821c76fc9bcc2688        0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 TOKEN
+  // -- ------------------------------------------ --------------------------- ------------------------------ ------------------------------ ------------------------------ ------------------------------ ---------------------------
+  console.log("RESULT: -- ------------------------------------------ --------------------------- ------------------------------ ------------------------------ ------------------------------ ------------------------------ ---------------------------");
+  console.log("RESULT:                                                                           " + padToken(totalTokenBalanceUnlocked, decimals) + " " + 
+      padToken(totalTokenBalance1Y, decimals) + " " + padToken(totalTokenBalance2Y, decimals) + " " + padToken(totalTokenBalance, decimals));
 }
 
 function pad2(s) {
@@ -239,9 +254,10 @@ function printTokenContractDynamicDetails() {
     var contract = eth.contract(tokenContractAbi).at(tokenContractAddress);
     var lockedTokenContract = eth.contract(lockedTokenContractAbi).at(contract.lockedTokens());
     var decimals = contract.decimals();
-    var softCapEndDate = contract.softCapEndDate();
-    console.log("RESULT: token.softCapEndDate=" + softCapEndDate + " " + new Date(softCapEndDate * 1000).toUTCString());
-    console.log("RESULT: token.tokensPerEther=" + contract.tokensPerEther());
+    console.log("RESULT: token.finalised=" + contract.finalised());
+    // var softCapEndDate = contract.softCapEndDate();
+    // console.log("RESULT: token.softCapEndDate=" + softCapEndDate + " " + new Date(softCapEndDate * 1000).toUTCString());
+    console.log("RESULT: token.ethersPerHundredMillionTokens=" + contract.ethersPerHundredMillionTokens());
     console.log("RESULT: token.totalSupply=" + contract.totalSupply().shift(-decimals));
     console.log("RESULT: lockedToken.totalSupplyLocked1Y=" + lockedTokenContract.totalSupplyLocked1Y().shift(-decimals));
     console.log("RESULT: lockedToken.totalSupplyLocked2Y=" + lockedTokenContract.totalSupplyLocked2Y().shift(-decimals));
@@ -260,12 +276,12 @@ function printTokenContractDynamicDetails() {
     });
     ownershipTransferredEvent.stopWatching();
 
-    var tokensPerEtherUpdatedEvent = contract.TokensPerEtherUpdated({}, { fromBlock: dynamicDetailsFromBlock, toBlock: latestBlock });
+    var ethersPerHundredMillionTokensUpdatedEvent = contract.EthersPerHundredMillionTokensUpdated({}, { fromBlock: dynamicDetailsFromBlock, toBlock: latestBlock });
     i = 0;
-    tokensPerEtherUpdatedEvent.watch(function (error, result) {
-      console.log("RESULT: TokensPerEtherUpdated Event " + i++ + ": from=" + result.args.tokensPerEther + " " + result.blockNumber);
+    ethersPerHundredMillionTokensUpdatedEvent.watch(function (error, result) {
+      console.log("RESULT: EthersPerHundredMillionTokensUpdated Event " + i++ + ": from=" + result.args.ethersPerHundredMillionTokens + " " + result.blockNumber);
     });
-    tokensPerEtherUpdatedEvent.stopWatching();
+    ethersPerHundredMillionTokensUpdatedEvent.stopWatching();
 
     var approvalEvent = contract.Approval({}, { fromBlock: dynamicDetailsFromBlock, toBlock: latestBlock });
     i = 0;

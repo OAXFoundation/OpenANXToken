@@ -140,145 +140,109 @@ contract ERC20Token is ERC20Interface, SafeMath, Owned {
 contract OpenANXToken is ERC20Token {
 
     uint256 public constant TOKENS_MIN = 10000000;
-    uint256 public constant TOKENS_SOFT_CAP = 30000000;
-    uint256 public constant TOKENS_HARD_CAP = 60000000;
+    uint256 public constant TOKENS_SOFT_CAP = 13000000;
+    uint256 public constant TOKENS_HARD_CAP = 30000000;
+    uint256 public constant TOKENS_TOTAL = 100000000;
     uint256 public constant SOFT_CAP_PERIOD = 24 hours;
-    uint256 public totalFunding;
     bool public finalised = false;
 
     // Thursday, 22-Jun-17 00:00:00 UTC. Do not use `now`
-    uint256 public constant START_DATE = 1496730028; // Tue  6 Jun 2017 06:20:28 UTC
+    uint256 public constant START_DATE = 1497170060; // Sun 11 Jun 2017 08:34:20 UTC
     // Friday, 21-Jul-17 00:00:00 UTC. Do not use `now`
-    uint256 public constant END_DATE = 1496730268; // Tue  6 Jun 2017 06:24:28 UTC
-    uint256 public softCapEndDate = END_DATE;
-    bool public softCapReached = false;
+    uint256 public constant END_DATE = 1497170360; // Sun 11 Jun 2017 08:39:20 UTC
 
+    // Set to 0 for no minimum contribution amount
     uint256 public CONTRIBUTIONS_MIN = 0 ether;
+    // Set to 0 for no maximum contribution amount
     uint256 public CONTRIBUTIONS_MAX = 250 ether;
 
-    // Number of tokens per ether. This can be adjusted as the ETH/USD rate
+    // Number of ethers per token. This can be adjusted as the ETH/USD rate
     // changes. And event is logged when this rate is updated
-    uint256 public tokensPerEther = 100;
+    // ETH per token 0.00309776 indicative at 5 June 2017
+    //                100000000
+    // ethersPerHundredMillionTokens = 309776
+    uint256 public ethersPerHundredMillionTokens = 309776;
 
     // Locked Tokens
     LockedTokens public lockedTokens;
 
-    uint256 public issuedTokens;
-
     // Decimal factor for multiplications
-    uint256 decimalsFactor;
-
-    // ------------------------------------------------------------------------
-    // Before, During and After the funding period
-    // ------------------------------------------------------------------------
-    // modifier beforeFundingPeriod {
-    //     if (now >= START_DATE) throw;
-    //     _;
-    // }
-    // modifier duringFundingPeriod {
-    //     if (now < START_DATE || now > END_DATE) throw;
-    //     _;
-    // }
-    // modifier afterFundingPeriod {
-    //     if (now <= END_DATE) throw;
-    //     _;
-    // }
+    uint8 DECIMALS = 18;
+    uint256 DECIMALSFACTOR = 10**uint256(DECIMALS);
 
 
     // ------------------------------------------------------------------------
     // Constructor
     // ------------------------------------------------------------------------
-    function OpenANXToken() ERC20Token("OAX", "openANX Token", 18, 0) {
-        decimalsFactor = 10**uint256(decimals);
-        lockedTokens = new LockedTokens(this, decimals);
+    function OpenANXToken() ERC20Token("OAX", "openANX Token", DECIMALS, 0) {
     }
 
     // ------------------------------------------------------------------------
     // Set number of tokens per ETH. Can only be set before the start date
     // ------------------------------------------------------------------------
-    function setTokensPerEther(uint256 _tokensPerEther) onlyOwner {
+    function setEthersPerHundredMillionTokens(uint256 _ethersPerHundredMillionTokens) onlyOwner {
         if (now >= START_DATE) throw;
-        if (_tokensPerEther == 0) throw;
-        tokensPerEther = _tokensPerEther;
-        TokensPerEtherUpdated(tokensPerEther);
+        if (_ethersPerHundredMillionTokens == 0) throw;
+        ethersPerHundredMillionTokens = _ethersPerHundredMillionTokens;
+        EthersPerHundredMillionTokensUpdated(ethersPerHundredMillionTokens);
     }
-    event TokensPerEtherUpdated(uint256 tokensPerEther);
+    event EthersPerHundredMillionTokensUpdated(uint256 ethersPerHundredMillionTokens);
 
     // ------------------------------------------------------------------------
     // Accept ethers to buy tokens
     // ------------------------------------------------------------------------
     function () payable {
-        buyTokens();
-    }
-    function buyTokens() payable {
-        // Refunds as minimum funding not raised
-        if (now > softCapEndDate && issuedTokens < TOKENS_MIN * decimalsFactor) {
-            uint256 tokensToRefund = balances[msg.sender];
-            if (tokens == 0) throw;
-            balances[msg.sender] = 0;
-            totalSupply -= tokensToRefund;
-            uint256 ethersToRefund = tokensToRefund / tokensPerEther * 10**uint256(18 - decimals);
-            Transfer(msg.sender, 0x0, tokensToRefund);
-            TokensRefunded(msg.sender, ethersToRefund, this.balance - ethersToRefund, tokensToRefund,
-                 totalSupply, tokensPerEther);
-            if (!msg.sender.send(ethersToRefund)) throw;
+        // No contributions after finalised
+        if (finalised) throw;
+        // No contributions before start
+        if (now < START_DATE) throw;
+        // No contributions after end
+        if (now > END_DATE) throw;
+        // No contributions below the minimum (can be 0 ETH)
+        if (msg.value == 0 || msg.value < CONTRIBUTIONS_MIN) throw;
+        // No contributions above a maximum (if maximum is set to non-0)
+        if (CONTRIBUTIONS_MAX > 0 && msg.value > CONTRIBUTIONS_MAX) throw;
 
-        } else {
-            if (finalised) throw;
-            if (now < START_DATE) throw;
-            if (now > END_DATE) throw;
-            if (now > softCapEndDate) throw;
-            if (msg.value < CONTRIBUTIONS_MIN) throw;
-            if (msg.value > CONTRIBUTIONS_MAX) throw;
+        uint tokens = msg.value * 10**uint256(18 - decimals + 8) / ethersPerHundredMillionTokens;
+        if (totalSupply + tokens > TOKENS_HARD_CAP * DECIMALSFACTOR) throw;
 
-            uint tokens = msg.value * tokensPerEther / 10**uint256(18 - decimals);
-            if (totalSupply + tokens > TOKENS_HARD_CAP * decimalsFactor) throw;
-
-            balances[msg.sender] = safeAdd(balances[msg.sender], tokens);
-            totalSupply = safeAdd(totalSupply, tokens);
-            issuedTokens += tokens;
-            Transfer(0x0, msg.sender, tokens);
-            TokensBought(msg.sender, msg.value, this.balance, tokens,
-                 totalSupply, tokensPerEther);
-
-            // Check if soft cap just reached
-            if (!softCapReached && totalSupply > TOKENS_SOFT_CAP * decimalsFactor) {
-                softCapEndDate = now + SOFT_CAP_PERIOD;
-                softCapReached = true;
-            }
-        }
+        balances[msg.sender] = safeAdd(balances[msg.sender], tokens);
+        totalSupply = safeAdd(totalSupply, tokens);
+        Transfer(0x0, msg.sender, tokens);
+        TokensBought(msg.sender, msg.value, this.balance, tokens,
+             totalSupply, ethersPerHundredMillionTokens);
+        // Transfer the contributed ethers
+        if (!owner.send(msg.value)) throw;
     }
     event TokensBought(address indexed buyer, uint256 ethers, 
         uint256 newEtherBalance, uint256 tokens, uint256 newTotalSupply, 
-        uint256 tokensPerEther);
-    event TokensRefunded(address indexed buyer, uint256 ethers, 
-        uint256 newEtherBalance, uint256 tokens, uint256 newTotalSupply, 
-        uint256 tokensPerEther);
+        uint256 ethersPerHundredMillionTokens);
 
+    // ------------------------------------------------------------------------
+    // Finalise by adding the locked tokens to this contract and total supply
+    // ------------------------------------------------------------------------
     function finalise() {
+        // Can only finalise if raised > soft cap or after the end date
+        // TESTING if (totalSupply < TOKENS_SOFT_CAP * DECIMALSFACTOR && now < END_DATE) throw;
+        // Can only finalise once
         if (finalised) throw;
+        lockedTokens = new LockedTokens(this);
         // Allocate locked and premined tokens
         balances[this] += lockedTokens.totalSupplyLocked();
         totalSupply += lockedTokens.totalSupplyLocked();
+        // Lock remaining from tranche1 and tranche2
+        // uint256 remainingTokens = TOKENS_TOTAL * DECIMALSFACTOR;
         finalised = true;
-        // TODO Move funds to wallet
     }
 
     // ------------------------------------------------------------------------
-    // Precommitment funding can be added before the funding block
+    // Precommitment funding tokens can be added before the crowdsale starts
     // ------------------------------------------------------------------------
-    // function addPrecommitment(address participant) payable onlyOwner beforeFundingPeriod {
-    //     balances[participant] = safeAdd(balances[participant], msg.value);
-    //     totalFunding = safeAdd(totalFunding, msg.value);
-    // }
-
-    // ------------------------------------------------------------------------
-    // Funding can only be added during the funding period
-    // ------------------------------------------------------------------------
-    // function addFunding() payable duringFundingPeriod {
-    //     balances[msg.sender] = safeAdd(balances[msg.sender], msg.value);
-    //     totalFunding = safeAdd(totalFunding, msg.value);
-    // }
+    function addPrecommitment(address participant, uint256 balance) onlyOwner {
+        if (now >= START_DATE) throw;
+        if (balance == 0) throw;
+        balances[participant] = balance;
+    }
 
     // ------------------------------------------------------------------------
     // Transfer out any accidentally sent ERC20 tokens

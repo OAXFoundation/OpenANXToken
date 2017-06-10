@@ -2,6 +2,27 @@
 
 # Requirements
 
+## Requirements From Token Sale Summary Sheet
+
+* Tranche 1 token sale for 30,000,000 tokens (OAX Tokens) on or about Jun 22 2017
+* Price per OAX
+  * Equivalence of USD 0.75 ETH based on ETH/USD @ 12:00 GMT Jun 21 2017
+  * This is 0.00309776 ETH as of Jun 5 2017
+* Number of OAX for token sale ("Hard Cap") 30,000,000
+* Gross Proceeds Of Hard Cap - ETH equivalence of USD 22,500,000
+* "Soft Cap" 13,000,000
+* Gross Proceeds of Hard Cap - ETH equivalence of USD 9,750,000 
+* Closing date 1pm GMT Jul 22 2017
+* Total of 100,000,000 OAX
+  * 30,000,000 Tranche 1 token sale
+  * 30,000,000 Tranche 2 token sale - Additional Token Sale (ATS). These tokens are subject to a lock-up for one year from token launch
+  * 20,000,000 retained by the foundation, 10,000,000 (50%) locked for 1 year from token launch, 10,000,000 (50%) locked for 2 years from token launch
+  * 20,000,000 allocated to founding supporters (directors, advisors and early backers) of the foundation
+    * 14,000,000 (70%) locked for 1 year
+    * 6,000,000 (30%) locked for 2 years
+
+
+
 ## Confirmed Requirements
 
 * [x] Token Identifier
@@ -36,6 +57,16 @@
   2. Crowdsale contributing accounts will **NOT** be able to move their tokens until they have been KYC-ed
   3. The KYC status in the smart contracts is just a simple KYC - Yes or No
   4. Once the tokens have been transferred from the original crowdsale contributing account, there is **NO** KYC required for transfers. The tokens can trade freely.
+
+## Discussion with Hugh Jun 13 2017:
+
+* [ ] Minimum crowdfunding level has been exceeded
+  * [ ] Remove the need for the crowdsale participants to be able to withdraw their refunds if the minimum level is not reached
+  * [ ] Remove the need for the ETH to be stored in the crowdfunding token contract
+* [ ] A `finalise()` function may be required to move any unsold tokens in the tranche1 portion to the tranche2 portion
+* [ ] Accounts with locked tokens can also participate in the crowdfunding
+
+
 
 ## Deployment Checklist
 

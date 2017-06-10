@@ -15,6 +15,8 @@ import "./ERC20Interface.sol";
 // ----------------------------------------------------------------------------
 contract OpenANXInterface is ERC20Interface {
     function decimals() constant returns (uint8);
+    // function TOKENS_TOTAL() constant returns (uint256);
+    uint256 public constant TOKENS_TOTAL = 100000000;
 }
 
 contract LockedTokens {
@@ -39,11 +41,11 @@ contract LockedTokens {
     mapping (address => uint256) public balancesLocked1Y;
     mapping (address => uint256) public balancesLocked2Y;
 
-    ERC20Interface public tokenContract;
+    OpenANXInterface public tokenContract;
 
-    function LockedTokens(address _tokenContract, uint8 decimals) {
-        tokenContract = ERC20Interface(_tokenContract);
-        uint256 decimalsFactor = 10**uint256(decimals);
+    function LockedTokens(address _tokenContract) {
+        tokenContract = OpenANXInterface(_tokenContract);
+        uint256 decimalsFactor = 10**uint256(tokenContract.decimals());
 
         // --- 1 Year ---
         // Advisors
@@ -68,6 +70,12 @@ contract LockedTokens {
         add2Y(0xAAAA9De1E6C564446EBCA0fd102D8Bd92093c756, 2000000 * decimalsFactor);
         // Confirm 2Y totals
         assert(totalSupplyLocked2Y == LOCKED_TOTAL_2Y * decimalsFactor);
+
+        uint256 remainingTokens = tokenContract.TOKENS_TOTAL() * decimalsFactor
+            - tokenContract.totalSupply()
+            - totalSupplyLocked1Y
+            - totalSupplyLocked2Y;
+        add1Y(_tokenContract, remainingTokens);
     }
 
     function add1Y(address account, uint256 value) private {

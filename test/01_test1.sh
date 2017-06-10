@@ -211,11 +211,12 @@ console.log(JSON.stringify(token));
 
 
 // -----------------------------------------------------------------------------
-var testMessage = "Test 1.4 Buy tokens. 123.456789012345678901 ETH = 12345.678901234567890100 OAX from account2";
+var testMessage = "Test 1.4 Buy tokens. 100 ETH = 32281.39042404834461 OAX from account2";
 console.log("RESULT: " + testMessage);
-var tx1_4_1 = eth.sendTransaction({from: account2, to: tokenAddress, gas: 400000, value: web3.toWei("123.456789012345678901", "ether")});
+var tx1_4_1 = eth.sendTransaction({from: account2, to: tokenAddress, gas: 400000, value: web3.toWei("100", "ether")});
 while (txpool.status.pending > 0) {
 }
+printTxData("tx1_4_1", tx1_4_1);
 printBalances();
 failIfGasEqualsGasUsed(tx1_4_1, testMessage);
 printTokenContractDynamicDetails();
@@ -267,6 +268,19 @@ if (!skipSafeMath) {
   }
 
 }
+
+
+// -----------------------------------------------------------------------------
+var testMessage = "Test 3.1 Finalise crowdsale";
+console.log("RESULT: " + testMessage);
+var tx3_1 = token.finalise({from: tokenOwnerAccount, gas: 4000000});
+while (txpool.status.pending > 0) {
+}
+printTxData("tx3_1", tx3_1);
+printBalances();
+failIfGasEqualsGasUsed(tx3_1, testMessage);
+printTokenContractDynamicDetails();
+console.log("RESULT: ");
 
 
 

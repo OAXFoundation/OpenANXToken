@@ -14,15 +14,6 @@ import "./SafeMath.sol";
 import "./LockedTokens.sol";
 
 // ----------------------------------------------------------------------------
-// KYC Interface
-// ----------------------------------------------------------------------------
-contract OpenANXKYC {
-    function confirmTokenTransfer(address from, address to, uint256 amount) returns (bool);
-    function isKyc(address customer) returns (bool);
-}
-
-
-// ----------------------------------------------------------------------------
 // ERC20 Token, with the addition of symbol, name and decimals
 // ----------------------------------------------------------------------------
 contract ERC20Token is ERC20Interface, SafeMath, Owned {
@@ -269,7 +260,9 @@ contract OpenANXToken is ERC20Token {
         if (now >= START_DATE) throw;
         if (balance == 0) throw;
         balances[participant] = balance;
+        Transfer(0x0, participant, balance);
     }
+    event PrecommitmentAdded(address indexed participant, uint256 balance);
 
     // ------------------------------------------------------------------------
     // Transfer the balance from owner's account to another account, with KYC

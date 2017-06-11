@@ -14,15 +14,6 @@ import "./SafeMath.sol";
 import "./LockedTokens.sol";
 
 // ----------------------------------------------------------------------------
-// KYC Interface
-// ----------------------------------------------------------------------------
-contract OpenANXKYC {
-    function confirmTokenTransfer(address from, address to, uint256 amount) returns (bool);
-    function isKyc(address customer) returns (bool);
-}
-
-
-// ----------------------------------------------------------------------------
 // ERC20 Token, with the addition of symbol, name and decimals
 // ----------------------------------------------------------------------------
 contract ERC20Token is ERC20Interface, SafeMath, Owned {
@@ -144,10 +135,10 @@ contract OpenANXToken is ERC20Token {
     bool public finalised = false;
 
     // Thursday, 22-Jun-17 13:00:00 UTC / 1pm GMT 22 June 2017. Do not use `now`
-    uint256 public constant START_DATE = 1497194374; // Sun 11 Jun 2017 15:19:34 UTC
+    uint256 public constant START_DATE = 1497195952; // Sun 11 Jun 2017 15:45:52 UTC
 
     // Saturday, 22-Jul-17 13:00:00 UTC / 1pm GMT 22 July 2017. Do not use `now`
-    uint256 public constant END_DATE = 1497194674; // Sun 11 Jun 2017 15:24:34 UTC
+    uint256 public constant END_DATE = 1497196252; // Sun 11 Jun 2017 15:50:52 UTC
 
     // Set to 0 for no minimum contribution amount
     uint256 public CONTRIBUTIONS_MIN = 0 ether;
@@ -269,7 +260,9 @@ contract OpenANXToken is ERC20Token {
         if (now >= START_DATE) throw;
         if (balance == 0) throw;
         balances[participant] = balance;
+        Transfer(0x0, participant, balance);
     }
+    event PrecommitmentAdded(address indexed participant, uint256 balance);
 
     // ------------------------------------------------------------------------
     // Transfer the balance from owner's account to another account, with KYC

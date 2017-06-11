@@ -291,6 +291,15 @@ function printTokenContractDynamicDetails() {
     });
     walletUpdatedEvent.stopWatching();
 
+    var precommitmentAddedEvent = contract.PrecommitmentAdded({}, { fromBlock: dynamicDetailsFromBlock, toBlock: latestBlock });
+    i = 0;
+    precommitmentAddedEvent.watch(function (error, result) {
+      console.log("RESULT: PrecommitmentAdded Event " + i++ + ": participant=" + result.args.participant + 
+        " balance=" + result.args.balance.shift(-decimals) + 
+        " block=" + result.blockNumber);
+    });
+    precommitmentAddedEvent.stopWatching();
+
     var tokensBoughtEvent = contract.TokensBought({}, { fromBlock: dynamicDetailsFromBlock, toBlock: latestBlock });
     i = 0;
     tokensBoughtEvent.watch(function (error, result) {

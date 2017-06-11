@@ -108,7 +108,7 @@ var skipKycContract = "$MODE" == "dev" ? true : false;
 var skipSafeMath = "$MODE" == "dev" ? true : false;
 
 // -----------------------------------------------------------------------------
-var testMessage = "Test 1.3 Deploy Token Contract";
+var testMessage = "Test 1.1 Deploy Token Contract";
 console.log("RESULT: " + testMessage);
 var tokenContract = web3.eth.contract(tokenAbi);
 console.log(JSON.stringify(tokenContract));
@@ -141,6 +141,19 @@ console.log(JSON.stringify(token));
 
 
 // -----------------------------------------------------------------------------
+var testMessage = "Test 1.2 Add Precommitments";
+console.log("RESULT: " + testMessage);
+var tx1_2 = token.addPrecommitment(precommitmentsAccount, "12999000000000000000000000", {from: tokenOwnerAccount, gas: 4000000});
+while (txpool.status.pending > 0) {
+}
+printTxData("tx1_2", tx1_5);
+printBalances();
+failIfGasEqualsGasUsed(tx1_2, testMessage);
+printTokenContractDynamicDetails();
+console.log("RESULT: ");
+
+
+// -----------------------------------------------------------------------------
 var testMessage = "Test 1.4 Change wallet";
 console.log("RESULT: " + testMessage);
 var tx1_4 = token.setWallet(crowdfundWallet, {from: tokenOwnerAccount, gas: 4000000});
@@ -149,19 +162,6 @@ while (txpool.status.pending > 0) {
 printTxData("tx1_4", tx1_4);
 printBalances();
 failIfGasEqualsGasUsed(tx1_4, testMessage);
-printTokenContractDynamicDetails();
-console.log("RESULT: ");
-
-
-// -----------------------------------------------------------------------------
-var testMessage = "Test 1.5 Add Precommitments";
-console.log("RESULT: " + testMessage);
-var tx1_5 = token.addPrecommitment(precommitmentsAccount, "12999000000000000000000000", {from: tokenOwnerAccount, gas: 4000000});
-while (txpool.status.pending > 0) {
-}
-printTxData("tx1_5", tx1_5);
-printBalances();
-failIfGasEqualsGasUsed(tx1_5, testMessage);
 printTokenContractDynamicDetails();
 console.log("RESULT: ");
 

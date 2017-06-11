@@ -135,10 +135,10 @@ contract OpenANXToken is ERC20Token {
     bool public finalised = false;
 
     // Thursday, 22-Jun-17 13:00:00 UTC / 1pm GMT 22 June 2017. Do not use `now`
-    uint256 public constant START_DATE = 1497196778; // Sun 11 Jun 2017 15:59:38 UTC
+    uint256 public constant START_DATE = 1497197362; // Sun 11 Jun 2017 16:09:22 UTC
 
     // Saturday, 22-Jul-17 13:00:00 UTC / 1pm GMT 22 July 2017. Do not use `now`
-    uint256 public constant END_DATE = 1497197018; // Sun 11 Jun 2017 16:03:38 UTC
+    uint256 public constant END_DATE = 1497197602; // Sun 11 Jun 2017 16:13:22 UTC
 
     // Set to 0 for no minimum contribution amount
     uint256 public CONTRIBUTIONS_MIN = 0 ether;

@@ -99,6 +99,39 @@ There is a subreddit at [https://www.reddit.com/r/OpenANX/](https://www.reddit.c
 
 <hr />
 
+## Operations On The Crowdsale Contract
+
+Following are the functions that can be called at the different phases of the crowdsale contract
+
+# Anytime
+
+* Owner can call `setWallet(...)` to set the wallet address
+
+* Owner can call `kycVerify(...)` to verify participants, but this should be done after the crowdsale as the participants can transfer tokens immediately after being verified
+
+# Before Start Date
+
+* Owner can call `setTokensPerKEther(...)` to set the token issuance rate
+* Owner can call `addPrecommitment(...)` to add precommitment balances
+
+# After Start Date, Before End Date or Finalised
+
+* Participants can send ETH to the default `()` function and receive tokens
+* Owner can call `finalise()` if soft cap breached or we are past the end date
+
+# After Finalised
+
+* Owner calls `kycVerify(...)` to verify participants, but this should be done after the crowdsale as the participants can transfer tokens immediately after being verified
+* Participant can call the normal `transfer(...)`, `approve(...)` and `transferFrom(...)` to transfer tokens
+
+# After 1 Year (and 2 Years)
+
+* Participants with locked tokens can called the `lockedTokens.unlock1Y()` and `lockedTokens.unlock2Y()` to unlock their tokens
+
+<br />
+
+<hr />
+
 ## Deployment Checklist
 
 * Check START_DATE and END_DATE

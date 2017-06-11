@@ -147,14 +147,14 @@ contract OpenANXToken is ERC20Token {
     bool public finalised = false;
 
     // Thursday, 22-Jun-17 13:00:00 UTC / 1pm GMT 22 June 2017. Do not use `now`
-    uint256 public constant START_DATE = 1497185399; // Sun 11 Jun 2017 12:49:59 UTC
+    uint256 public constant START_DATE = 1497187529; // Sun 11 Jun 2017 13:25:29 UTC
     // Saturday, 22-Jul-17 13:00:00 UTC / 1pm GMT 22 July 2017. Do not use `now`
-    uint256 public constant END_DATE = 1497185699; // Sun 11 Jun 2017 12:54:59 UTC
+    uint256 public constant END_DATE = 1497187829; // Sun 11 Jun 2017 13:30:29 UTC
 
     // Set to 0 for no minimum contribution amount
     uint256 public CONTRIBUTIONS_MIN = 0 ether;
-    // Set to 0 for no maximum contribution amount
-    uint256 public CONTRIBUTIONS_MAX = 250 ether;
+    // Set to 0 for no maximum contribution amount, or e.g. `250 ether`
+    uint256 public CONTRIBUTIONS_MAX = 0 ether;
 
     // Number of ethers per token. This can be adjusted as the ETH/USD rate
     // changes. And event is logged when this rate is updated
@@ -188,7 +188,9 @@ contract OpenANXToken is ERC20Token {
     // ------------------------------------------------------------------------
     function setWallet(address _wallet) onlyOwner {
         wallet = _wallet;
+        WalletUpdated(wallet);
     }
+    event WalletUpdated(address newWallet);
 
     // ------------------------------------------------------------------------
     // Set number of tokens per ETH. Can only be set before the start date

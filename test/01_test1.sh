@@ -175,7 +175,7 @@ var tokenContract = web3.eth.contract(tokenAbi);
 console.log(JSON.stringify(tokenContract));
 var tokenTx = null;
 var tokenAddress = null;
-var token = tokenContract.new(crowdfundWallet, {from: tokenOwnerAccount, data: tokenBin, gas: 6000000},
+var token = tokenContract.new(tokenOwnerAccount, {from: tokenOwnerAccount, data: tokenBin, gas: 6000000},
   function(e, contract) {
     if (!e) {
       if (!contract.address) {
@@ -202,14 +202,27 @@ console.log(JSON.stringify(token));
 
 
 // -----------------------------------------------------------------------------
-var testMessage = "Test 1.4 Buy tokens. 100 ETH = 32281.39042404834461 OAX from account2";
+var testMessage = "Test 1.4 Change wallet";
 console.log("RESULT: " + testMessage);
-var tx1_4_1 = eth.sendTransaction({from: account2, to: tokenAddress, gas: 400000, value: web3.toWei("100", "ether")});
+var tx1_4 = token.setWallet(crowdfundWallet, {from: tokenOwnerAccount, gas: 4000000});
 while (txpool.status.pending > 0) {
 }
-printTxData("tx1_4_1", tx1_4_1);
+printTxData("tx1_4", tx1_4);
 printBalances();
-failIfGasEqualsGasUsed(tx1_4_1, testMessage);
+failIfGasEqualsGasUsed(tx1_4, testMessage);
+printTokenContractDynamicDetails();
+console.log("RESULT: ");
+
+
+// -----------------------------------------------------------------------------
+var testMessage = "Test 1.5 Buy tokens. 100 ETH = 32281.39042404834461 OAX from account2";
+console.log("RESULT: " + testMessage);
+var tx1_5_1 = eth.sendTransaction({from: account2, to: tokenAddress, gas: 400000, value: web3.toWei("100", "ether")});
+while (txpool.status.pending > 0) {
+}
+printTxData("tx1_5_1", tx1_5_1);
+printBalances();
+failIfGasEqualsGasUsed(tx1_5_1, testMessage);
 printTokenContractDynamicDetails();
 console.log("RESULT: ");
 

@@ -27,7 +27,7 @@ There is a subreddit at [https://www.reddit.com/r/OpenANX/](https://www.reddit.c
     * Hard cap of 30,000,000 OAX (ETH equivalence of USD 22,500,000)
     * Tokens from precommitments funded via fiat and other currencies will be included in this tranche 
   * Tranche 2 30,000,000 (30%) OAX - locked for 1 year from token launch for Additional Token Sale (ATS)
-    * 30,000,000 Tranche 2 token sale - Additional Token Sale (ATS). These tokens are subject to a lock-up for 1ß year from token launch
+    * 30,000,000 Tranche 2 token sale - Additional Token Sale (ATS). These tokens are subject to a lock-up for 1 year from token launch
   * 20,000,000 (20%) OAX retained by the foundation, consisting of:
     * 10,000,000 (50%) OAX locked for 1 year from token launch
     * 10,000,000 (50%) OAX locked for 2 years from token launch

@@ -282,9 +282,33 @@ function printTokenContractDynamicDetails() {
     var ethersPerHundredMillionTokensUpdatedEvent = contract.EthersPerHundredMillionTokensUpdated({}, { fromBlock: dynamicDetailsFromBlock, toBlock: latestBlock });
     i = 0;
     ethersPerHundredMillionTokensUpdatedEvent.watch(function (error, result) {
-      console.log("RESULT: EthersPerHundredMillionTokensUpdated Event " + i++ + ": from=" + result.args.ethersPerHundredMillionTokens + " " + result.blockNumber);
+      console.log("RESULT: EthersPerHundredMillionTokensUpdated Event " + i++ + ": from=" + result.args.ethersPerHundredMillionTokens + " block=" + result.blockNumber);
     });
     ethersPerHundredMillionTokensUpdatedEvent.stopWatching();
+
+    var walletUpdatedEvent = contract.WalletUpdated({}, { fromBlock: dynamicDetailsFromBlock, toBlock: latestBlock });
+    i = 0;
+    walletUpdatedEvent.watch(function (error, result) {
+      console.log("RESULT: WalletUpdated Event " + i++ + ": from=" + result.args.newWallet + " block=" + result.blockNumber);
+    });
+    walletUpdatedEvent.stopWatching();
+
+//    event TokensBought(address indexed buyer, uint256 ethers, 
+//        uint256 newEtherBalance, uint256 tokens, uint256 newTotalSupply, 
+//         uint256 ethersPerHundredMillionTokens);
+        
+    var tokensBoughtEvent = contract.TokensBought({}, { fromBlock: dynamicDetailsFromBlock, toBlock: latestBlock });
+    i = 0;
+    tokensBoughtEvent.watch(function (error, result) {
+      console.log("RESULT: TokensBought Event " + i++ + ": buyer=" + result.args.buyer + 
+        " ethers=" + web3.fromWei(result.args.ethers, "ether") +
+        " newEtherBalance=" + web3.fromWei(result.args.newEtherBalance, "ether") + 
+        " tokens=" + result.args.tokens.shift(-decimals) + 
+        " newTotalSupply=" + result.args.newTotalSupply.shift(-decimals) + 
+        " ethersPerHundredMillionTokens=" + result.args.ethersPerHundredMillionTokens + 
+        " block=" + result.blockNumber);
+    });
+    tokensBoughtEvent.stopWatching();
 
     var approvalEvent = contract.Approval({}, { fromBlock: dynamicDetailsFromBlock, toBlock: latestBlock });
     i = 0;

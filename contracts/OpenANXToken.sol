@@ -153,8 +153,8 @@ contract OpenANXToken is ERC20Token {
 
     // Set to 0 for no minimum contribution amount
     uint256 public CONTRIBUTIONS_MIN = 0 ether;
-    // Set to 0 for no maximum contribution amount
-    uint256 public CONTRIBUTIONS_MAX = 250 ether;
+    // Set to 0 for no maximum contribution amount, or e.g. `250 ether`
+    uint256 public CONTRIBUTIONS_MAX = 0 ether;
 
     // Number of ethers per token. This can be adjusted as the ETH/USD rate
     // changes. And event is logged when this rate is updated
@@ -188,7 +188,9 @@ contract OpenANXToken is ERC20Token {
     // ------------------------------------------------------------------------
     function setWallet(address _wallet) onlyOwner {
         wallet = _wallet;
+        WalletUpdated(wallet);
     }
+    event WalletUpdated(address newWallet);
 
     // ------------------------------------------------------------------------
     // Set number of tokens per ETH. Can only be set before the start date

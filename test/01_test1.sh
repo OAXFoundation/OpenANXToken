@@ -18,8 +18,6 @@ SAFEMATHTEMPSOL=`grep ^SAFEMATHTEMPSOL= settings.txt | sed "s/^.*=//"`
 LOCKEDTOKENSSOL=`grep ^LOCKEDTOKENSSOL= settings.txt | sed "s/^.*=//"`
 LOCKEDTOKENSTEMPSOL=`grep ^LOCKEDTOKENSTEMPSOL= settings.txt | sed "s/^.*=//"`
 LOCKEDTOKENSJS=`grep ^LOCKEDTOKENSJS= settings.txt | sed "s/^.*=//"`
-# KYCSOL=`grep ^KYCSOL= settings.txt | sed "s/^.*=//"`
-# KYCJS=`grep ^KYCJS= settings.txt | sed "s/^.*=//"`
 TOKENSOL=`grep ^TOKENSOL= settings.txt | sed "s/^.*=//"`
 TOKENTEMPSOL=`grep ^TOKENTEMPSOL= settings.txt | sed "s/^.*=//"`
 TOKENJS=`grep ^TOKENJS= settings.txt | sed "s/^.*=//"`
@@ -57,8 +55,6 @@ printf "LOCKEDTOKENSTEMPSOL   = '$LOCKEDTOKENSTEMPSOL'\n"
 printf "LOCKEDTOKENSJS        = '$LOCKEDTOKENSJS'\n"
 printf "TOKENSOL              = '$TOKENSOL'\n"
 printf "TOKENTEMPSOL          = '$TOKENTEMPSOL'\n"
-# printf "KYCSOL                = '$KYCSOL'\n"
-# printf "KYCJS                 = '$KYCJS'\n"
 printf "TOKENSOL              = '$TOKENSOL'\n"
 printf "TOKENTEMPSOL          = '$TOKENTEMPSOL'\n"
 printf "TOKENJS               = '$TOKENJS'\n"
@@ -89,25 +85,18 @@ DIFFS=`diff $TOKENSOL $TOKENTEMPSOL`
 echo "--- Differences ---"
 echo "$DIFFS"
 
-# echo "var kycOutput=`solc --optimize --combined-json abi,bin,interface $KYCSOL`;" > $KYCJS
 echo "var tokenOutput=`solc --optimize --combined-json abi,bin,interface $TOKENTEMPSOL`;" > $TOKENJS
 echo "var lockedTokensOutput=`solc --optimize --combined-json abi,bin,interface $LOCKEDTOKENSTEMPSOL`;" > $LOCKEDTOKENSJS
 
 geth --verbosity 3 attach $GETHATTACHPOINT << EOF | tee $TEST1OUTPUT
-# loadScript("$KYCJS");
 loadScript("$TOKENJS");
 loadScript("$LOCKEDTOKENSJS");
 loadScript("functions.js");
 
-# var kycAbi = JSON.parse(kycOutput.contracts["$KYCSOL:OpenANXTokenKYC"].abi);
-# var kycBin = "0x" + kycOutput.contracts["$KYCSOL:OpenANXTokenKYC"].bin;
 var tokenAbi = JSON.parse(tokenOutput.contracts["$TOKENTEMPSOL:OpenANXToken"].abi);
 var tokenBin = "0x" + tokenOutput.contracts["$TOKENTEMPSOL:OpenANXToken"].bin;
 var lockedTokensAbi = JSON.parse(tokenOutput.contracts["$LOCKEDTOKENSTEMPSOL:LockedTokens"].abi);
-// var lockedTokensAbi = JSON.parse(lockedTokensOutput.contracts["$LOCKEDTOKENSTEMPSOL:LockedTokens"].abi);
-// var lockedTokensBin = "0x" + lockedTokensOutput.contracts["$LOCKEDTOKENSTEMPSOL:LockedTokens"].bin;
 
-# console.log("DATA: kycAbi=" + JSON.stringify(kycAbi));
 console.log("DATA: tokenABI=" + JSON.stringify(tokenAbi));
 console.log("DATA: lockedTokensAbi=" + JSON.stringify(lockedTokensAbi));
 
@@ -117,56 +106,6 @@ console.log("RESULT: ");
 
 var skipKycContract = "$MODE" == "dev" ? true : false;
 var skipSafeMath = "$MODE" == "dev" ? true : false;
-
-// if (!skipKycContract) {
-//   // -----------------------------------------------------------------------------
-//   var testMessage = "Test 1.1 Deploy KYC Contract";
-//   console.log("RESULT: " + testMessage);
-//   var kycContract = web3.eth.contract(kycAbi);
-//   var kycTx = null;
-//   var kyc = kycContract.new({from: tokenOwnerAccount, data: kycBin, gas: 4000000},
-//     function(e, contract) {
-//       if (!e) {
-//         if (!contract.address) {
-//           kycTx = contract.transactionHash;
-//         } else {
-//           kycAddress = contract.address;
-//           addAccount(kycAddress, "KYC");
-//           addKYCContractAddressAndAbi(kycAddress, kycAbi);
-//           console.log("DATA: kycAddress=" + kycAddress);
-//           printTxData("kycAddress=" + kycAddress, kycTx);
-//         }
-//       }
-//     }
-//   );
-//   while (txpool.status.pending > 0) {
-//   }
-//   printBalances();
-//   failIfGasEqualsGasUsed(kycTx, testMessage);
-//   printKYCContractDetails();
-//   console.log("RESULT: ");
-// }
-
-
-// if (!skipKycContract) {
-//   // -----------------------------------------------------------------------------
-//   var testMessage = "Test 1.2 KYC account2 (a22a) and account3 (a33a)";
-//   console.log("RESULT: " + testMessage);
-//   var account2 = eth.accounts[2];
-//   var account3 = eth.accounts[3];
-//   var tx1_2_1 = kyc.kyc(account2, 1, { from: tokenOwnerAccount, gas: 90000 });
-//   var tx1_2_2 = kyc.kyc(account3, 1, { from: tokenOwnerAccount, gas: 90000 });
-//   while (txpool.status.pending > 0) {
-//   }
-//   printTxData("tx1_2_1", tx1_2_1);
-//   printTxData("tx1_2_2", tx1_2_2);
-//   printBalances();
-//   failIfGasEqualsGasUsed(tx1_2_1, testMessage + " - account2 (a22a)");
-//   failIfGasEqualsGasUsed(tx1_2_2, testMessage + " - account3 (a33a)");
-//   printKYCContractDetails();
-//   console.log("RESULT: ");
-// }
-
 
 // -----------------------------------------------------------------------------
 var testMessage = "Test 1.3 Deploy Token Contract";
@@ -215,14 +154,27 @@ console.log("RESULT: ");
 
 
 // -----------------------------------------------------------------------------
-var testMessage = "Test 1.5 Buy tokens. 100 ETH = 34373.4 OAX from account2";
+var testMessage = "Test 1.5 Add Precommitments";
 console.log("RESULT: " + testMessage);
-var tx1_5_1 = eth.sendTransaction({from: account2, to: tokenAddress, gas: 400000, value: web3.toWei("100", "ether")});
+var tx1_5 = token.addPrecommitment(precommitmentsAccount, "12999000000000000000000000", {from: tokenOwnerAccount, gas: 4000000});
 while (txpool.status.pending > 0) {
 }
-printTxData("tx1_5_1", tx1_5_1);
+printTxData("tx1_5", tx1_5);
 printBalances();
-failIfGasEqualsGasUsed(tx1_5_1, testMessage);
+failIfGasEqualsGasUsed(tx1_5, testMessage);
+printTokenContractDynamicDetails();
+console.log("RESULT: ");
+
+
+// -----------------------------------------------------------------------------
+var testMessage = "Test 1.6 Buy tokens. 100 ETH = 34373.4 OAX from account2";
+console.log("RESULT: " + testMessage);
+var tx1_6_1 = eth.sendTransaction({from: account2, to: tokenAddress, gas: 400000, value: web3.toWei("100", "ether")});
+while (txpool.status.pending > 0) {
+}
+printTxData("tx1_6_1", tx1_6_1);
+printBalances();
+failIfGasEqualsGasUsed(tx1_6_1, testMessage);
 printTokenContractDynamicDetails();
 console.log("RESULT: ");
 

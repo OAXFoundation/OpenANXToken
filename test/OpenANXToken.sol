@@ -135,10 +135,10 @@ contract OpenANXToken is ERC20Token {
     bool public finalised = false;
 
     // Thursday, 22-Jun-17 13:00:00 UTC / 1pm GMT 22 June 2017. Do not use `now`
-    uint256 public constant START_DATE = 1497195952; // Sun 11 Jun 2017 15:45:52 UTC
+    uint256 public constant START_DATE = 1497196778; // Sun 11 Jun 2017 15:59:38 UTC
 
     // Saturday, 22-Jul-17 13:00:00 UTC / 1pm GMT 22 July 2017. Do not use `now`
-    uint256 public constant END_DATE = 1497196252; // Sun 11 Jun 2017 15:50:52 UTC
+    uint256 public constant END_DATE = 1497197018; // Sun 11 Jun 2017 16:03:38 UTC
 
     // Set to 0 for no minimum contribution amount
     uint256 public CONTRIBUTIONS_MIN = 0 ether;
@@ -240,8 +240,7 @@ contract OpenANXToken is ERC20Token {
     // ------------------------------------------------------------------------
     function finalise() {
         // Can only finalise if raised > soft cap or after the end date
-        // TODO - Add back after testing 
-        // if (totalSupply < TOKENS_SOFT_CAP * DECIMALSFACTOR && now < END_DATE) throw;
+        if (totalSupply < TOKENS_SOFT_CAP * DECIMALSFACTOR && now < END_DATE) throw;
         // Can only finalise once
         if (finalised) throw;
         lockedTokens = new LockedTokens(this);

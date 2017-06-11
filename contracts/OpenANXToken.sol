@@ -240,8 +240,7 @@ contract OpenANXToken is ERC20Token {
     // ------------------------------------------------------------------------
     function finalise() {
         // Can only finalise if raised > soft cap or after the end date
-        // TODO - Add back after testing 
-        // if (totalSupply < TOKENS_SOFT_CAP * DECIMALSFACTOR && now < END_DATE) throw;
+        if (totalSupply < TOKENS_SOFT_CAP * DECIMALSFACTOR && now < END_DATE) throw;
         // Can only finalise once
         if (finalised) throw;
         lockedTokens = new LockedTokens(this);

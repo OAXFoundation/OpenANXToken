@@ -19,6 +19,7 @@ addAccount(eth.accounts[8], "Account #8 - Advisors");
 addAccount(eth.accounts[9], "Account #9 - Directors");
 addAccount(eth.accounts[10], "Account #10 - Early Backers");
 addAccount(eth.accounts[11], "Account #11 - Developers");
+addAccount(eth.accounts[12], "Account #12 - Precommitments");
 
 var minerAccount = eth.accounts[0];
 var tokenOwnerAccount = eth.accounts[1];
@@ -32,6 +33,7 @@ var advisorsAccount = eth.accounts[8];
 var directorsAccount = eth.accounts[9];
 var earlyBackersAccount = eth.accounts[10];
 var developersAccount = eth.accounts[11];
+var precommitmentsAccount = eth.accounts[12];
 
 
 var baseBlock = eth.blockNumber;
@@ -45,18 +47,6 @@ function unlockAccounts(password) {
 function addAccount(account, accountName) {
   accounts.push(account);
   accountNames[account] = accountName;
-}
-
-
-// -----------------------------------------------------------------------------
-// KYC Contract
-// -----------------------------------------------------------------------------
-var kycContractAddress = null;
-var kycContractAbi = null;
-
-function addKYCContractAddressAndAbi(address, abi) {
-  kycContractAddress = address;
-  kycContractAbi = abi;
 }
 
 
@@ -206,29 +196,6 @@ function failIfGasEqualsGasUsedOrContractAddressNull(contractAddress, tx, msg) {
       console.log("RESULT: PASS " + msg);
       return 1;
     }
-  }
-}
-
-
-// -----------------------------------------------------------------------------
-// KYC Contract details
-// -----------------------------------------------------------------------------
-var kycDetailsFromBlock = 0;
-function printKYCContractDetails() {
-  if (kycContractAddress != null && kycContractAbi != null) {
-    var kycContract = eth.contract(kycContractAbi).at(kycContractAddress);
-    console.log("RESULT: kyc.owner=" + kycContract.owner());
-    console.log("RESULT: kyc.newOwner=" + kycContract.newOwner());
-    var latestBlock = eth.blockNumber;
-    var i;
-    var kycedEvent = kycContract.KYCed({}, { fromBlock: kycDetailsFromBlock, toBlock: latestBlock });
-    i = 0;
-    kycedEvent.watch(function (error, result) {
-      console.log("RESULT: KYCed Event " + i++ + ": customer=" + result.args.customer + " status=" + result.args.status + " " +
-        result.blockNumber);
-    });
-    kycedEvent.stopWatching();
-    kycDetailsFromBlock = latestBlock + 1;
   }
 }
 

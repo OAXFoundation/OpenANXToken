@@ -86,11 +86,11 @@ There is a subreddit at [https://www.reddit.com/r/OpenANX/](https://www.reddit.c
 
 ## TODO
 
+* [x] BK Complete KYC functions
 * [ ] BK Testing different scenarios
   * [ ] Scenario where funding below soft cap and above soft cap
   * [ ] Unlocking of tokens in 1 year and 2 years
   * [ ] Public crowdsale participant can also have locked tokens
-* [x] BK Complete KYC functions
 * [ ] BK Develop and test token contract upgrade path
 * [ ] BK Security audit
 * [ ] JB Security audit

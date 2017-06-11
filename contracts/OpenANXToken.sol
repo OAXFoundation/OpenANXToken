@@ -293,11 +293,13 @@ contract OpenANXToken is ERC20Token {
     }
 
     // ------------------------------------------------------------------------
-    // Participant has been KYCed
+    // Participant has been KYC verified
     // ------------------------------------------------------------------------
-    function participantKyced(address participant) onlyOwner {
+    function kycVerify(address participant) onlyOwner {
         kycRequired[participant] = false;
+        KycVerified(participant);
     }
+    event KycVerified(address indexed participant);
 
     // ------------------------------------------------------------------------
     // Transfer out any accidentally sent ERC20 tokens

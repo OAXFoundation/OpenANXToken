@@ -144,10 +144,10 @@ contract OpenANXToken is ERC20Token {
     bool public finalised = false;
 
     // Thursday, 22-Jun-17 13:00:00 UTC / 1pm GMT 22 June 2017. Do not use `now`
-    uint256 public constant START_DATE = 1497193323; // Sun 11 Jun 2017 15:02:03 UTC
+    uint256 public constant START_DATE = 1497194374; // Sun 11 Jun 2017 15:19:34 UTC
 
     // Saturday, 22-Jul-17 13:00:00 UTC / 1pm GMT 22 July 2017. Do not use `now`
-    uint256 public constant END_DATE = 1497193623; // Sun 11 Jun 2017 15:07:03 UTC
+    uint256 public constant END_DATE = 1497194674; // Sun 11 Jun 2017 15:24:34 UTC
 
     // Set to 0 for no minimum contribution amount
     uint256 public CONTRIBUTIONS_MIN = 0 ether;
@@ -293,11 +293,13 @@ contract OpenANXToken is ERC20Token {
     }
 
     // ------------------------------------------------------------------------
-    // Participant has been KYCed
+    // Participant has been KYC verified
     // ------------------------------------------------------------------------
-    function participantKyced(address participant) onlyOwner {
+    function kycVerify(address participant) onlyOwner {
         kycRequired[participant] = false;
+        KycVerified(participant);
     }
+    event KycVerified(address indexed participant);
 
     // ------------------------------------------------------------------------
     // Transfer out any accidentally sent ERC20 tokens

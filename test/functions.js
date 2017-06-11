@@ -304,6 +304,13 @@ function printTokenContractDynamicDetails() {
     });
     tokensBoughtEvent.stopWatching();
 
+    var kycVerifiedEvent = contract.KycVerified({}, { fromBlock: dynamicDetailsFromBlock, toBlock: latestBlock });
+    i = 0;
+    kycVerifiedEvent.watch(function (error, result) {
+      console.log("RESULT: KycVerified Event " + i++ + ": participant=" + result.args.participant + " block=" + result.blockNumber);
+    });
+    kycVerifiedEvent.stopWatching();
+
     var approvalEvent = contract.Approval({}, { fromBlock: dynamicDetailsFromBlock, toBlock: latestBlock });
     i = 0;
     approvalEvent.watch(function (error, result) {

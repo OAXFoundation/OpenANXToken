@@ -68,7 +68,7 @@ There is a subreddit at [https://www.reddit.com/r/OpenANX/](https://www.reddit.c
 
 * KYC
   * Participants can contribute to the crowdsale by sending ETH to the OAX 'openANX Token' smart contract and will be issued OAX tokens
-  * Participants will only be able to transfer their issued OAX tokens after being successfully KYC verified by openANX
+  * Participants will only be able to transfer their issued OAX tokens after being successfully KYC verified by openANX and unless otherwise agreed by Open ANX Foundation, in no circumstance shall such transfer be possibly prior to the Release Date scheduled for July 29th (being one week after the scheduled end of the  Contribution Window).
   * There will be no refund if the KYC verification is determined to be unsuccessful
   * The KYC smart contract will just encode a simple Yes/No on an accounts KYC status
   * Once KYC approved, an account cannot be KYC disapproved
@@ -90,7 +90,7 @@ There is a subreddit at [https://www.reddit.com/r/OpenANX/](https://www.reddit.c
   * [ ] Scenario where funding below soft cap and above soft cap
   * [ ] Unlocking of tokens in 1 year and 2 years
   * [ ] Public crowdsale participant can also have locked tokens
-* [ ] BK Complete KYC functions
+* [x] BK Complete KYC functions
 * [ ] BK Develop and test token contract upgrade path
 * [ ] BK Security audit
 * [ ] JB Security audit

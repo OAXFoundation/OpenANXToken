@@ -69,6 +69,7 @@ There is a subreddit at [https://www.reddit.com/r/OpenANX/](https://www.reddit.c
 * KYC
   * Participants can contribute to the crowdsale by sending ETH to the OAX 'openANX Token' smart contract and will be issued OAX tokens
   * Participants will only be able to transfer their issued OAX tokens after being successfully KYC verified by openANX
+  * There will be no refund if the KYC verification is determined to be unsuccessful
   * The KYC smart contract will just encode a simple Yes/No on an accounts KYC status
   * Once KYC approved, an account cannot be KYC disapproved
   * OAX tokens are otherwise able to be transferred freely without further KYC requirements 

@@ -147,9 +147,9 @@ contract OpenANXToken is ERC20Token {
     bool public finalised = false;
 
     // Thursday, 22-Jun-17 13:00:00 UTC / 1pm GMT 22 June 2017. Do not use `now`
-    uint256 public constant START_DATE = 1497187529; // Sun 11 Jun 2017 13:25:29 UTC
+    uint256 public constant START_DATE = 1497189386; // Sun 11 Jun 2017 13:56:26 UTC
     // Saturday, 22-Jul-17 13:00:00 UTC / 1pm GMT 22 July 2017. Do not use `now`
-    uint256 public constant END_DATE = 1497187829; // Sun 11 Jun 2017 13:30:29 UTC
+    uint256 public constant END_DATE = 1497189686; // Sun 11 Jun 2017 14:01:26 UTC
 
     // Set to 0 for no minimum contribution amount
     uint256 public CONTRIBUTIONS_MIN = 0 ether;
@@ -158,13 +158,12 @@ contract OpenANXToken is ERC20Token {
 
     // Number of ethers per token. This can be adjusted as the ETH/USD rate
     // changes. And event is logged when this rate is updated
-    // ETH per token 0.00309776 indicative at 5 June 2017
-    //                100000000
-    // ethersPerHundredMillionTokens = 309776
-    // tokensPerEther = 322.813904240483446
-    // tokensPerKEther = 322,813.904240483446
-    // tokensPerKEther = 322,814 rounded to an uint
-    uint256 public ethersPerHundredMillionTokens = 309776;
+    // ETH per token 0.00290923 indicative at 8 June 2017
+    // 1 ETH = 1 / 0.00290923 = 343.733565238912015 OAX
+    // tokensPerEther = 343.733565238912015
+    // tokensPerKEther = 343,733.565238912015
+    // tokensPerKEther = 343,734 rounded to an uint, six significant figures
+    uint256 public tokensPerKEther = 343734;
 
     // Locked Tokens
     LockedTokens public lockedTokens;
@@ -193,15 +192,15 @@ contract OpenANXToken is ERC20Token {
     event WalletUpdated(address newWallet);
 
     // ------------------------------------------------------------------------
-    // Set number of tokens per ETH. Can only be set before the start date
+    // Set number of tokens per 1,000 ETH. Can only be set before the start date
     // ------------------------------------------------------------------------
-    function setEthersPerHundredMillionTokens(uint256 _ethersPerHundredMillionTokens) onlyOwner {
+    function setTokensPerKEther(uint256 _tokensPerKEther) onlyOwner {
         if (now >= START_DATE) throw;
-        if (_ethersPerHundredMillionTokens == 0) throw;
-        ethersPerHundredMillionTokens = _ethersPerHundredMillionTokens;
-        EthersPerHundredMillionTokensUpdated(ethersPerHundredMillionTokens);
+        if (_tokensPerKEther == 0) throw;
+        tokensPerKEther = _tokensPerKEther;
+        TokensPerKEtherUpdated(tokensPerKEther);
     }
-    event EthersPerHundredMillionTokensUpdated(uint256 ethersPerHundredMillionTokens);
+    event TokensPerKEtherUpdated(uint256 tokensPerKEther);
 
     // ------------------------------------------------------------------------
     // Accept ethers to buy tokens
@@ -218,27 +217,30 @@ contract OpenANXToken is ERC20Token {
         // No contributions above a maximum (if maximum is set to non-0)
         if (CONTRIBUTIONS_MAX > 0 && msg.value > CONTRIBUTIONS_MAX) throw;
 
-        uint tokens = msg.value * 10**uint256(18 - decimals + 8) / ethersPerHundredMillionTokens;
+        // `18` is the ETH decimals, `- decimals` is the token decimals
+        // and `+ 3` for the KEther factor
+        uint tokens = msg.value * tokensPerKEther / 10**uint256(18 - decimals + 3);
         if (totalSupply + tokens > TOKENS_HARD_CAP * DECIMALSFACTOR) throw;
 
         balances[msg.sender] = safeAdd(balances[msg.sender], tokens);
         totalSupply = safeAdd(totalSupply, tokens);
         Transfer(0x0, msg.sender, tokens);
         TokensBought(msg.sender, msg.value, this.balance, tokens,
-             totalSupply, ethersPerHundredMillionTokens);
+             totalSupply, tokensPerKEther);
         // Transfer the contributed ethers
         if (!wallet.send(msg.value)) throw;
     }
     event TokensBought(address indexed buyer, uint256 ethers, 
         uint256 newEtherBalance, uint256 tokens, uint256 newTotalSupply, 
-        uint256 ethersPerHundredMillionTokens);
+        uint256 tokensPerKEther);
 
     // ------------------------------------------------------------------------
     // Finalise by adding the locked tokens to this contract and total supply
     // ------------------------------------------------------------------------
     function finalise() {
         // Can only finalise if raised > soft cap or after the end date
-        // TESTING if (totalSupply < TOKENS_SOFT_CAP * DECIMALSFACTOR && now < END_DATE) throw;
+        // TODO - Add back after testing 
+        // if (totalSupply < TOKENS_SOFT_CAP * DECIMALSFACTOR && now < END_DATE) throw;
         // Can only finalise once
         if (finalised) throw;
         lockedTokens = new LockedTokens(this);

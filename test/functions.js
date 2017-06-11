@@ -258,9 +258,7 @@ function printTokenContractDynamicDetails() {
     var lockedTokenContract = eth.contract(lockedTokenContractAbi).at(contract.lockedTokens());
     var decimals = contract.decimals();
     console.log("RESULT: token.finalised=" + contract.finalised());
-    // var softCapEndDate = contract.softCapEndDate();
-    // console.log("RESULT: token.softCapEndDate=" + softCapEndDate + " " + new Date(softCapEndDate * 1000).toUTCString());
-    console.log("RESULT: token.ethersPerHundredMillionTokens=" + contract.ethersPerHundredMillionTokens());
+    console.log("RESULT: token.tokensPerKEther=" + contract.tokensPerKEther());
     console.log("RESULT: token.totalSupply=" + contract.totalSupply().shift(-decimals));
     console.log("RESULT: lockedToken.totalSupplyLocked1Y=" + lockedTokenContract.totalSupplyLocked1Y().shift(-decimals));
     console.log("RESULT: lockedToken.totalSupplyLocked2Y=" + lockedTokenContract.totalSupplyLocked2Y().shift(-decimals));
@@ -279,12 +277,12 @@ function printTokenContractDynamicDetails() {
     });
     ownershipTransferredEvent.stopWatching();
 
-    var ethersPerHundredMillionTokensUpdatedEvent = contract.EthersPerHundredMillionTokensUpdated({}, { fromBlock: dynamicDetailsFromBlock, toBlock: latestBlock });
+    var tokensPerKEtherUpdatedEvent = contract.TokensPerKEtherUpdated({}, { fromBlock: dynamicDetailsFromBlock, toBlock: latestBlock });
     i = 0;
-    ethersPerHundredMillionTokensUpdatedEvent.watch(function (error, result) {
-      console.log("RESULT: EthersPerHundredMillionTokensUpdated Event " + i++ + ": from=" + result.args.ethersPerHundredMillionTokens + " block=" + result.blockNumber);
+    tokensPerKEtherUpdatedEvent.watch(function (error, result) {
+      console.log("RESULT: TokensPerKEtherUpdated Event " + i++ + ": tokensPerKEther=" + result.args.tokensPerKEther + " block=" + result.blockNumber);
     });
-    ethersPerHundredMillionTokensUpdatedEvent.stopWatching();
+    tokensPerKEtherUpdatedEvent.stopWatching();
 
     var walletUpdatedEvent = contract.WalletUpdated({}, { fromBlock: dynamicDetailsFromBlock, toBlock: latestBlock });
     i = 0;
@@ -293,10 +291,6 @@ function printTokenContractDynamicDetails() {
     });
     walletUpdatedEvent.stopWatching();
 
-//    event TokensBought(address indexed buyer, uint256 ethers, 
-//        uint256 newEtherBalance, uint256 tokens, uint256 newTotalSupply, 
-//         uint256 ethersPerHundredMillionTokens);
-        
     var tokensBoughtEvent = contract.TokensBought({}, { fromBlock: dynamicDetailsFromBlock, toBlock: latestBlock });
     i = 0;
     tokensBoughtEvent.watch(function (error, result) {
@@ -305,7 +299,7 @@ function printTokenContractDynamicDetails() {
         " newEtherBalance=" + web3.fromWei(result.args.newEtherBalance, "ether") + 
         " tokens=" + result.args.tokens.shift(-decimals) + 
         " newTotalSupply=" + result.args.newTotalSupply.shift(-decimals) + 
-        " ethersPerHundredMillionTokens=" + result.args.ethersPerHundredMillionTokens + 
+        " tokensPerKEther=" + result.args.tokensPerKEther + 
         " block=" + result.blockNumber);
     });
     tokensBoughtEvent.stopWatching();

@@ -28,19 +28,18 @@ There is a subreddit at [https://www.reddit.com/r/OpenANX/](https://www.reddit.c
     * Tokens from precommitments funded via fiat and other currencies will be included in this tranche 
   * Tranche 2 30,000,000 (30%) OAX - locked for 1 year from token launch for Additional Token Sale (ATS)
     * 30,000,000 Tranche 2 token sale - Additional Token Sale (ATS). These tokens are subject to a lock-up for 1 year from token launch
-  * 20,000,000 (20%) OAX retained by the foundation, consisting of:
-    * 10,000,000 (50%) OAX locked for 1 year from token launch
-    * 10,000,000 (50%) OAX locked for 2 years from token launch
+  * 20,000,000 (20%) OAX retained by the foundation, locked for 2 years from token launch
   * 20,000,000 allocated to founding supporters (directors, advisors and early backers) of the foundation, consisting of:
     * 14,000,000 (70%) locked for 1 year from token launch
     * 6,000,000 (30%) locked for 2 years from token launch
 
 * OAX Token Price
   * The price for an OAX token will be set as the equivalence of USD 0.75 ETH based on ETH/USD @ 12:00 GMT Jun 21 2017
-  * The indicative price per OAX token is 0.00309776 ETH as of Jun 5 2017
-    * 1 OAX = 0.00309776 ETH
-    * 1 ETH = 1 / 0.00309776 = 322.813904240483446 OAX
-  * This will be encoded as an unsigned integer, 1,000 ETH = 322814 OAX with six significant figures
+  * The indicative price per OAX token is 0.00290923 ETH as of 8 June 2017
+    * 1 OAX = 0.00290923 ETH
+    * 1 ETH = 1 / 0.00290923 = 343.733565238912015 OAX
+  * This will be encoded as an unsigned integer, 1,000 ETH = 343734 OAX with six significant figures
+      tokensPerKEther = 343734
 
 * Precommitments
   * Some participants will be able to purchase the crowdsale tokens through precommitments using fiat and other currencies

@@ -215,7 +215,7 @@ console.log("RESULT: ");
 
 
 // -----------------------------------------------------------------------------
-var testMessage = "Test 1.5 Buy tokens. 100 ETH = 32281.39042404834461 OAX from account2";
+var testMessage = "Test 1.5 Buy tokens. 100 ETH = 34373.4 OAX from account2";
 console.log("RESULT: " + testMessage);
 var tx1_5_1 = eth.sendTransaction({from: account2, to: tokenAddress, gas: 400000, value: web3.toWei("100", "ether")});
 while (txpool.status.pending > 0) {

@@ -1,24 +1,31 @@
 # OpenANX Token
 
+Refer to [http://openanx.org/](http://openanx.org/) for further information.
+
+There is a subreddit at [https://www.reddit.com/r/OpenANX/](https://www.reddit.com/r/OpenANX/), and a slack at [https://openanx.slack.com/](https://openanx.slack.com/).
+
+<br />
+
+<hr />
+
 # Requirements
 
 ## Requirements From Token Sale Summary Sheet
 
-* [x] Token Identifier
+* Token Identifier
   * symbol `OAX`
   * name `openANX Token`
   * decimals `18`
 
 * Tranche 1 30,000,000 (30%) OAX Crowdsale Dates
-  * [x] START_DATE = 1498136400 Thursday, 22-Jun-17 13:00:00 UTC / 1pm GMT 22 June 2017
-  * [x] END_DATE = 1500728400 Saturday, 22-Jul-17 13:00:00 UTC / 1pm GMT 22 July 2017
+  * START_DATE = 1498136400 Thursday, 22-Jun-17 13:00:00 UTC / 1pm GMT 22 June 2017
+  * END_DATE = 1500728400 Saturday, 22-Jul-17 13:00:00 UTC / 1pm GMT 22 July 2017
 
 * Total of 100,000,000 OAX tokens
   * Tranche 1 30,000,000 (30%) OAX Crowdsale
-    * [x] There is no minimum funding level in the smart contract as the precommitments already exceed the minimum funding level
-    * [x] Soft cap of 13,000,000 OAX (ETH equivalence of USD 9,750,000)
-    * [x] Hard cap of 30,000,000 OAX (ETH equivalence of USD 22,500,000)
-    * [x] Tokens from precommitments funded via fiat and other currencies will be included in this tranche 
+    * Soft cap of 13,000,000 OAX (ETH equivalence of USD 9,750,000)
+    * Hard cap of 30,000,000 OAX (ETH equivalence of USD 22,500,000)
+    * Tokens from precommitments funded via fiat and other currencies will be included in this tranche 
   * Tranche 2 30,000,000 (30%) OAX - locked for 1 year from token launch for Additional Token Sale (ATS)
     * 30,000,000 Tranche 2 token sale - Additional Token Sale (ATS). These tokens are subject to a lock-up for 1ß year from token launch
   * 20,000,000 (20%) OAX retained by the foundation, consisting of:
@@ -29,52 +36,58 @@
     * 6,000,000 (30%) locked for 2 years from token launch
 
 * OAX Token Price
-  * Price per OAX
-  * Equivalence of USD 0.75 ETH based on ETH/USD @ 12:00 GMT Jun 21 2017
-  * This is 0.00309776 ETH as of Jun 5 2017
+  * The price for an OAX token will be set as the equivalence of USD 0.75 ETH based on ETH/USD @ 12:00 GMT Jun 21 2017
+  * The indicative price per OAX token is 0.00309776 ETH as of Jun 5 2017
     * 1 OAX = 0.00309776 ETH
     * 1 ETH = 1 / 0.00309776 = 322.813904240483446 OAX
-  * This will be encoded as an unsigned integer, 1,000 ETH = 322814 OAX with six significant figures 
+  * This will be encoded as an unsigned integer, 1,000 ETH = 322814 OAX with six significant figures
 
+* Precommitments
+  * Some participants will be able to purchase the crowdsale tokens through precommitments using fiat and other currencies
+  * openANX will allocate the tokens for these participants prior to the public crowdsale commencement 
 
-## Requirements as discussed with Hugh May 11 2017:
+* Minimum Funding And Refunds
+  * There is no minimum funding level in the smart contract as the precommitments already exceed the minimum funding level
+  * There is therefore no requirements for this crowdsale contract to provide refunds to participants
+    * ETH contributed to the crowdsale smart contract will be immediately transferred into a wallet specified by openANX
 
-* [ ] Accept commitments before deployment of the contract
-* [ ] Min and max limits for contributions?
-* [ ] Start and end block for contributions
-* [ ] Early withdrawal if minimum funding reached
-* [ ] Minimum funding amount
-* [ ] Soft limit maximum funding amount
-* [ ] When soft limit maximum reached, accept contributions for an additional 24 hours
-* [ ] KYC and KYT
-* [ ] Show tokens when funding received, but tokens are locked until KYC is satisfactory
-* [ ] Consider KYC in a separate smart contract 
-* [ ] KYC on redemption of tokens
-* [ ] Approval of transactions based on amount, from and to
-* [ ] Tokens freely tradeable without KYC, but will require KYC on issuance and redemption?
-* [ ] Consider upgrade of tokens in the future
-  * [ ] My preference is to publish a new token contract at a later date when the requirements are known, with a `newToken.upgrade()` function. The user has to execute `oldToken.approve(newTokenAddress, amount)`, then call `newToken.upgrade()`.
-  
-## Confirming KYC Requirements May 18 2017:
+* Crowdsale Wallet
+  * The wallet receiving the ethers during the crowdsale has to be specifed as a parameter during the deployment of the crowdsale contract
+  * This wallet address can be changed at any time during the crowdsale period
 
-* [ ] Just confirming the KYC requirements:
-  1. Any account can contribute to the crowdsale
-  2. Crowdsale contributing accounts will **NOT** be able to move their tokens until they have been KYC-ed
-  3. The KYC status in the smart contracts is just a simple KYC - Yes or No
-  4. Once the tokens have been transferred from the original crowdsale contributing account, there is **NO** KYC required for transfers. The tokens can trade freely.
+* Minimum and Maximum Contributions
+  * There is the ability to set a minimum and maximum contribution per transaction. Set one or both of these to 0 if this restriction is not required
 
-## Discussion with Hugh Jun 13 2017:
+* Soft And Hard Cap
+  * There will be a soft cap and a hard cap specified in the crowdsale smart contract
+  * openANX will be able to execute the `finalise()` function to close the crowdsale once the number of issued tokens exceeds the soft cap
+  * openANX will also be able to execute the `finalise()` function after the crowdsale end date if the soft cap is not reached
 
-* [ ] Minimum crowdfunding level has been exceeded
-  * [ ] Remove the need for the crowdsale participants to be able to withdraw their refunds if the minimum level is not reached
-  * [ ] Remove the need for the ETH to be stored in the crowdfunding token contract
-* [ ] A `finalise()` function may be required to move any unsold tokens in the tranche1 portion to the tranche2 portion
-* [ ] Accounts with locked tokens can also participate in the crowdfunding
+* `finalise()` The Crowdsale
+  * openANX calls `finalise()` to close the crowdsale, either after the soft cap is breached to the end of the crowdsale period, or after the crowdsale end date 
+  * The `finalise()` function will allocate the 1 and 2 year locked tokens, unsold tranche1 tokens and tranche2 tokens
 
+* KYC
+  * Participants can contribute to the crowdsale by sending ETH to the OAX 'openANX Token' smart contract and will be issued OAX tokens
+  * Participants will only be able to transfer their issued OAX tokens after submitting KYC information to openANX
+  * Once KYC-ed, participants will be able to transfer their issued OAX tokens
+  * The KYC smart contract will just encode a simple Yes/No on an accounts KYC status
+  * Once KYC approved, an account cannot be KYC disapproved
+  * OAX tokens are otherwise able to be transferred freely without further KYC requirements 
 
+* Unsold Tranche 1 Tokens
+  * Any tokens unsold from the tranche 1 quote will be locked away from 1 year along with the tranche 2 tokens
+
+* Locked Tokens
+  * Accounts holding 1 or 2 year locked tokens will also be able to participant in the public crowdsale
+
+<br />
+
+<hr />
 
 ## Deployment Checklist
 
-* Deploy contract to Mainnet
+* Deploy contract to Mainnet with specified wallet address as the deployment parameter
+* Verify the source code on EtherScan.io
 * Check START_DATE and END_DATE
 * Check Solidity [release history](https://github.com/ethereum/solidity/releases) for potential bugs 

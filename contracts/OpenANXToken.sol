@@ -173,11 +173,21 @@ contract OpenANXToken is ERC20Token {
     uint8 DECIMALS = 18;
     uint256 DECIMALSFACTOR = 10**uint256(DECIMALS);
 
+    // Wallet receiving the raised funds 
+    address public wallet;
 
     // ------------------------------------------------------------------------
     // Constructor
     // ------------------------------------------------------------------------
-    function OpenANXToken() ERC20Token("OAX", "openANX Token", DECIMALS, 0) {
+    function OpenANXToken(address _wallet) ERC20Token("OAX", "openANX Token", DECIMALS, 0) {
+        wallet = _wallet;
+    }
+
+    // ------------------------------------------------------------------------
+    // Change wallet address
+    // ------------------------------------------------------------------------
+    function setWallet(address _wallet) onlyOwner {
+        wallet = _wallet;
     }
 
     // ------------------------------------------------------------------------
@@ -215,7 +225,7 @@ contract OpenANXToken is ERC20Token {
         TokensBought(msg.sender, msg.value, this.balance, tokens,
              totalSupply, ethersPerHundredMillionTokens);
         // Transfer the contributed ethers
-        if (!owner.send(msg.value)) throw;
+        if (!wallet.send(msg.value)) throw;
     }
     event TokensBought(address indexed buyer, uint256 ethers, 
         uint256 newEtherBalance, uint256 tokens, uint256 newTotalSupply, 

@@ -175,25 +175,17 @@ var tokenContract = web3.eth.contract(tokenAbi);
 console.log(JSON.stringify(tokenContract));
 var tokenTx = null;
 var tokenAddress = null;
-console.log("DEBUG: Deploy Token 1a");
-var token = tokenContract.new({from: tokenOwnerAccount, data: tokenBin, gas: 6000000},
+var token = tokenContract.new(crowdfundWallet, {from: tokenOwnerAccount, data: tokenBin, gas: 6000000},
   function(e, contract) {
     if (!e) {
       if (!contract.address) {
-        console.log("DEBUG: Deploy Token 2a");
         tokenTx = contract.transactionHash;
-        console.log("DEBUG: Deploy Token 2b - tokenTx=" + tokenTx);
       } else {
-        console.log("DEBUG: Deploy Token 3a");
         tokenAddress = contract.address;
-        console.log("DEBUG: Deploy Token 3b");
         addAccount(tokenAddress, token.symbol() + " '" + token.name() + "' *");
-        console.log("DEBUG: Deploy Token 3c");
         addTokenContractAddressAndAbi(tokenAddress, tokenAbi, lockedTokensAbi);
-        console.log("DEBUG: Deploy Token 3d");
         console.log("DATA: tokenAddress=" + tokenAddress);
         printTxData("tokenAddress=" + tokenAddress, tokenTx);
-        console.log("DEBUG: Deploy Token 3e");
       }
     }
   }
@@ -201,7 +193,6 @@ var token = tokenContract.new({from: tokenOwnerAccount, data: tokenBin, gas: 600
 while (txpool.status.pending > 0) {
 }
 printTxData("tokenAddress=" + tokenAddress, tokenTx);
-console.log("DEBUG: Deploy Token 1b");
 printBalances();
 failIfGasEqualsGasUsed(tokenTx, testMessage);
 printTokenContractStaticDetails();

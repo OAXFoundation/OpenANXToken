@@ -147,9 +147,9 @@ contract OpenANXToken is ERC20Token {
     bool public finalised = false;
 
     // Thursday, 22-Jun-17 13:00:00 UTC / 1pm GMT 22 June 2017. Do not use `now`
-    uint256 public constant START_DATE = 1497178309; // Sun 11 Jun 2017 10:51:49 UTC
+    uint256 public constant START_DATE = 1497185399; // Sun 11 Jun 2017 12:49:59 UTC
     // Saturday, 22-Jul-17 13:00:00 UTC / 1pm GMT 22 July 2017. Do not use `now`
-    uint256 public constant END_DATE = 1497178609; // Sun 11 Jun 2017 10:56:49 UTC
+    uint256 public constant END_DATE = 1497185699; // Sun 11 Jun 2017 12:54:59 UTC
 
     // Set to 0 for no minimum contribution amount
     uint256 public CONTRIBUTIONS_MIN = 0 ether;
@@ -173,11 +173,21 @@ contract OpenANXToken is ERC20Token {
     uint8 DECIMALS = 18;
     uint256 DECIMALSFACTOR = 10**uint256(DECIMALS);
 
+    // Wallet receiving the raised funds 
+    address public wallet;
 
     // ------------------------------------------------------------------------
     // Constructor
     // ------------------------------------------------------------------------
-    function OpenANXToken() ERC20Token("OAX", "openANX Token", DECIMALS, 0) {
+    function OpenANXToken(address _wallet) ERC20Token("OAX", "openANX Token", DECIMALS, 0) {
+        wallet = _wallet;
+    }
+
+    // ------------------------------------------------------------------------
+    // Change wallet address
+    // ------------------------------------------------------------------------
+    function setWallet(address _wallet) onlyOwner {
+        wallet = _wallet;
     }
 
     // ------------------------------------------------------------------------
@@ -215,7 +225,7 @@ contract OpenANXToken is ERC20Token {
         TokensBought(msg.sender, msg.value, this.balance, tokens,
              totalSupply, ethersPerHundredMillionTokens);
         // Transfer the contributed ethers
-        if (!owner.send(msg.value)) throw;
+        if (!wallet.send(msg.value)) throw;
     }
     event TokensBought(address indexed buyer, uint256 ethers, 
         uint256 newEtherBalance, uint256 tokens, uint256 newTotalSupply, 

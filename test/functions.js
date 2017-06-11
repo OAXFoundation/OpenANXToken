@@ -89,6 +89,7 @@ function printBalances() {
   var totalTokenBalance2Y = new BigNumber(0);
   var totalTokenBalance = new BigNumber(0);
   console.log("RESULT:  # Account                                             EtherBalanceChange                 Unlocked Token                      Locked 1Y                      Locked 2Y                          Total Name");
+  console.log("RESULT: -- ------------------------------------------ --------------------------- ------------------------------ ------------------------------ ------------------------------ ------------------------------ ---------------------------");
   accounts.forEach(function(e) {
     i++;
     var etherBalanceBaseBlock = eth.getBalance(e, baseBlock);
@@ -104,12 +105,12 @@ function printBalances() {
     console.log("RESULT: " + pad2(i) + " " + e  + " " + pad(etherBalance) + " " + padToken(tokenBalanceUnlocked, decimals) + " " + padToken(tokenBalance1Y, decimals) + " " + 
         padToken(tokenBalance2Y, decimals) + " " + padToken(tokenBalance, decimals) + " " + accountNames[e]);
   });
-  // 12 0xabba43e7594e3b76afb157989e93c6621497fd4b        0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #11 - Developers
-  // 13 0x90d8927407c79c4a28ee879b821c76fc9bcc2688        0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 TOKEN
-  // -- ------------------------------------------ --------------------------- ------------------------------ ------------------------------ ------------------------------ ------------------------------ ---------------------------
   console.log("RESULT: -- ------------------------------------------ --------------------------- ------------------------------ ------------------------------ ------------------------------ ------------------------------ ---------------------------");
   console.log("RESULT:                                                                           " + padToken(totalTokenBalanceUnlocked, decimals) + " " + 
-      padToken(totalTokenBalance1Y, decimals) + " " + padToken(totalTokenBalance2Y, decimals) + " " + padToken(totalTokenBalance, decimals));
+      padToken(totalTokenBalance1Y, decimals) + " " + padToken(totalTokenBalance2Y, decimals) + " " + padToken(totalTokenBalance, decimals) + " Total Token Balances *");
+  console.log("RESULT: -- ------------------------------------------ --------------------------- ------------------------------ ------------------------------ ------------------------------ ------------------------------ ---------------------------");
+  console.log("RESULT: * Note that the sum of all the locked tokens is represented in the unlocked balance at the token contract address, and this will be double counted in the grand total balance above");
+  console.log("RESULT: ");
 }
 
 function pad2(s) {
@@ -242,9 +243,11 @@ function printTokenContractStaticDetails() {
     console.log("RESULT: token.name=" + contract.name());
     console.log("RESULT: token.decimals=" + contract.decimals());
     var startDate = contract.START_DATE();
-    console.log("RESULT: token.START_DATE=" + startDate + " " + new Date(startDate * 1000).toUTCString());
+    console.log("RESULT: token.START_DATE=" + startDate + " " + new Date(startDate * 1000).toUTCString()  + 
+        " / " + new Date(startDate * 1000).toGMTString());
     var endDate = contract.END_DATE();
-    console.log("RESULT: token.END_DATE=" + endDate + " " + new Date(endDate * 1000).toUTCString());
+    console.log("RESULT: token.END_DATE=" + endDate + " " + new Date(endDate * 1000).toUTCString() + 
+        " / " + new Date(endDate * 1000).toGMTString());
   }
 }
 

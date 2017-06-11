@@ -146,10 +146,10 @@ contract OpenANXToken is ERC20Token {
     uint256 public constant SOFT_CAP_PERIOD = 24 hours;
     bool public finalised = false;
 
-    // Thursday, 22-Jun-17 00:00:00 UTC. Do not use `now`
-    uint256 public constant START_DATE = 1498089600;
-    // Friday, 21-Jul-17 00:00:00 UTC. Do not use `now`
-    uint256 public constant END_DATE = 1500595200;
+    // Thursday, 22-Jun-17 13:00:00 UTC / 1pm GMT 22 June 2017. Do not use `now`
+    uint256 public constant START_DATE = 1498136400;
+    // Saturday, 22-Jul-17 13:00:00 UTC / 1pm GMT 22 July 2017. Do not use `now`
+    uint256 public constant END_DATE = 1500728400;
 
     // Set to 0 for no minimum contribution amount
     uint256 public CONTRIBUTIONS_MIN = 0 ether;
@@ -161,6 +161,9 @@ contract OpenANXToken is ERC20Token {
     // ETH per token 0.00309776 indicative at 5 June 2017
     //                100000000
     // ethersPerHundredMillionTokens = 309776
+    // tokensPerEther = 322.813904240483446
+    // tokensPerKEther = 322,813.904240483446
+    // tokensPerKEther = 322,814 rounded to an uint
     uint256 public ethersPerHundredMillionTokens = 309776;
 
     // Locked Tokens

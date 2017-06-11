@@ -79,8 +79,8 @@ printf "ENDTIME               = '$ENDTIME' '$ENDTIME_S'\n"
 
 # --- Modify dates ---
 # PRESALE_START_DATE = +1m
-`perl -pi -e "s/START_DATE = 1498089600;/START_DATE = $STARTTIME; \/\/ $STARTTIME_S/" $TOKENTEMPSOL`
-`perl -pi -e "s/END_DATE = 1500595200;/END_DATE = $ENDTIME; \/\/ $ENDTIME_S/" $TOKENTEMPSOL`
+`perl -pi -e "s/START_DATE = 1498136400;/START_DATE = $STARTTIME; \/\/ $STARTTIME_S/" $TOKENTEMPSOL`
+`perl -pi -e "s/END_DATE = 1500728400;/END_DATE = $ENDTIME; \/\/ $ENDTIME_S/" $TOKENTEMPSOL`
 
 # --- Un-internal safeMaths ---
 `perl -pi -e "s/internal/constant/" $TOKENTEMPSOL`
@@ -187,7 +187,7 @@ var token = tokenContract.new({from: tokenOwnerAccount, data: tokenBin, gas: 600
         console.log("DEBUG: Deploy Token 3a");
         tokenAddress = contract.address;
         console.log("DEBUG: Deploy Token 3b");
-        addAccount(tokenAddress, "TOKEN");
+        addAccount(tokenAddress, token.symbol() + " '" + token.name() + "' *");
         console.log("DEBUG: Deploy Token 3c");
         addTokenContractAddressAndAbi(tokenAddress, tokenAbi, lockedTokensAbi);
         console.log("DEBUG: Deploy Token 3d");

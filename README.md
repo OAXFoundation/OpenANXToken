@@ -87,7 +87,7 @@ There is a subreddit at [https://www.reddit.com/r/OpenANX/](https://www.reddit.c
 
 ## Deployment Checklist
 
-* Deploy contract to Mainnet with specified wallet address as the deployment parameter
-* Verify the source code on EtherScan.io
 * Check START_DATE and END_DATE
 * Check Solidity [release history](https://github.com/ethereum/solidity/releases) for potential bugs 
+* Deploy contract to Mainnet with specified wallet address as the deployment parameter
+* Verify the source code on EtherScan.io

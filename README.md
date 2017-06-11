@@ -84,9 +84,30 @@ There is a subreddit at [https://www.reddit.com/r/OpenANX/](https://www.reddit.c
 
 <hr />
 
+## TODO
+
+* [ ] BK Testing different scenarios
+  * [ ] Scenario where funding below soft cap and above soft cap
+  * [ ] Unlocking of tokens in 1 year and 2 years
+  * [ ] Public crowdsale participant can also have locked tokens
+* [ ] BK Complete KYC functions
+* [ ] BK Develop and test token contract upgrade path
+* [ ] BK Security audit
+* [ ] JB Security audit
+
+<br />
+
+<hr />
+
 ## Deployment Checklist
 
 * Check START_DATE and END_DATE
 * Check Solidity [release history](https://github.com/ethereum/solidity/releases) for potential bugs 
 * Deploy contract to Mainnet with specified wallet address as the deployment parameter
 * Verify the source code on EtherScan.io
+
+<br />
+
+<br />
+
+Enjoy. (c) OpenANX and BokkyPooBah / Bok Consulting Pty Ltd 2017. The MIT Licence.

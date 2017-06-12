@@ -60,4 +60,15 @@
 
 # Notes
 
-I prefer to test the Ethereum smart contracts against the Mainnet clients, using a Dev blockchain. This is to reduce the effects of different behaviours when testing agains truffle or one of the other testing frameworks.
+* The tests were conducted using bash shell scripts running Geth/v1.6.5-stable-cf87713d/darwin-amd64/go1.8.3 JavaScript commands
+* The smart contracts were compiled using Solidity 0.4.11+commit.68ef5810.Darwin.appleclang
+* The test script can be found in [test/01_test1.sh](test/01_test1.sh)
+* The test results can be found in [test/test1results.txt](test/test1results.txt) with details in [test/test1output.txt](test/test1output.txt)
+* The test can be run on OS/X, should run on Linux and may run on Windows with Cygwin
+* The [test/genesis.json](test/genesis.json) allocates ethers to the test accounts, and specifies a high block gas limit to accommodate many transactions in the same block
+* The [test/00_runGeth.sh](test/00_runGeth.sh) scripts starts `geth` with the parameter `--targetgaslimit 994712388` to keep the high block gas limit
+* The reasons for using the test environment as listed above, instead of truffles/testrpc are:
+  * The test are conducted using the actual blockchain client software as is running on Mainnet and not just a mock environment like testrpc
+  * It is easy to change parameters like dates, addresses or blocknumbers using the Unix search/replace tools
+  * There have been issues in the part with version incompatibility between testrpc and solidity, i.e., version mismatches 
+  * The intermediate and key results are all saved to later viewing

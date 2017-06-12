@@ -303,6 +303,7 @@ contract OpenANXToken is ERC20Token, OpenANXTokenConfig {
         if (!finalised) throw;
         // Cannot transfer if KYC verification is required
         if (kycRequired[_to]) throw;
+        // Standard transfer
         return super.transfer(_to, _amount);
     }
 
@@ -319,6 +320,7 @@ contract OpenANXToken is ERC20Token, OpenANXTokenConfig {
         if (!finalised) throw;
         // Cannot transfer if KYC verification is required
         if (kycRequired[_from]) throw;
+        // Standard transferFrom
         return super.transferFrom(_from, _to, _amount);
     }
 

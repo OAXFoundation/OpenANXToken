@@ -51,6 +51,7 @@
 * Test 3 Cannot Move Tokens Without Finalising
   * `transfer(...)`, `approve(...)` and `transferFrom(...)`
 * Test 4 Finalising
+* Test 5 KYC Verify
 
 <br />
 

@@ -199,20 +199,26 @@ console.log("RESULT: " + testMessage);
 var tx3_1_1 = token.transfer(account5, "1000000000000000000", {from: account2, gas: 100000});
 var tx3_1_2 = token.transfer(account5, "20000000000000000000", {from: account4, gas: 100000});
 var tx3_1_3 = token.approve(account5, "300000000000000000000", {from: account3, gas: 100000});
+var tx3_1_4 = token.approve(account6, "4000000000000000000000", {from: account4, gas: 100000});
 while (txpool.status.pending > 0) {
 }
-var tx3_1_4 = token.transferFrom(account3, account5, "300000000000000000000", {from: account5, gas: 100000});
+var tx3_1_5 = token.transferFrom(account3, account5, "300000000000000000000", {from: account5, gas: 100000});
+var tx3_1_6 = token.transferFrom(account4, account6, "300000000000000000000", {from: account6, gas: 100000});
 while (txpool.status.pending > 0) {
 }
 printTxData("tx3_1_1", tx3_1_1);
 printTxData("tx3_1_2", tx3_1_2);
 printTxData("tx3_1_3", tx3_1_3);
 printTxData("tx3_1_4", tx3_1_4);
+printTxData("tx3_1_5", tx3_1_5);
+printTxData("tx3_1_6", tx3_1_6);
 printBalances();
-failIfGasEqualsGasUsed(tx3_1_1, testMessage + " - transfer ac2 -> ac5. CHECK no movement");
-failIfGasEqualsGasUsed(tx3_1_2, testMessage + " - transfer ac4 -> ac5. CHECK no movement");
+passIfGasEqualsGasUsed(tx3_1_1, testMessage + " - transfer ac2 -> ac5. CHECK no movement");
+passIfGasEqualsGasUsed(tx3_1_2, testMessage + " - transfer ac4 -> ac5. CHECK no movement");
 failIfGasEqualsGasUsed(tx3_1_3, testMessage + " - approve ac3 -> ac5");
-failIfGasEqualsGasUsed(tx3_1_4, testMessage + " - transferFrom ac3 -> ac5. CHECK no movement");
+failIfGasEqualsGasUsed(tx3_1_4, testMessage + " - approve ac4 -> ac5");
+passIfGasEqualsGasUsed(tx3_1_5, testMessage + " - transferFrom ac3 -> ac5. CHECK no movement");
+passIfGasEqualsGasUsed(tx3_1_6, testMessage + " - transferFrom ac4 -> ac6. CHECK no movement");
 printTokenContractDynamicDetails();
 console.log("RESULT: ");
 
@@ -226,6 +232,52 @@ while (txpool.status.pending > 0) {
 printTxData("tx4_1", tx4_1);
 printBalances();
 failIfGasEqualsGasUsed(tx4_1, testMessage);
+printTokenContractDynamicDetails();
+console.log("RESULT: ");
+
+
+// -----------------------------------------------------------------------------
+var testMessage = "Test 5.1 KYC Verify";
+console.log("RESULT: " + testMessage);
+var tx5_1_1 = token.kycVerify(account2, {from: tokenOwnerAccount, gas: 4000000});
+var tx5_1_2 = token.kycVerify(account3, {from: tokenOwnerAccount, gas: 4000000});
+while (txpool.status.pending > 0) {
+}
+printTxData("tx5_1_1", tx5_1_1);
+printTxData("tx5_1_2", tx5_1_2);
+printBalances();
+failIfGasEqualsGasUsed(tx5_1_1, testMessage + " - account2");
+failIfGasEqualsGasUsed(tx5_1_2, testMessage + " - account3");
+printTokenContractDynamicDetails();
+console.log("RESULT: ");
+
+
+// -----------------------------------------------------------------------------
+var testMessage = "Test 6.1 Move Tokens After Finalising";
+console.log("RESULT: " + testMessage);
+var tx6_1_1 = token.transfer(account5, "1000000000000000000", {from: account2, gas: 100000});
+var tx6_1_2 = token.transfer(account5, "20000000000000000000", {from: account4, gas: 100000});
+var tx6_1_3 = token.approve(account5, "300000000000000000000", {from: account3, gas: 100000});
+var tx6_1_4 = token.approve(account6, "4000000000000000000000", {from: account4, gas: 100000});
+while (txpool.status.pending > 0) {
+}
+var tx6_1_5 = token.transferFrom(account3, account5, "300000000000000000000", {from: account5, gas: 100000});
+var tx6_1_6 = token.transferFrom(account4, account6, "300000000000000000000", {from: account6, gas: 100000});
+while (txpool.status.pending > 0) {
+}
+printTxData("tx6_1_1", tx6_1_1);
+printTxData("tx6_1_2", tx6_1_2);
+printTxData("tx6_1_3", tx6_1_3);
+printTxData("tx6_1_4", tx6_1_4);
+printTxData("tx6_1_5", tx6_1_5);
+printTxData("tx6_1_6", tx6_1_6);
+printBalances();
+failIfGasEqualsGasUsed(tx6_1_1, testMessage + " - transfer ac2 -> ac5. CHECK for movement");
+failIfGasEqualsGasUsed(tx6_1_2, testMessage + " - transfer ac4 -> ac5. CHECK no movement");
+failIfGasEqualsGasUsed(tx6_1_3, testMessage + " - approve ac3 -> ac5");
+failIfGasEqualsGasUsed(tx6_1_4, testMessage + " - approve ac4 -> ac5");
+failIfGasEqualsGasUsed(tx6_1_5, testMessage + " - transferFrom ac3 -> ac5. CHECK for movement");
+passIfGasEqualsGasUsed(tx6_1_6, testMessage + " - transferFrom ac4 -> ac6. CHECK no movement");
 printTokenContractDynamicDetails();
 console.log("RESULT: ");
 

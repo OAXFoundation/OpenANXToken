@@ -1,5 +1,5 @@
-// May 20 2017
-var ethPriceUSD = 127.2;
+// Jun 12 2017
+var ethPriceUSD = 380.39;
 
 // -----------------------------------------------------------------------------
 // Accounts
@@ -13,13 +13,14 @@ addAccount(eth.accounts[2], "Account #2 - KYCed");
 addAccount(eth.accounts[3], "Account #3 - KYCed");
 addAccount(eth.accounts[4], "Account #4");
 addAccount(eth.accounts[5], "Account #5");
-addAccount(eth.accounts[6], "Account #6 - Crowdfund Wallet");
-addAccount(eth.accounts[7], "Account #7 - Foundation");
-addAccount(eth.accounts[8], "Account #8 - Advisors");
-addAccount(eth.accounts[9], "Account #9 - Directors");
-addAccount(eth.accounts[10], "Account #10 - Early Backers");
-addAccount(eth.accounts[11], "Account #11 - Developers");
-addAccount(eth.accounts[12], "Account #12 - Precommitments");
+addAccount(eth.accounts[5], "Account #6");
+addAccount(eth.accounts[6], "Account #7 - Crowdfund Wallet");
+addAccount(eth.accounts[7], "Account #8 - Foundation");
+addAccount(eth.accounts[8], "Account #9 - Advisors");
+addAccount(eth.accounts[9], "Account #10 - Directors");
+addAccount(eth.accounts[10], "Account #11 - Early Backers");
+addAccount(eth.accounts[11], "Account #12 - Developers");
+addAccount(eth.accounts[12], "Account #13 - Precommitments");
 
 var minerAccount = eth.accounts[0];
 var tokenOwnerAccount = eth.accounts[1];
@@ -27,13 +28,14 @@ var account2 = eth.accounts[2];
 var account3 = eth.accounts[3];
 var account4 = eth.accounts[4];
 var account5 = eth.accounts[5];
-var crowdfundWallet = eth.accounts[6];
-var foundationAccount = eth.accounts[7];
-var advisorsAccount = eth.accounts[8];
-var directorsAccount = eth.accounts[9];
-var earlyBackersAccount = eth.accounts[10];
-var developersAccount = eth.accounts[11];
-var precommitmentsAccount = eth.accounts[12];
+var account6 = eth.accounts[6];
+var crowdfundWallet = eth.accounts[7];
+var foundationAccount = eth.accounts[8];
+var advisorsAccount = eth.accounts[9];
+var directorsAccount = eth.accounts[10];
+var earlyBackersAccount = eth.accounts[11];
+var developersAccount = eth.accounts[12];
+var precommitmentsAccount = eth.accounts[13];
 
 
 var baseBlock = eth.blockNumber;

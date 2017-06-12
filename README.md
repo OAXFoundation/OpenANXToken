@@ -97,7 +97,7 @@ There is a subreddit at [https://www.reddit.com/r/OpenANX/](https://www.reddit.c
 
 <hr />
 
-## Operations On The Crowdsale Contract
+# Operations On The Crowdsale Contract
 
 Following are the functions that can be called at the different phases of the crowdsale contract
 

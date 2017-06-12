@@ -299,6 +299,9 @@ contract OpenANXToken is ERC20Token, OpenANXTokenConfig {
     // verification check for the crowdsale participant's first transfer
     // ------------------------------------------------------------------------
     function transfer(address _to, uint _amount) returns (bool success) {
+        // Cannot transfer before crowdsale ends
+        if (!finalised) throw;
+        // Cannot transfer if KYC verification is required
         if (kycRequired[_to]) throw;
         return super.transfer(_to, _amount);
     }
@@ -312,6 +315,9 @@ contract OpenANXToken is ERC20Token, OpenANXTokenConfig {
     function transferFrom(address _from, address _to, uint _amount) 
         returns (bool success)
     {
+        // Cannot transfer before crowdsale ends
+        if (!finalised) throw;
+        // Cannot transfer if KYC verification is required
         if (kycRequired[_from]) throw;
         return super.transferFrom(_from, _to, _amount);
     }

@@ -193,6 +193,47 @@ printTokenContractDynamicDetails();
 console.log("RESULT: ");
 
 
+// -----------------------------------------------------------------------------
+var testMessage = "Test 3.1 Cannot Move Tokens Without Finalising";
+console.log("RESULT: " + testMessage);
+var tx3_1_1 = token.transfer(account5, "1000000000000000000", {from: account2, gas: 100000});
+var tx3_1_2 = token.transfer(account5, "20000000000000000000", {from: account4, gas: 100000});
+var tx3_1_3 = token.approve(account5, "300000000000000000000", {from: account3, gas: 100000});
+while (txpool.status.pending > 0) {
+}
+var tx3_1_4 = token.transferFrom(account3, account5, "300000000000000000000", {from: account5, gas: 100000});
+while (txpool.status.pending > 0) {
+}
+printTxData("tx3_1_1", tx3_1_1);
+printTxData("tx3_1_2", tx3_1_2);
+printTxData("tx3_1_3", tx3_1_3);
+printTxData("tx3_1_4", tx3_1_4);
+printBalances();
+failIfGasEqualsGasUsed(tx3_1_1, testMessage + " - transfer ac2 -> ac5. CHECK no movement");
+failIfGasEqualsGasUsed(tx3_1_2, testMessage + " - transfer ac4 -> ac5. CHECK no movement");
+failIfGasEqualsGasUsed(tx3_1_3, testMessage + " - approve ac3 -> ac5");
+failIfGasEqualsGasUsed(tx3_1_4, testMessage + " - transferFrom ac3 -> ac5. CHECK no movement");
+printTokenContractDynamicDetails();
+console.log("RESULT: ");
+
+
+// -----------------------------------------------------------------------------
+var testMessage = "Test 4.1 Finalise crowdsale";
+console.log("RESULT: " + testMessage);
+var tx4_1 = token.finalise({from: tokenOwnerAccount, gas: 4000000});
+while (txpool.status.pending > 0) {
+}
+printTxData("tx4_1", tx4_1);
+printBalances();
+failIfGasEqualsGasUsed(tx4_1, testMessage);
+printTokenContractDynamicDetails();
+console.log("RESULT: ");
+
+
+
+exit;
+
+
 // TODO: Update test for this
 if (!skipSafeMath && false) {
   // -----------------------------------------------------------------------------
@@ -239,23 +280,6 @@ if (!skipSafeMath && false) {
   }
 
 }
-
-
-// -----------------------------------------------------------------------------
-var testMessage = "Test 3.1 Finalise crowdsale";
-console.log("RESULT: " + testMessage);
-var tx3_1 = token.finalise({from: tokenOwnerAccount, gas: 4000000});
-while (txpool.status.pending > 0) {
-}
-printTxData("tx3_1", tx3_1);
-printBalances();
-failIfGasEqualsGasUsed(tx3_1, testMessage);
-printTokenContractDynamicDetails();
-console.log("RESULT: ");
-
-
-
-exit;
 
 
 

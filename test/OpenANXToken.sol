@@ -265,7 +265,7 @@ contract OpenANXToken is ERC20Token, OpenANXTokenConfig {
     // ------------------------------------------------------------------------
     function finalise() {
         // Can only finalise if raised > soft cap or after the end date
-        // if (totalSupply < TOKENS_SOFT_CAP && now < END_DATE) throw;
+        if (totalSupply < TOKENS_SOFT_CAP && now < END_DATE) throw;
 
         // Can only finalise once
         if (finalised) throw;
@@ -288,6 +288,7 @@ contract OpenANXToken is ERC20Token, OpenANXTokenConfig {
         if (now >= START_DATE) throw;
         if (balance == 0) throw;
         balances[participant] = balances[participant].add(balance);
+        totalSupply = totalSupply.add(balance);
         Transfer(0x0, participant, balance);
     }
     event PrecommitmentAdded(address indexed participant, uint balance);

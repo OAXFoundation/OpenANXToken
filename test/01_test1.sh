@@ -166,6 +166,19 @@ console.log("RESULT: ");
 
 
 // -----------------------------------------------------------------------------
+// Wait for crowdsale start
+// -----------------------------------------------------------------------------
+var startDateTime = token.START_DATE();
+var startDateTimeDate = new Date(startDateTime * 1000);
+console.log("RESULT: Waiting until start date at " + startDateTime + " " + startDateTimeDate +
+  " currentDate=" + new Date());
+while ((new Date()).getTime() <= startDateTimeDate.getTime()) {
+}
+console.log("RESULT: Waited until start date at " + startDateTime + " " + startDateTimeDate +
+  " currentDate=" + new Date());
+
+
+// -----------------------------------------------------------------------------
 var testMessage = "Test 1.6 Buy tokens. 100 ETH = 34373.4 OAX from account2";
 console.log("RESULT: " + testMessage);
 var tx1_6_1 = eth.sendTransaction({from: account2, to: tokenAddress, gas: 400000, value: web3.toWei("100", "ether")});

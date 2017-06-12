@@ -8,6 +8,22 @@ There is a subreddit at [https://www.reddit.com/r/OpenANX/](https://www.reddit.c
 
 <hr />
 
+# Table of contents
+
+* [Requirements](#requirements)
+* [TODO](#todo)
+* [Operations On The Crowdsale Contract](#operations-on-the-crowdsale-contract)
+  * [Anytime](#anytime)
+  * [Before Start Date](#before-start-date)
+  * [After Start Date And Before End Date Or Finalised](#after-start-date-and-before-end-date-or-finalised)
+  * [After Finalised](#after-finalised)
+  * [After 1 Year And 2 Years](#after-1-year-and-2-years)
+* [Deployment Checklist](#deployment-checklist)
+
+<br />
+
+<hr />
+
 # Requirements
 
 * Token Identifier
@@ -112,7 +128,7 @@ Following are the functions that can be called at the different phases of the cr
 * Owner can call `setTokensPerKEther(...)` to set the token issuance rate
 * Owner can call `addPrecommitment(...)` to add precommitment balances
 
-## After Start Date, Before End Date or Finalised
+## After Start Date And Before End Date Or Finalised
 
 * Participants can send ETH to the default `()` function and receive tokens
 * Owner can call `finalise()` if soft cap breached or we are past the end date
@@ -122,7 +138,7 @@ Following are the functions that can be called at the different phases of the cr
 * Owner calls `kycVerify(...)` to verify participants, but this should be done after the crowdsale as the participants can transfer tokens immediately after being verified
 * Participant can call the normal `transfer(...)`, `approve(...)` and `transferFrom(...)` to transfer tokens
 
-## After 1 Year (and 2 Years)
+## After 1 Year And 2 Years
 
 * Participants with locked tokens can called the `lockedTokens.unlock1Y()` and `lockedTokens.unlock2Y()` to unlock their tokens
 
@@ -130,7 +146,7 @@ Following are the functions that can be called at the different phases of the cr
 
 <hr />
 
-## Deployment Checklist
+# Deployment Checklist
 
 * Check START_DATE and END_DATE
 * Check Solidity [release history](https://github.com/ethereum/solidity/releases) for potential bugs 

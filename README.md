@@ -18,6 +18,7 @@ There is a subreddit at [https://www.reddit.com/r/OpenANX/](https://www.reddit.c
   * [After Start Date And Before End Date Or Finalised](#after-start-date-and-before-end-date-or-finalised)
   * [After Finalised](#after-finalised)
   * [After 1 Year And 2 Years](#after-1-year-and-2-years)
+* [Testing](#testing)
 * [Deployment Checklist](#deployment-checklist)
 
 <br />
@@ -141,6 +142,14 @@ Following are the functions that can be called at the different phases of the cr
 ## After 1 Year And 2 Years
 
 * Participants with locked tokens can called the `lockedTokens.unlock1Y()` and `lockedTokens.unlock2Y()` to unlock their tokens
+
+<br />
+
+<hr />
+
+# Testing
+
+See [test](test) for details.
 
 <br />
 

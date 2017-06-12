@@ -302,7 +302,7 @@ contract OpenANXToken is ERC20Token, OpenANXTokenConfig {
         // Cannot transfer before crowdsale ends
         if (!finalised) throw;
         // Cannot transfer if KYC verification is required
-        if (kycRequired[_to]) throw;
+        if (kycRequired[msg.sender]) throw;
         // Standard transfer
         return super.transfer(_to, _amount);
     }

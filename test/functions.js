@@ -13,14 +13,16 @@ addAccount(eth.accounts[2], "Account #2 - KYCed");
 addAccount(eth.accounts[3], "Account #3 - KYCed");
 addAccount(eth.accounts[4], "Account #4");
 addAccount(eth.accounts[5], "Account #5");
-addAccount(eth.accounts[5], "Account #6");
-addAccount(eth.accounts[6], "Account #7 - Crowdfund Wallet");
-addAccount(eth.accounts[7], "Account #8 - Foundation");
-addAccount(eth.accounts[8], "Account #9 - Advisors");
-addAccount(eth.accounts[9], "Account #10 - Directors");
-addAccount(eth.accounts[10], "Account #11 - Early Backers");
-addAccount(eth.accounts[11], "Account #12 - Developers");
-addAccount(eth.accounts[12], "Account #13 - Precommitments");
+addAccount(eth.accounts[6], "Account #6");
+addAccount(eth.accounts[7], "Account #7");
+addAccount(eth.accounts[8], "Account #8");
+addAccount(eth.accounts[9], "Account #9 - Crowdfund Wallet");
+addAccount(eth.accounts[10], "Account #10 - Foundation");
+addAccount(eth.accounts[11], "Account #11 - Advisors");
+addAccount(eth.accounts[12], "Account #12 - Directors");
+addAccount(eth.accounts[13], "Account #13 - Early Backers");
+addAccount(eth.accounts[14], "Account #14 - Developers");
+addAccount(eth.accounts[15], "Account #15 - Precommitments");
 
 var minerAccount = eth.accounts[0];
 var tokenOwnerAccount = eth.accounts[1];
@@ -29,19 +31,21 @@ var account3 = eth.accounts[3];
 var account4 = eth.accounts[4];
 var account5 = eth.accounts[5];
 var account6 = eth.accounts[6];
-var crowdfundWallet = eth.accounts[7];
-var foundationAccount = eth.accounts[8];
-var advisorsAccount = eth.accounts[9];
-var directorsAccount = eth.accounts[10];
-var earlyBackersAccount = eth.accounts[11];
-var developersAccount = eth.accounts[12];
-var precommitmentsAccount = eth.accounts[13];
+var account7 = eth.accounts[7];
+var account8 = eth.accounts[8];
+var crowdfundWallet = eth.accounts[9];
+var foundationAccount = eth.accounts[10];
+var advisorsAccount = eth.accounts[11];
+var directorsAccount = eth.accounts[12];
+var earlyBackersAccount = eth.accounts[13];
+var developersAccount = eth.accounts[14];
+var precommitmentsAccount = eth.accounts[15];
 
 
 var baseBlock = eth.blockNumber;
 
 function unlockAccounts(password) {
-  for (var i = 0; i < 12; i++) {
+  for (var i = 0; i < 15; i++) {
     personal.unlockAccount(eth.accounts[i], password, 100000);
   }
 }
@@ -313,8 +317,8 @@ function printTokenContractDynamicDetails() {
     var transferEvent = contract.Transfer({}, { fromBlock: dynamicDetailsFromBlock, toBlock: latestBlock });
     i = 0;
     transferEvent.watch(function (error, result) {
-      console.log("RESULT: Transfer Event " + i++ + ": from=" + result.args.from + " to=" + result.args.to +
-        " value=" + result.args.value.shift(-decimals) + " block=" + result.blockNumber);
+      console.log("RESULT: Transfer Event " + i++ + ": from=" + result.args._from + " to=" + result.args._to +
+        " value=" + result.args._value.shift(-decimals) + " block=" + result.blockNumber);
     });
     transferEvent.stopWatching();
     dynamicDetailsFromBlock = latestBlock + 1;

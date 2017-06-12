@@ -185,6 +185,7 @@ contract OpenANXToken is ERC20Token, OpenANXTokenConfig {
         ERC20Token(SYMBOL, NAME, DECIMALS, 0)
     {
         wallet = _wallet;
+        lockedTokens = new LockedTokens(this);
     }
 
     // ------------------------------------------------------------------------
@@ -270,8 +271,10 @@ contract OpenANXToken is ERC20Token, OpenANXTokenConfig {
         // Can only finalise once
         if (finalised) throw;
 
+        // Calculate and add remaining tokens to locked balances
+        lockedTokens.addRemainingTokens();
+
         // Allocate locked and premined tokens
-        lockedTokens = new LockedTokens(this);
         balances[this] = balances[this].add(lockedTokens.totalSupplyLocked());
         totalSupply = totalSupply.add(lockedTokens.totalSupplyLocked());
 

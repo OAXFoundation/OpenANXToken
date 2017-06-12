@@ -74,8 +74,15 @@ contract LockedTokens is OpenANXTokenConfig {
         add2Y(0xAddA9B762A00FF12711113bfDc36958B73d7F915, 2000000 * DECIMALSFACTOR);
         // Confirm 2Y totals
         assert(totalSupplyLocked2Y == TOKENS_LOCKED_2Y_TOTAL);
+    }
 
-        // --- Additional locked tokens ---
+
+    // ------------------------------------------------------------------------
+    // Add remaining tokens to locked 1y balances
+    // ------------------------------------------------------------------------
+    function addRemainingTokens() {
+        // Only the crowdsale contract can call this function
+        if (msg.sender != address(tokenContract)) throw;
         // Total tokens to be created
         uint remainingTokens = TOKENS_TOTAL;
         // Minus precommitments and public crowdsale tokens
@@ -85,7 +92,7 @@ contract LockedTokens is OpenANXTokenConfig {
         // Minus 2y locked tokens
         remainingTokens = remainingTokens.sub(totalSupplyLocked2Y);
         // Unsold tranche1 and tranche2 tokens to be locked for 1y 
-        add1Y(_tokenContract, remainingTokens);
+        add1Y(address(tokenContract), remainingTokens);
     }
 
 

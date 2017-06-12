@@ -222,6 +222,7 @@ passIfGasEqualsGasUsed(tx3_1_6, testMessage + " - transferFrom 4 OAX ac4 -> ac6.
 printTokenContractDynamicDetails();
 console.log("RESULT: ");
 
+
 // -----------------------------------------------------------------------------
 var testMessage = "Test 4.1 Finalise crowdsale";
 console.log("RESULT: " + testMessage);

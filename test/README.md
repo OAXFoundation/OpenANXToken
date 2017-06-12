@@ -52,6 +52,7 @@
   * `transfer(...)`, `approve(...)` and `transferFrom(...)`
 * Test 4 Finalising
 * Test 5 KYC Verify
+* Test 6.1 Move Tokens After Finalising
 
 <br />
 

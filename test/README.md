@@ -43,7 +43,12 @@
 
 # The Tests
 
-
+* Test 1 Before The Crowdsale
+  * Test 1.1 Deploy Token Contract
+  * Test 1.2 Add Precommitments, Change The tokensPerKEther Rate From 343,734 To 1,000,000 And Change Wallet
+* Test 2 During The Crowdsale
+  * Test 2.1 Buy tokens
+* Test 3 Finalising
 
 <br />
 

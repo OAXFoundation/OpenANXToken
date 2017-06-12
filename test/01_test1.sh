@@ -36,7 +36,7 @@ if [ "$MODE" == "dev" ]; then
   STARTTIME=`echo "$CURRENTTIME" | bc`
 else
   # Start time 1 minute in the future
-  STARTTIME=`echo "$CURRENTTIME+60" | bc`
+  STARTTIME=`echo "$CURRENTTIME+45" | bc`
 fi
 STARTTIME_S=`date -r $STARTTIME -u`
 ENDTIME=`echo "$CURRENTTIME+60*5" | bc`
@@ -140,27 +140,20 @@ console.log(JSON.stringify(token));
 
 
 // -----------------------------------------------------------------------------
-var testMessage = "Test 1.2 Add Precommitments";
+var testMessage = "Test 1.2 Precommitments, TokensPerKEther, Wallet";
 console.log("RESULT: " + testMessage);
-var tx1_2 = token.addPrecommitment(precommitmentsAccount, "12999000000000000000000000", {from: tokenOwnerAccount, gas: 4000000});
+var tx1_2_1 = token.addPrecommitment(precommitmentsAccount, "10000000000000000000000000", {from: tokenOwnerAccount, gas: 4000000});
+var tx1_2_2 = token.setTokensPerKEther("1000000", {from: tokenOwnerAccount, gas: 4000000});
+var tx1_2_3 = token.setWallet(crowdfundWallet, {from: tokenOwnerAccount, gas: 4000000});
 while (txpool.status.pending > 0) {
 }
-printTxData("tx1_2", tx1_2);
+printTxData("tx1_2_1", tx1_2_1);
+printTxData("tx1_2_2", tx1_2_2);
+printTxData("tx1_2_3", tx1_2_3);
 printBalances();
-failIfGasEqualsGasUsed(tx1_2, testMessage);
-printTokenContractDynamicDetails();
-console.log("RESULT: ");
-
-
-// -----------------------------------------------------------------------------
-var testMessage = "Test 1.4 Change wallet";
-console.log("RESULT: " + testMessage);
-var tx1_4 = token.setWallet(crowdfundWallet, {from: tokenOwnerAccount, gas: 4000000});
-while (txpool.status.pending > 0) {
-}
-printTxData("tx1_4", tx1_4);
-printBalances();
-failIfGasEqualsGasUsed(tx1_4, testMessage);
+failIfGasEqualsGasUsed(tx1_2_1, testMessage + " - precommitments");
+failIfGasEqualsGasUsed(tx1_2_2, testMessage + " - tokensPerKEther Rate From 343,734 To 1,000,000");
+failIfGasEqualsGasUsed(tx1_2_3, testMessage + " - change crowdsale wallet");
 printTokenContractDynamicDetails();
 console.log("RESULT: ");
 
@@ -179,14 +172,23 @@ console.log("RESULT: Waited until start date at " + startDateTime + " " + startD
 
 
 // -----------------------------------------------------------------------------
-var testMessage = "Test 1.6 Buy tokens. 100 ETH = 34373.4 OAX from account2";
+var testMessage = "Test 2.1 Buy tokens";
 console.log("RESULT: " + testMessage);
-var tx1_6_1 = eth.sendTransaction({from: account2, to: tokenAddress, gas: 400000, value: web3.toWei("100", "ether")});
+var tx2_1_1 = eth.sendTransaction({from: account2, to: tokenAddress, gas: 400000, value: web3.toWei("100", "ether")});
+var tx2_1_2 = eth.sendTransaction({from: account3, to: tokenAddress, gas: 400000, value: web3.toWei("1000", "ether")});
+var tx2_1_3 = eth.sendTransaction({from: account4, to: tokenAddress, gas: 400000, value: web3.toWei("10000", "ether")});
+var tx2_1_4 = eth.sendTransaction({from: directorsAccount, to: tokenAddress, gas: 400000, value: web3.toWei("1000", "ether")});
 while (txpool.status.pending > 0) {
 }
-printTxData("tx1_6_1", tx1_6_1);
+printTxData("tx2_1_1", tx2_1_1);
+printTxData("tx2_1_2", tx2_1_2);
+printTxData("tx2_1_3", tx2_1_3);
+printTxData("tx2_1_4", tx2_1_4);
 printBalances();
-failIfGasEqualsGasUsed(tx1_6_1, testMessage);
+failIfGasEqualsGasUsed(tx2_1_1, testMessage + " - account2 buys 100,000 OAX for 100 ETH");
+failIfGasEqualsGasUsed(tx2_1_2, testMessage + " - account3 buys 1,000,000 OAX for 1,000 ETH");
+failIfGasEqualsGasUsed(tx2_1_3, testMessage + " - account4 buys 10,000,000 OAX for 10,000 ETH");
+failIfGasEqualsGasUsed(tx2_1_4, testMessage + " - directorsAccount buys 1,000,000 OAX for 1,000 ETH");
 printTokenContractDynamicDetails();
 console.log("RESULT: ");
 

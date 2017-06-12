@@ -1,10 +1,11 @@
-pragma solidity ^0.4.10;
+pragma solidity ^0.4.11;
+
 // ----------------------------------------------------------------------------
-// OpenANX Token with crowdfunding
+// OAX 'openANX Token' crowdfunding contract
 //
-// 
+// Refer to http://openanx.org/ for further information.
 //
-// Enjoy. (c) OpenANX and BokkyPooBah / Bok Consulting Pty Ltd 2017. 
+// Enjoy. (c) openANX and BokkyPooBah / Bok Consulting Pty Ltd 2017. 
 // The MIT Licence.
 // ----------------------------------------------------------------------------
 
@@ -16,7 +17,9 @@ import "./LockedTokens.sol";
 // ----------------------------------------------------------------------------
 // ERC20 Token, with the addition of symbol, name and decimals
 // ----------------------------------------------------------------------------
-contract ERC20Token is ERC20Interface, SafeMath, Owned {
+contract ERC20Token is ERC20Interface, Owned {
+    using SafeMath for uint;
+
     string public symbol;
     string public name;
     uint8 public decimals;
@@ -24,12 +27,12 @@ contract ERC20Token is ERC20Interface, SafeMath, Owned {
     // ------------------------------------------------------------------------
     // Balances for each account
     // ------------------------------------------------------------------------
-    mapping(address => uint256) balances;
+    mapping(address => uint) balances;
 
     // ------------------------------------------------------------------------
     // Owner of account approves the transfer of an amount to another account
     // ------------------------------------------------------------------------
-    mapping(address => mapping (address => uint256)) allowed;
+    mapping(address => mapping (address => uint)) allowed;
 
     // ------------------------------------------------------------------------
     // Constructor
@@ -38,7 +41,7 @@ contract ERC20Token is ERC20Interface, SafeMath, Owned {
         string _symbol, 
         string _name, 
         uint8 _decimals, 
-        uint256 _totalSupply
+        uint _totalSupply
     ) Owned() {
         symbol = _symbol;
         name = _name;
@@ -50,20 +53,20 @@ contract ERC20Token is ERC20Interface, SafeMath, Owned {
     // ------------------------------------------------------------------------
     // Get the account balance of another account with address _owner
     // ------------------------------------------------------------------------
-    function balanceOf(address _owner) constant returns (uint256 balance) {
+    function balanceOf(address _owner) constant returns (uint balance) {
         return balances[_owner];
     }
 
     // ------------------------------------------------------------------------
     // Transfer the balance from owner's account to another account
     // ------------------------------------------------------------------------
-    function transfer(address _to, uint256 _amount) returns (bool success) {
+    function transfer(address _to, uint _amount) returns (bool success) {
         if (balances[msg.sender] >= _amount             // User has balance
             && _amount > 0                              // Non-zero transfer
             && balances[_to] + _amount > balances[_to]  // Overflow check
         ) {
-            balances[msg.sender] = safeSub(balances[msg.sender], _amount);
-            balances[_to] = safeAdd(balances[_to], _amount);
+            balances[msg.sender] = balances[msg.sender].sub(_amount);
+            balances[_to] = balances[_to].add(_amount);
             Transfer(msg.sender, _to, _amount);
             return true;
         } else {
@@ -78,7 +81,7 @@ contract ERC20Token is ERC20Interface, SafeMath, Owned {
     // ------------------------------------------------------------------------
     function approve(
         address _spender,
-        uint256 _amount
+        uint _amount
     ) returns (bool success) {
         allowed[msg.sender][_spender] = _amount;
         Approval(msg.sender, _spender, _amount);
@@ -93,17 +96,16 @@ contract ERC20Token is ERC20Interface, SafeMath, Owned {
     function transferFrom(
         address _from,
         address _to,
-        uint256 _amount
+        uint _amount
     ) returns (bool success) {
         if (balances[_from] >= _amount                  // From a/c has balance
             && allowed[_from][msg.sender] >= _amount    // Transfer approved
             && _amount > 0                              // Non-zero transfer
             && balances[_to] + _amount > balances[_to]  // Overflow check
         ) {
-            balances[_from] = safeSub(balances[_from], _amount);
-            allowed[_from][msg.sender] = safeSub(allowed[_from][msg.sender], 
-                _amount);
-            balances[_to] = safeAdd(balances[_to], _amount);
+            balances[_from] = balances[_from].sub(_amount);
+            allowed[_from][msg.sender] = allowed[_from][msg.sender].sub(_amount);
+            balances[_to] = balances[_to].add(_amount);
             Transfer(_from, _to, _amount);
             return true;
         } else {
@@ -118,7 +120,7 @@ contract ERC20Token is ERC20Interface, SafeMath, Owned {
     function allowance(
         address _owner, 
         address _spender
-    ) constant returns (uint256 remaining) {
+    ) constant returns (uint remaining) {
         return allowed[_owner][_spender];
     }
 }
@@ -129,21 +131,21 @@ contract ERC20Token is ERC20Interface, SafeMath, Owned {
 // ----------------------------------------------------------------------------
 contract OpenANXToken is ERC20Token {
 
-    uint256 public constant TOKENS_SOFT_CAP = 13000000;
-    uint256 public constant TOKENS_HARD_CAP = 30000000;
-    uint256 public constant TOKENS_TOTAL = 100000000;
+    uint public constant TOKENS_SOFT_CAP = 13000000;
+    uint public constant TOKENS_HARD_CAP = 30000000;
+    uint public constant TOKENS_TOTAL = 100000000;
     bool public finalised = false;
 
     // Thursday, 22-Jun-17 13:00:00 UTC / 1pm GMT 22 June 2017. Do not use `now`
-    uint256 public constant START_DATE = 1498136400;
+    uint public constant START_DATE = 1498136400;
 
     // Saturday, 22-Jul-17 13:00:00 UTC / 1pm GMT 22 July 2017. Do not use `now`
-    uint256 public constant END_DATE = 1500728400;
+    uint public constant END_DATE = 1500728400;
 
     // Set to 0 for no minimum contribution amount
-    uint256 public CONTRIBUTIONS_MIN = 0 ether;
+    uint public CONTRIBUTIONS_MIN = 0 ether;
     // Set to 0 for no maximum contribution amount, or e.g. `250 ether`
-    uint256 public CONTRIBUTIONS_MAX = 0 ether;
+    uint public CONTRIBUTIONS_MAX = 0 ether;
 
     // Number of ethers per token. This can be adjusted as the ETH/USD rate
     // changes. And event is logged when this rate is updated
@@ -152,14 +154,14 @@ contract OpenANXToken is ERC20Token {
     // tokensPerEther = 343.733565238912015
     // tokensPerKEther = 343,733.565238912015
     // tokensPerKEther = 343,734 rounded to an uint, six significant figures
-    uint256 public tokensPerKEther = 343734;
+    uint public tokensPerKEther = 343734;
 
     // Locked Tokens
     LockedTokens public lockedTokens;
 
     // Decimal factor for multiplications
     uint8 DECIMALS = 18;
-    uint256 DECIMALSFACTOR = 10**uint256(DECIMALS);
+    uint DECIMALSFACTOR = 10**uint(DECIMALS);
 
     // Wallet receiving the raised funds 
     address public wallet;
@@ -194,13 +196,13 @@ contract OpenANXToken is ERC20Token {
     // Set number of tokens per 1,000 ETH
     // Can only be set before the start of the crowdsale, by the owner
     // ------------------------------------------------------------------------
-    function setTokensPerKEther(uint256 _tokensPerKEther) onlyOwner {
+    function setTokensPerKEther(uint _tokensPerKEther) onlyOwner {
         if (now >= START_DATE) throw;
         if (_tokensPerKEther == 0) throw;
         tokensPerKEther = _tokensPerKEther;
         TokensPerKEtherUpdated(tokensPerKEther);
     }
-    event TokensPerKEtherUpdated(uint256 tokensPerKEther);
+    event TokensPerKEtherUpdated(uint tokensPerKEther);
 
     // ------------------------------------------------------------------------
     // Accept ethers to buy tokens during the crowdsale
@@ -219,11 +221,11 @@ contract OpenANXToken is ERC20Token {
 
         // `18` is the ETH decimals, `- decimals` is the token decimals
         // and `+ 3` for the KEther factor
-        uint tokens = msg.value * tokensPerKEther / 10**uint256(18 - decimals + 3);
+        uint tokens = msg.value * tokensPerKEther / 10**uint(18 - decimals + 3);
         if (totalSupply + tokens > TOKENS_HARD_CAP * DECIMALSFACTOR) throw;
 
-        balances[msg.sender] = safeAdd(balances[msg.sender], tokens);
-        totalSupply = safeAdd(totalSupply, tokens);
+        balances[msg.sender] = balances[msg.sender].add(tokens);
+        totalSupply = totalSupply.add(tokens);
         Transfer(0x0, msg.sender, tokens);
         TokensBought(msg.sender, msg.value, this.balance, tokens,
              totalSupply, tokensPerKEther);
@@ -231,9 +233,9 @@ contract OpenANXToken is ERC20Token {
         // Transfer the contributed ethers
         if (!wallet.send(msg.value)) throw;
     }
-    event TokensBought(address indexed buyer, uint256 ethers, 
-        uint256 newEtherBalance, uint256 tokens, uint256 newTotalSupply, 
-        uint256 tokensPerKEther);
+    event TokensBought(address indexed buyer, uint ethers, 
+        uint newEtherBalance, uint tokens, uint newTotalSupply, 
+        uint tokensPerKEther);
 
     // ------------------------------------------------------------------------
     // Finalise by adding the locked tokens to this contract and total supply
@@ -245,28 +247,26 @@ contract OpenANXToken is ERC20Token {
         if (finalised) throw;
         lockedTokens = new LockedTokens(this);
         // Allocate locked and premined tokens
-        balances[this] += lockedTokens.totalSupplyLocked();
-        totalSupply += lockedTokens.totalSupplyLocked();
-        // Lock remaining from tranche1 and tranche2
-        // uint256 remainingTokens = TOKENS_TOTAL * DECIMALSFACTOR;
+        balances[this] = balances[this].add(lockedTokens.totalSupplyLocked());
+        totalSupply = totalSupply.add(lockedTokens.totalSupplyLocked());
         finalised = true;
     }
 
     // ------------------------------------------------------------------------
     // Precommitment funding tokens can be added before the crowdsale starts
     // ------------------------------------------------------------------------
-    function addPrecommitment(address participant, uint256 balance) onlyOwner {
+    function addPrecommitment(address participant, uint balance) onlyOwner {
         if (now >= START_DATE) throw;
         if (balance == 0) throw;
-        balances[participant] = balance;
+        balances[participant] = balances[participant].add(balance);
         Transfer(0x0, participant, balance);
     }
-    event PrecommitmentAdded(address indexed participant, uint256 balance);
+    event PrecommitmentAdded(address indexed participant, uint balance);
 
     // ------------------------------------------------------------------------
     // Transfer the balance from owner's account to another account, with KYC
     // ------------------------------------------------------------------------
-    function transfer(address _to, uint256 _amount) returns (bool success) {
+    function transfer(address _to, uint _amount) returns (bool success) {
         if (kycRequired[_to]) throw;
         return super.transfer(_to, _amount);
     }
@@ -275,11 +275,9 @@ contract OpenANXToken is ERC20Token {
     // Spender of tokens transfer an amount of tokens from the token owner's
     // balance to another account, with KYC
     // ------------------------------------------------------------------------
-    function transferFrom(
-        address _from,
-        address _to,
-        uint256 _amount
-    ) returns (bool success) {
+    function transferFrom(address _from, address _to, uint _amount) 
+        returns (bool success)
+    {
         if (kycRequired[_from]) throw;
         return super.transferFrom(_from, _to, _amount);
     }
@@ -296,10 +294,9 @@ contract OpenANXToken is ERC20Token {
     // ------------------------------------------------------------------------
     // Transfer out any accidentally sent ERC20 tokens
     // ------------------------------------------------------------------------
-    function transferAnyERC20Token(
-        address tokenAddress, 
-        uint256 amount
-    ) onlyOwner returns (bool success) {
+    function transferAnyERC20Token(address tokenAddress, uint amount)
+      onlyOwner returns (bool success) 
+    {
         return ERC20Interface(tokenAddress).transfer(owner, amount);
     }
 }

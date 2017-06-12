@@ -1,26 +1,26 @@
-pragma solidity ^0.4.10;
+pragma solidity ^0.4.11;
+
 // ----------------------------------------------------------------------------
-// OpenANX Token with crowdfunding
+// OAX 'openANX Token' crowdfunding contract
 //
-// 
+// Refer to http://openanx.org/ for further information.
 //
-// Enjoy. (c) OpenANX and BokkyPooBah / Bok Consulting Pty Ltd 2017. 
+// Enjoy. (c) openANX and BokkyPooBah / Bok Consulting Pty Ltd 2017. 
 // The MIT Licence.
 // ----------------------------------------------------------------------------
 
 // ----------------------------------------------------------------------------
-// Safe maths
+// Safe maths, borrowed from OpenZeppelin
 // ----------------------------------------------------------------------------
-contract SafeMath {
-    function safeAdd(uint256 a, uint256 b) internal returns (uint256) {
-        uint256 c = a + b;
-        if (c < a || c < b) throw;
+library SafeMath {
+    function add(uint a, uint b) internal returns (uint) {
+        uint c = a + b;
+        assert(c >= a && c >= b);
         return c;
     }
 
-    function safeSub(uint256 a, uint256 b) internal returns (uint256) {
-        uint256 c = a - b;
-        if (c > a) throw;
-        return c;
+    function sub(uint a, uint b) internal returns (uint) {
+        assert(b <= a);
+        return a - b;
     }
 }

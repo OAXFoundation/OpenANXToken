@@ -1,13 +1,13 @@
-pragma solidity ^0.4.10;
+pragma solidity ^0.4.11;
+
 // ----------------------------------------------------------------------------
-// OpenANX Token with crowdfunding
+// OAX 'openANX Token' crowdfunding contract - Owned contracts
 //
-// 
+// Refer to http://openanx.org/ for further information.
 //
-// Enjoy. (c) OpenANX and BokkyPooBah / Bok Consulting Pty Ltd 2017. 
+// Enjoy. (c) openANX and BokkyPooBah / Bok Consulting Pty Ltd 2017. 
 // The MIT Licence.
 // ----------------------------------------------------------------------------
-
 
 // ----------------------------------------------------------------------------
 // Owned contract

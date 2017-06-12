@@ -13,6 +13,8 @@ import "./ERC20Interface.sol";
 import "./Owned.sol";
 import "./SafeMath.sol";
 import "./LockedTokens.sol";
+import "./OpenANXTokenConfig.sol";
+
 
 // ----------------------------------------------------------------------------
 // ERC20 Token, with the addition of symbol, name and decimals
@@ -20,6 +22,9 @@ import "./LockedTokens.sol";
 contract ERC20Token is ERC20Interface, Owned {
     using SafeMath for uint;
 
+    // ------------------------------------------------------------------------
+    // symbol(), name() and decimals()
+    // ------------------------------------------------------------------------
     string public symbol;
     string public name;
     uint8 public decimals;
@@ -33,6 +38,7 @@ contract ERC20Token is ERC20Interface, Owned {
     // Owner of account approves the transfer of an amount to another account
     // ------------------------------------------------------------------------
     mapping(address => mapping (address => uint)) allowed;
+
 
     // ------------------------------------------------------------------------
     // Constructor
@@ -50,12 +56,14 @@ contract ERC20Token is ERC20Interface, Owned {
         balances[owner] = _totalSupply;
     }
 
+
     // ------------------------------------------------------------------------
     // Get the account balance of another account with address _owner
     // ------------------------------------------------------------------------
     function balanceOf(address _owner) constant returns (uint balance) {
         return balances[_owner];
     }
+
 
     // ------------------------------------------------------------------------
     // Transfer the balance from owner's account to another account
@@ -74,6 +82,7 @@ contract ERC20Token is ERC20Interface, Owned {
         }
     }
 
+
     // ------------------------------------------------------------------------
     // Allow _spender to withdraw from your account, multiple times, up to the
     // _value amount. If this function is called again it overwrites the
@@ -87,6 +96,7 @@ contract ERC20Token is ERC20Interface, Owned {
         Approval(msg.sender, _spender, _amount);
         return true;
     }
+
 
     // ------------------------------------------------------------------------
     // Spender of tokens transfer an amount of tokens from the token owner's
@@ -113,6 +123,7 @@ contract ERC20Token is ERC20Interface, Owned {
         }
     }
 
+
     // ------------------------------------------------------------------------
     // Returns the amount of tokens approved by the owner that can be
     // transferred to the spender's account
@@ -131,26 +142,38 @@ contract ERC20Token is ERC20Interface, Owned {
 // ----------------------------------------------------------------------------
 contract OpenANXToken is ERC20Token, OpenANXTokenConfig {
 
+    // ------------------------------------------------------------------------
+    // Has the crowdsale been finalised?
+    // ------------------------------------------------------------------------
     bool public finalised = false;
 
-    // Number of ethers per token. This can be adjusted as the ETH/USD rate
-    // changes. And event is logged when this rate is updated
-    // ETH per token 0.00290923 indicative at 8 June 2017
-    // 1 ETH = 1 / 0.00290923 = 343.733565238912015 OAX
-    // tokensPerEther = 343.733565238912015
+    // ------------------------------------------------------------------------
+    // Number of tokens per 1,000 ETH
+    // This can be adjusted as the ETH/USD rate changes
+    //
+    // Indicative rate of ETH per token of 0.00290923 at 8 June 2017
+    // 
+    // This is the same as 1 / 0.00290923 = 343.733565238912015 OAX per ETH
+    //
+    // tokensPerEther  = 343.733565238912015
     // tokensPerKEther = 343,733.565238912015
     // tokensPerKEther = 343,734 rounded to an uint, six significant figures
+    // ------------------------------------------------------------------------
     uint public tokensPerKEther = 343734;
 
-    // Locked Tokens
+    // ------------------------------------------------------------------------
+    // Locked Tokens - holds the 1y and 2y locked tokens information
+    // ------------------------------------------------------------------------
     LockedTokens public lockedTokens;
 
+    // ------------------------------------------------------------------------
     // Wallet receiving the raised funds 
+    // ------------------------------------------------------------------------
     address public wallet;
 
     // ------------------------------------------------------------------------
-    // KYC is required before the crowdsale participants can transfer their
-    // tokens
+    // Crowdsale participant's accounts need to be KYC verified KYC before
+    // the participant can move their tokens
     // ------------------------------------------------------------------------
     mapping(address => bool) public kycRequired;
 
@@ -165,8 +188,10 @@ contract OpenANXToken is ERC20Token, OpenANXTokenConfig {
     }
 
     // ------------------------------------------------------------------------
-    // Change wallet address
-    // Can be set at any time by the owner
+    // openANX can change the crowdsale wallet address
+    // Can be set at any time before or during the crowdsale
+    // Not relevant after the crowdsale is finalised as no more contributions
+    // are accepted
     // ------------------------------------------------------------------------
     function setWallet(address _wallet) onlyOwner {
         wallet = _wallet;
@@ -174,9 +199,10 @@ contract OpenANXToken is ERC20Token, OpenANXTokenConfig {
     }
     event WalletUpdated(address newWallet);
 
+
     // ------------------------------------------------------------------------
-    // Set number of tokens per 1,000 ETH
-    // Can only be set before the start of the crowdsale, by the owner
+    // openANX can set number of tokens per 1,000 ETH
+    // Can only be set before the start of the crowdsale
     // ------------------------------------------------------------------------
     function setTokensPerKEther(uint _tokensPerKEther) onlyOwner {
         if (now >= START_DATE) throw;
@@ -186,56 +212,78 @@ contract OpenANXToken is ERC20Token, OpenANXTokenConfig {
     }
     event TokensPerKEtherUpdated(uint tokensPerKEther);
 
+
     // ------------------------------------------------------------------------
     // Accept ethers to buy tokens during the crowdsale
     // ------------------------------------------------------------------------
     function () payable {
-        // No contributions after finalised
+        // No contributions after the crowdsale is finalised
         if (finalised) throw;
-        // No contributions before start
+
+        // No contributions before the start of the crowdsale
         if (now < START_DATE) throw;
-        // No contributions after end
+        // No contributions after the end of the crowdsale
         if (now > END_DATE) throw;
+
         // No contributions below the minimum (can be 0 ETH)
         if (msg.value == 0 || msg.value < CONTRIBUTIONS_MIN) throw;
         // No contributions above a maximum (if maximum is set to non-0)
         if (CONTRIBUTIONS_MAX > 0 && msg.value > CONTRIBUTIONS_MAX) throw;
 
-        // `18` is the ETH decimals, `- decimals` is the token decimals
-        // and `+ 3` for the KEther factor
+        // Calculate number of tokens for contributed ETH
+        // `18` is the ETH decimals
+        // `- decimals` is the token decimals
+        // `+ 3` for the tokens per 1,000 ETH factor
         uint tokens = msg.value * tokensPerKEther / 10**uint(18 - decimals + 3);
-        if (totalSupply + tokens > TOKENS_HARD_CAP * DECIMALSFACTOR) throw;
 
+        // Check if the hard cap will be exceeded
+        if (totalSupply + tokens > TOKENS_HARD_CAP) throw;
+
+        // Add tokens purchased to account's balance and total supply
         balances[msg.sender] = balances[msg.sender].add(tokens);
         totalSupply = totalSupply.add(tokens);
+
+        // Log the tokens purchased 
         Transfer(0x0, msg.sender, tokens);
         TokensBought(msg.sender, msg.value, this.balance, tokens,
              totalSupply, tokensPerKEther);
+
+        // KYC verification required before participant can transfer the tokens
         kycRequired[msg.sender] = true;
-        // Transfer the contributed ethers
+
+        // Transfer the contributed ethers to the crowdsale wallet
         if (!wallet.send(msg.value)) throw;
     }
     event TokensBought(address indexed buyer, uint ethers, 
         uint newEtherBalance, uint tokens, uint newTotalSupply, 
         uint tokensPerKEther);
 
+
     // ------------------------------------------------------------------------
-    // Finalise by adding the locked tokens to this contract and total supply
+    // openANX to finalise the crowdsale - to adding the locked tokens to 
+    // this contract and the total supply
     // ------------------------------------------------------------------------
     function finalise() {
         // Can only finalise if raised > soft cap or after the end date
-        if (totalSupply < TOKENS_SOFT_CAP * DECIMALSFACTOR && now < END_DATE) throw;
+        // TODO Fix this
+        // if (totalSupply < TOKENS_SOFT_CAP && now < END_DATE) throw;
+
         // Can only finalise once
         if (finalised) throw;
-        lockedTokens = new LockedTokens(this);
+
         // Allocate locked and premined tokens
+        lockedTokens = new LockedTokens(this);
         balances[this] = balances[this].add(lockedTokens.totalSupplyLocked());
         totalSupply = totalSupply.add(lockedTokens.totalSupplyLocked());
+
+        // Can only finalise once
         finalised = true;
     }
 
+
     // ------------------------------------------------------------------------
-    // Precommitment funding tokens can be added before the crowdsale starts
+    // openANX to add precommitment funding token balance before the crowdsale
+    // commences
     // ------------------------------------------------------------------------
     function addPrecommitment(address participant, uint balance) onlyOwner {
         if (now >= START_DATE) throw;
@@ -245,17 +293,21 @@ contract OpenANXToken is ERC20Token, OpenANXTokenConfig {
     }
     event PrecommitmentAdded(address indexed participant, uint balance);
 
+
     // ------------------------------------------------------------------------
     // Transfer the balance from owner's account to another account, with KYC
+    // verification check for the crowdsale participant's first transfer
     // ------------------------------------------------------------------------
     function transfer(address _to, uint _amount) returns (bool success) {
         if (kycRequired[_to]) throw;
         return super.transfer(_to, _amount);
     }
 
+
     // ------------------------------------------------------------------------
     // Spender of tokens transfer an amount of tokens from the token owner's
-    // balance to another account, with KYC
+    // balance to another account, with KYC verification check for the
+    // crowdsale participant's first transfer
     // ------------------------------------------------------------------------
     function transferFrom(address _from, address _to, uint _amount) 
         returns (bool success)
@@ -264,8 +316,9 @@ contract OpenANXToken is ERC20Token, OpenANXTokenConfig {
         return super.transferFrom(_from, _to, _amount);
     }
 
+
     // ------------------------------------------------------------------------
-    // Participant has been KYC verified
+    // openANX to KYC verify the participant's account
     // ------------------------------------------------------------------------
     function kycVerify(address participant) onlyOwner {
         kycRequired[participant] = false;
@@ -273,8 +326,9 @@ contract OpenANXToken is ERC20Token, OpenANXTokenConfig {
     }
     event KycVerified(address indexed participant);
 
+
     // ------------------------------------------------------------------------
-    // Transfer out any accidentally sent ERC20 tokens
+    // openANX can transfer out any accidentally sent ERC20 tokens
     // ------------------------------------------------------------------------
     function transferAnyERC20Token(address tokenAddress, uint amount)
       onlyOwner returns (bool success) 

@@ -14,32 +14,46 @@ pragma solidity ^0.4.11;
 // ----------------------------------------------------------------------------
 contract OpenANXTokenConfig {
 
+    // ------------------------------------------------------------------------
+    // Token symbol(), name() and decimals()
+    // ------------------------------------------------------------------------
     string public constant SYMBOL = "OAX";
     string public constant NAME = "openANX Token";
     uint8 public constant DECIMALS = 18;
 
-    uint public constant TOKENS_SOFT_CAP = 13000000;
-    uint public constant TOKENS_HARD_CAP = 30000000;
-    uint public constant TOKENS_TOTAL = 100000000;
 
-    // Thursday, 22-Jun-17 13:00:00 UTC / 1pm GMT 22 June 2017. Do not use `now`
-    uint public constant START_DATE = 1497239052; // Mon 12 Jun 2017 03:44:12 UTC
+    // ------------------------------------------------------------------------
+    // Decimal factor for multiplications from OAX unit to OAX natural unit
+    // ------------------------------------------------------------------------
+    uint public constant DECIMALSFACTOR = 10**uint(DECIMALS);
 
-    // Saturday, 22-Jul-17 13:00:00 UTC / 1pm GMT 22 July 2017. Do not use `now`
-    uint public constant END_DATE = 1497239292; // Mon 12 Jun 2017 03:48:12 UTC
+    // ------------------------------------------------------------------------
+    // Soft cap, hard cap and total tokens
+    // ------------------------------------------------------------------------
+    uint public constant TOKENS_SOFT_CAP = 13000000 * DECIMALSFACTOR;
+    uint public constant TOKENS_HARD_CAP = 30000000 * DECIMALSFACTOR;
+    uint public constant TOKENS_TOTAL = 100000000 * DECIMALSFACTOR;
 
-    // Friday, 22-Jun-18 00:00:00 UTC. Do not use `now` + x
-    uint public constant DATE_1Y = START_DATE + 365 days;
+    // ------------------------------------------------------------------------
+    // Crowdsale start date and end date
+    // Do not use the `now` function here
+    // Start - Thursday, 22-Jun-17 13:00:00 UTC / 1pm GMT 22 June 2017
+    // End - Saturday, 22-Jul-17 13:00:00 UTC / 1pm GMT 22 July 2017 
+    // ------------------------------------------------------------------------
+    uint public constant START_DATE = 1497247271; // Mon 12 Jun 2017 06:01:11 UTC
+    uint public constant END_DATE = 1497247511; // Mon 12 Jun 2017 06:05:11 UTC
 
-    // Saturday, 22-Jun-19 00:00:00 UTC. Do not use `now` + x
-    uint public constant DATE_2Y = START_DATE + 2 * 365 days;
+    // ------------------------------------------------------------------------
+    // 1 year and 2 year dates for locked tokens
+    // Do not use the `now` function here 
+    // ------------------------------------------------------------------------
+    uint public constant LOCKED_1Y_DATE = START_DATE + 365 days;
+    uint public constant LOCKED_2Y_DATE = START_DATE + 2 * 365 days;
 
-
-    // Set to 0 for no minimum contribution amount
+    // ------------------------------------------------------------------------
+    // Individual transaction contribution min and max amounts
+    // Set to 0 to switch off, or `x ether`
+    // ------------------------------------------------------------------------
     uint public CONTRIBUTIONS_MIN = 0 ether;
-    // Set to 0 for no maximum contribution amount, or e.g. `250 ether`
     uint public CONTRIBUTIONS_MAX = 0 ether;
-
-    // Decimal factor for multiplications
-    uint DECIMALSFACTOR = 10**uint(DECIMALS);
 }

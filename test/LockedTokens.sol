@@ -13,29 +13,45 @@ import "./ERC20Interface.sol";
 import "./SafeMath.sol";
 import "./OpenANXTokenConfig.sol";
 
+
 // ----------------------------------------------------------------------------
 // Contract that holds the 1Y and 2Y locked token information
 // ----------------------------------------------------------------------------
 contract LockedTokens is OpenANXTokenConfig {
     using SafeMath for uint;
 
-    // Locked totals
-    uint constant LOCKED_TOTAL_1Y = 14000000;
-    uint constant LOCKED_TOTAL_2Y = 26000000;
+    // ------------------------------------------------------------------------
+    // 1y and 2y locked totals, not including unsold tranche1 and all tranch2
+    // tokens
+    // ------------------------------------------------------------------------
+    uint public constant TOKENS_LOCKED_1Y_TOTAL = 14000000 * DECIMALSFACTOR;
+    uint public constant TOKENS_LOCKED_2Y_TOTAL = 26000000 * DECIMALSFACTOR;
 
+    // ------------------------------------------------------------------------
+    // Current totalSupply of 1y and 2y locked tokens
+    // ------------------------------------------------------------------------
     uint public totalSupplyLocked1Y;
     uint public totalSupplyLocked2Y;
 
+    // ------------------------------------------------------------------------
     // Locked tokens mapping
+    // ------------------------------------------------------------------------
     mapping (address => uint) public balancesLocked1Y;
     mapping (address => uint) public balancesLocked2Y;
 
+    // ------------------------------------------------------------------------
+    // Address of openANX crowdsale token contract
+    // ------------------------------------------------------------------------
     ERC20Interface public tokenContract;
 
+
+    // ------------------------------------------------------------------------
+    // Constructor - called by crowdsale token contract
+    // ------------------------------------------------------------------------
     function LockedTokens(address _tokenContract) {
         tokenContract = ERC20Interface(_tokenContract);
 
-        // --- 1 Year ---
+        // --- 1y locked tokens ---
         // Advisors
         add1Y(0xA88A05d2b88283ce84C8325760B72a64591279a2, 2000000 * DECIMALSFACTOR);
         // Directors
@@ -45,9 +61,9 @@ contract LockedTokens is OpenANXTokenConfig {
         // Developers
         add1Y(0xaBBa43E7594E3B76afB157989e93c6621497FD4b, 8000000 * DECIMALSFACTOR);
         // Confirm 1Y totals
-        assert(totalSupplyLocked1Y == LOCKED_TOTAL_1Y * DECIMALSFACTOR);
+        assert(totalSupplyLocked1Y == TOKENS_LOCKED_1Y_TOTAL);
 
-        // --- 2 Years ---
+        // --- 2y locked tokens ---
         // Foundation
         add2Y(0xa77A2b9D4B1c010A22A7c565Dc418cef683DbceC, 20000000 * DECIMALSFACTOR);
         // Advisors
@@ -57,50 +73,94 @@ contract LockedTokens is OpenANXTokenConfig {
         // Early backers
         add2Y(0xAAAA9De1E6C564446EBCA0fd102D8Bd92093c756, 2000000 * DECIMALSFACTOR);
         // Confirm 2Y totals
-        assert(totalSupplyLocked2Y == LOCKED_TOTAL_2Y * DECIMALSFACTOR);
+        assert(totalSupplyLocked2Y == TOKENS_LOCKED_2Y_TOTAL);
 
-        uint remainingTokens = TOKENS_TOTAL * DECIMALSFACTOR;
+        // --- Additional locked tokens ---
+        // Total tokens to be created
+        uint remainingTokens = TOKENS_TOTAL;
+        // Minus precommitments and public crowdsale tokens
         remainingTokens = remainingTokens.sub(tokenContract.totalSupply());
+        // Minus 1y locked tokens
         remainingTokens = remainingTokens.sub(totalSupplyLocked1Y);
+        // Minus 2y locked tokens
         remainingTokens = remainingTokens.sub(totalSupplyLocked2Y);
+        // Unsold tranche1 and tranche2 tokens to be locked for 1y 
         add1Y(_tokenContract, remainingTokens);
     }
 
+
+    // ------------------------------------------------------------------------
+    // Add to 1y locked balances and totalSupply
+    // ------------------------------------------------------------------------
     function add1Y(address account, uint value) private {
         balancesLocked1Y[account] = balancesLocked1Y[account].add(value);
         totalSupplyLocked1Y = totalSupplyLocked1Y.add(value);
     }
 
+
+    // ------------------------------------------------------------------------
+    // Add to 2y locked balances and totalSupply
+    // ------------------------------------------------------------------------
     function add2Y(address account, uint value) private {
         balancesLocked2Y[account] = balancesLocked2Y[account].add(value);
         totalSupplyLocked2Y = totalSupplyLocked2Y.add(value);
     }
 
+
+    // ------------------------------------------------------------------------
+    // 1y locked balances for an account
+    // ------------------------------------------------------------------------
     function balanceOfLocked1Y(address account) constant returns (uint balance) {
         return balancesLocked1Y[account];
     }
 
+
+    // ------------------------------------------------------------------------
+    // 2y locked balances for an account
+    // ------------------------------------------------------------------------
     function balanceOfLocked2Y(address account) constant returns (uint balance) {
         return balancesLocked2Y[account];
     }
 
+
+    // ------------------------------------------------------------------------
+    // 1y and 2y locked balances for an account
+    // ------------------------------------------------------------------------
+    function balanceOfLocked(address account) constant returns (uint balance) {
+        return balancesLocked1Y[account].add(balancesLocked2Y[account]);
+    }
+
+
+    // ------------------------------------------------------------------------
+    // 1y and 2y locked total supply
+    // ------------------------------------------------------------------------
     function totalSupplyLocked() constant returns (uint) {
         return totalSupplyLocked1Y + totalSupplyLocked2Y;
     }
 
+
+    // ------------------------------------------------------------------------
+    // An account can unlock their 1y locked tokens 1y after token launch date
+    // ------------------------------------------------------------------------
     function unlock1Y() {
-        if (now < DATE_1Y) throw;
+        if (now < LOCKED_1Y_DATE) throw;
         uint amount = balancesLocked1Y[msg.sender];
         if (amount == 0) throw;
         balancesLocked1Y[msg.sender] = 0;
+        totalSupplyLocked1Y = totalSupplyLocked1Y.sub(amount);
         if (!tokenContract.transfer(msg.sender, amount)) throw;
     }
 
+
+    // ------------------------------------------------------------------------
+    // An account can unlock their 2y locked tokens 2y after token launch date
+    // ------------------------------------------------------------------------
     function unlock2Y() {
-        if (now < DATE_2Y) throw;
+        if (now < LOCKED_2Y_DATE) throw;
         uint amount = balancesLocked2Y[msg.sender];
         if (amount == 0) throw;
         balancesLocked2Y[msg.sender] = 0;
+        totalSupplyLocked2Y = totalSupplyLocked2Y.sub(amount);
         if (!tokenContract.transfer(msg.sender, amount)) throw;
     }
 }

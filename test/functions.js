@@ -206,15 +206,20 @@ function failIfGasEqualsGasUsedOrContractAddressNull(contractAddress, tx, msg) {
 function printTokenContractStaticDetails() {
   if (tokenContractAddress != null && tokenContractAbi != null) {
     var contract = eth.contract(tokenContractAbi).at(tokenContractAddress);
+    var decimals = contract.decimals();
     console.log("RESULT: token.symbol=" + contract.symbol());
     console.log("RESULT: token.name=" + contract.name());
-    console.log("RESULT: token.decimals=" + contract.decimals());
+    console.log("RESULT: token.decimals=" + decimals);
+    console.log("RESULT: token.DECIMALSFACTOR=" + contract.DECIMALSFACTOR());
     var startDate = contract.START_DATE();
     console.log("RESULT: token.START_DATE=" + startDate + " " + new Date(startDate * 1000).toUTCString()  + 
         " / " + new Date(startDate * 1000).toGMTString());
     var endDate = contract.END_DATE();
     console.log("RESULT: token.END_DATE=" + endDate + " " + new Date(endDate * 1000).toUTCString() + 
         " / " + new Date(endDate * 1000).toGMTString());
+    console.log("RESULT: token.TOKENS_SOFT_CAP=" + contract.TOKENS_SOFT_CAP().shift(-decimals));
+    console.log("RESULT: token.TOKENS_HARD_CAP=" + contract.TOKENS_HARD_CAP().shift(-decimals));
+    console.log("RESULT: token.TOKENS_TOTAL=" + contract.TOKENS_TOTAL().shift(-decimals));
   }
 }
 
@@ -227,12 +232,14 @@ function printTokenContractDynamicDetails() {
     console.log("RESULT: token.finalised=" + contract.finalised());
     console.log("RESULT: token.tokensPerKEther=" + contract.tokensPerKEther());
     console.log("RESULT: token.totalSupply=" + contract.totalSupply().shift(-decimals));
-    var date1Y = contract.DATE_1Y();
-    console.log("RESULT: token.DATE_1Y=" + date1Y + " " + new Date(date1Y * 1000).toUTCString()  + 
-        " / " + new Date(date1Y * 1000).toGMTString());
-    var date2Y = contract.DATE_2Y();
-    console.log("RESULT: token.DATE_2Y=" + date2Y + " " + new Date(date2Y * 1000).toUTCString() + 
-        " / " + new Date(date2Y * 1000).toGMTString());
+    var locked1YDate = contract.LOCKED_1Y_DATE();
+    console.log("RESULT: token.LOCKED_1Y_DATE=" + locked1YDate + " " + new Date(locked1YDate * 1000).toUTCString()  + 
+        " / " + new Date(locked1YDate * 1000).toGMTString());
+    var locked2YDate = contract.LOCKED_2Y_DATE();
+    console.log("RESULT: token.LOCKED_2Y_DATE=" + locked2YDate + " " + new Date(locked2YDate * 1000).toUTCString() + 
+        " / " + new Date(locked2YDate * 1000).toGMTString());
+    console.log("RESULT: lockedToken.TOKENS_LOCKED_1Y_TOTAL=" + lockedTokenContract.TOKENS_LOCKED_1Y_TOTAL().shift(-decimals));
+    console.log("RESULT: lockedToken.TOKENS_LOCKED_2Y_TOTAL=" + lockedTokenContract.TOKENS_LOCKED_2Y_TOTAL().shift(-decimals));
     console.log("RESULT: lockedToken.totalSupplyLocked1Y=" + lockedTokenContract.totalSupplyLocked1Y().shift(-decimals));
     console.log("RESULT: lockedToken.totalSupplyLocked2Y=" + lockedTokenContract.totalSupplyLocked2Y().shift(-decimals));
     console.log("RESULT: lockedToken.totalSupplyLocked=" + lockedTokenContract.totalSupplyLocked().shift(-decimals));

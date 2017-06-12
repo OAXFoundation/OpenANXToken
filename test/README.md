@@ -1,6 +1,21 @@
 # OpenANX Token - Testing
 
-## Requirements
+<br />
+
+<hr />
+
+# Table of contents
+
+* [Requirements](#requirements)
+* [Executing The Tests](#executing-the-tests)
+* [The Tests](#the-tests)
+* [Notes](#notes)
+
+<br />
+
+<hr />
+
+# Requirements
 
 * The tests works on OS/X. Should work in Linux. May work in Windows with Cygwin
 * Geth/v1.6.0-stable-facc47cb/darwin-amd64/go1.8.1
@@ -10,7 +25,7 @@
 
 <hr />
 
-## Executing The Tests
+# Executing The Tests
 
 * Run `geth` in dev mode
 
@@ -26,6 +41,14 @@
 
 <hr />
 
-## Note
+# The Tests
+
+
+
+<br />
+
+<hr />
+
+# Notes
 
 I prefer to test the Ethereum smart contracts against the Mainnet clients, using a Dev blockchain. This is to reduce the effects of different behaviours when testing agains truffle or one of the other testing frameworks.

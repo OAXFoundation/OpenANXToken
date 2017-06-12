@@ -28,14 +28,14 @@ contract OpenANXTokenConfig {
     uint public constant DECIMALSFACTOR = 10**uint(DECIMALS);
 
     // ------------------------------------------------------------------------
-    // Soft cap, hard cap and total tokens
+    // Tranche 1 soft cap and hard cap, and total tokens
     // ------------------------------------------------------------------------
     uint public constant TOKENS_SOFT_CAP = 13000000 * DECIMALSFACTOR;
     uint public constant TOKENS_HARD_CAP = 30000000 * DECIMALSFACTOR;
     uint public constant TOKENS_TOTAL = 100000000 * DECIMALSFACTOR;
 
     // ------------------------------------------------------------------------
-    // Crowdsale start date and end date
+    // Tranche 1 crowdsale start date and end date
     // Do not use the `now` function here
     // Start - Thursday, 22-Jun-17 13:00:00 UTC / 1pm GMT 22 June 2017
     // End - Saturday, 22-Jul-17 13:00:00 UTC / 1pm GMT 22 July 2017 

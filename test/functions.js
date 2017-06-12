@@ -227,6 +227,12 @@ function printTokenContractDynamicDetails() {
     console.log("RESULT: token.finalised=" + contract.finalised());
     console.log("RESULT: token.tokensPerKEther=" + contract.tokensPerKEther());
     console.log("RESULT: token.totalSupply=" + contract.totalSupply().shift(-decimals));
+    var date1Y = contract.DATE_1Y();
+    console.log("RESULT: token.DATE_1Y=" + date1Y + " " + new Date(date1Y * 1000).toUTCString()  + 
+        " / " + new Date(date1Y * 1000).toGMTString());
+    var date2Y = contract.DATE_2Y();
+    console.log("RESULT: token.DATE_2Y=" + date2Y + " " + new Date(date2Y * 1000).toUTCString() + 
+        " / " + new Date(date2Y * 1000).toGMTString());
     console.log("RESULT: lockedToken.totalSupplyLocked1Y=" + lockedTokenContract.totalSupplyLocked1Y().shift(-decimals));
     console.log("RESULT: lockedToken.totalSupplyLocked2Y=" + lockedTokenContract.totalSupplyLocked2Y().shift(-decimals));
     console.log("RESULT: lockedToken.totalSupplyLocked=" + lockedTokenContract.totalSupplyLocked().shift(-decimals));

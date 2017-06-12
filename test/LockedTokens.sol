@@ -10,26 +10,14 @@ pragma solidity ^0.4.11;
 // ----------------------------------------------------------------------------
 
 import "./ERC20Interface.sol";
+import "./SafeMath.sol";
+import "./OpenANXTokenConfig.sol";
 
 // ----------------------------------------------------------------------------
-// OpenANX Interface
+// Contract that holds the 1Y and 2Y locked token information
 // ----------------------------------------------------------------------------
-contract OpenANXInterface is ERC20Interface {
-    function decimals() constant returns (uint8);
-    // function TOKENS_TOTAL() constant returns (uint);
-    uint public constant TOKENS_TOTAL = 100000000;
-}
-
-contract LockedTokens {
-
-    // Thursday, 22-Jun-17 00:00:00 UTC. Do not use `now` + x
-    uint public constant START_DATE = 1498089600;
-
-    // Friday, 22-Jun-18 00:00:00 UTC. Do not use `now` + x
-    uint public constant DATE_1Y = 1529625600;
-
-    // Saturday, 22-Jun-19 00:00:00 UTC. Do not use `now` + x
-    uint public constant DATE_2Y = 1561161600;
+contract LockedTokens is OpenANXTokenConfig {
+    using SafeMath for uint;
 
     // Locked totals
     uint constant LOCKED_TOTAL_1Y = 14000000;
@@ -42,51 +30,50 @@ contract LockedTokens {
     mapping (address => uint) public balancesLocked1Y;
     mapping (address => uint) public balancesLocked2Y;
 
-    OpenANXInterface public tokenContract;
+    ERC20Interface public tokenContract;
 
     function LockedTokens(address _tokenContract) {
-        tokenContract = OpenANXInterface(_tokenContract);
-        uint decimalsFactor = 10**uint(tokenContract.decimals());
+        tokenContract = ERC20Interface(_tokenContract);
 
         // --- 1 Year ---
         // Advisors
-        add1Y(0xA88A05d2b88283ce84C8325760B72a64591279a2, 2000000 * decimalsFactor);
+        add1Y(0xA88A05d2b88283ce84C8325760B72a64591279a2, 2000000 * DECIMALSFACTOR);
         // Directors
-        add1Y(0xa99A0Ae3354c06B1459fd441a32a3F71005D7Da0, 2000000 * decimalsFactor);
+        add1Y(0xa99A0Ae3354c06B1459fd441a32a3F71005D7Da0, 2000000 * DECIMALSFACTOR);
         // Early backers
-        add1Y(0xAAAA9De1E6C564446EBCA0fd102D8Bd92093c756, 2000000 * decimalsFactor);
+        add1Y(0xAAAA9De1E6C564446EBCA0fd102D8Bd92093c756, 2000000 * DECIMALSFACTOR);
         // Developers
-        add1Y(0xaBBa43E7594E3B76afB157989e93c6621497FD4b, 8000000 * decimalsFactor);
+        add1Y(0xaBBa43E7594E3B76afB157989e93c6621497FD4b, 8000000 * DECIMALSFACTOR);
         // Confirm 1Y totals
-        assert(totalSupplyLocked1Y == LOCKED_TOTAL_1Y * decimalsFactor);
+        assert(totalSupplyLocked1Y == LOCKED_TOTAL_1Y * DECIMALSFACTOR);
 
         // --- 2 Years ---
         // Foundation
-        add2Y(0xa77A2b9D4B1c010A22A7c565Dc418cef683DbceC, 20000000 * decimalsFactor);
+        add2Y(0xa77A2b9D4B1c010A22A7c565Dc418cef683DbceC, 20000000 * DECIMALSFACTOR);
         // Advisors
-        add2Y(0xA88A05d2b88283ce84C8325760B72a64591279a2, 2000000 * decimalsFactor);
+        add2Y(0xA88A05d2b88283ce84C8325760B72a64591279a2, 2000000 * DECIMALSFACTOR);
         // Directors
-        add2Y(0xa99A0Ae3354c06B1459fd441a32a3F71005D7Da0, 2000000 * decimalsFactor);
+        add2Y(0xa99A0Ae3354c06B1459fd441a32a3F71005D7Da0, 2000000 * DECIMALSFACTOR);
         // Early backers
-        add2Y(0xAAAA9De1E6C564446EBCA0fd102D8Bd92093c756, 2000000 * decimalsFactor);
+        add2Y(0xAAAA9De1E6C564446EBCA0fd102D8Bd92093c756, 2000000 * DECIMALSFACTOR);
         // Confirm 2Y totals
-        assert(totalSupplyLocked2Y == LOCKED_TOTAL_2Y * decimalsFactor);
+        assert(totalSupplyLocked2Y == LOCKED_TOTAL_2Y * DECIMALSFACTOR);
 
-        uint remainingTokens = tokenContract.TOKENS_TOTAL() * decimalsFactor
-            - tokenContract.totalSupply()
-            - totalSupplyLocked1Y
-            - totalSupplyLocked2Y;
+        uint remainingTokens = TOKENS_TOTAL * DECIMALSFACTOR;
+        remainingTokens = remainingTokens.sub(tokenContract.totalSupply());
+        remainingTokens = remainingTokens.sub(totalSupplyLocked1Y);
+        remainingTokens = remainingTokens.sub(totalSupplyLocked2Y);
         add1Y(_tokenContract, remainingTokens);
     }
 
     function add1Y(address account, uint value) private {
-        balancesLocked1Y[account] += value;
-        totalSupplyLocked1Y += value;
+        balancesLocked1Y[account] = balancesLocked1Y[account].add(value);
+        totalSupplyLocked1Y = totalSupplyLocked1Y.add(value);
     }
 
     function add2Y(address account, uint value) private {
-        balancesLocked2Y[account] += value;
-        totalSupplyLocked2Y += value;
+        balancesLocked2Y[account] = balancesLocked2Y[account].add(value);
+        totalSupplyLocked2Y = totalSupplyLocked2Y.add(value);
     }
 
     function balanceOfLocked1Y(address account) constant returns (uint balance) {

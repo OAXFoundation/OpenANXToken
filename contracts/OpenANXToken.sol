@@ -129,23 +129,9 @@ contract ERC20Token is ERC20Interface, Owned {
 // ----------------------------------------------------------------------------
 // openANX crowdsale token smart contract
 // ----------------------------------------------------------------------------
-contract OpenANXToken is ERC20Token {
+contract OpenANXToken is ERC20Token, OpenANXTokenConfig {
 
-    uint public constant TOKENS_SOFT_CAP = 13000000;
-    uint public constant TOKENS_HARD_CAP = 30000000;
-    uint public constant TOKENS_TOTAL = 100000000;
     bool public finalised = false;
-
-    // Thursday, 22-Jun-17 13:00:00 UTC / 1pm GMT 22 June 2017. Do not use `now`
-    uint public constant START_DATE = 1498136400;
-
-    // Saturday, 22-Jul-17 13:00:00 UTC / 1pm GMT 22 July 2017. Do not use `now`
-    uint public constant END_DATE = 1500728400;
-
-    // Set to 0 for no minimum contribution amount
-    uint public CONTRIBUTIONS_MIN = 0 ether;
-    // Set to 0 for no maximum contribution amount, or e.g. `250 ether`
-    uint public CONTRIBUTIONS_MAX = 0 ether;
 
     // Number of ethers per token. This can be adjusted as the ETH/USD rate
     // changes. And event is logged when this rate is updated
@@ -158,10 +144,6 @@ contract OpenANXToken is ERC20Token {
 
     // Locked Tokens
     LockedTokens public lockedTokens;
-
-    // Decimal factor for multiplications
-    uint8 DECIMALS = 18;
-    uint DECIMALSFACTOR = 10**uint(DECIMALS);
 
     // Wallet receiving the raised funds 
     address public wallet;
@@ -177,7 +159,7 @@ contract OpenANXToken is ERC20Token {
     // Constructor
     // ------------------------------------------------------------------------
     function OpenANXToken(address _wallet) 
-        ERC20Token("OAX", "openANX Token", DECIMALS, 0)
+        ERC20Token(SYMBOL, NAME, DECIMALS, 0)
     {
         wallet = _wallet;
     }

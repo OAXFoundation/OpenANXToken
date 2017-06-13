@@ -95,6 +95,9 @@ There is a subreddit at [https://www.reddit.com/r/OpenANX/](https://www.reddit.c
 * Locked Tokens
   * Accounts holding 1 or 2 year locked tokens will also be able to participant in the public crowdsale
 
+* Burn function
+  * [ ] Work out who can burn the tokens - owner only, or anyone
+
 <br />
 
 <hr />

@@ -54,6 +54,13 @@
 * Test 5 KYC Verify
 * Test 6.1 Move Tokens After Finalising
 
+## Todo
+* Burn function
+* `finalise()` at the end of the crowdsale period
+* Execute un-permissioned functions
+* Safe maths
+* Other edge cases
+
 <br />
 
 <hr />

@@ -339,6 +339,17 @@ contract OpenANXToken is ERC20Token, OpenANXTokenConfig {
 
 
     // ------------------------------------------------------------------------
+    // openANX can burn tokens
+    // ------------------------------------------------------------------------
+    function burnTokens(uint256 value) onlyOwner {
+        if (balances[owner] < value) throw;
+        balances[owner] -= value;
+        totalSupply -= value;
+        Transfer(owner, 0, value);
+    }
+
+
+    // ------------------------------------------------------------------------
     // openANX can transfer out any accidentally sent ERC20 tokens
     // ------------------------------------------------------------------------
     function transferAnyERC20Token(address tokenAddress, uint amount)

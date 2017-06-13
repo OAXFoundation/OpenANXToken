@@ -110,6 +110,7 @@ There is a subreddit at [https://www.reddit.com/r/OpenANX/](https://www.reddit.c
   * [ ] Unlocking of tokens in 1 year and 2 years
   * [ ] Public crowdsale participant can also have locked tokens
 * [ ] BK Develop and test token contract upgrade path
+* [ ] BK Develop test membership contract to test users burning tokens for membership
 * [ ] BK Security audit
 * [ ] JB Security audit
 

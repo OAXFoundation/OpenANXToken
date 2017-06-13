@@ -109,6 +109,8 @@ There is a subreddit at [https://www.reddit.com/r/OpenANX/](https://www.reddit.c
   * [ ] Scenario where funding below soft cap and above soft cap
   * [ ] Unlocking of tokens in 1 year and 2 years
   * [ ] Public crowdsale participant can also have locked tokens
+* [ ] BK Maybe add some functions in the main contract to query the locked balances for accounts
+* [ ] BK May have to add the ability to fill locked addresses if the number of locked address increases deployment or `finalise()` gas too much
 * [ ] BK Develop and test token contract upgrade path
 * [ ] BK Develop test membership contract to test users burning tokens for membership
 * [ ] BK Security audit

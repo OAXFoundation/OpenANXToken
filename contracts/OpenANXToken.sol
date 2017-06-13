@@ -264,7 +264,7 @@ contract OpenANXToken is ERC20Token, OpenANXTokenConfig {
     // openANX to finalise the crowdsale - to adding the locked tokens to 
     // this contract and the total supply
     // ------------------------------------------------------------------------
-    function finalise() {
+    function finalise() onlyOwner {
         // Can only finalise if raised > soft cap or after the end date
         if (totalSupply < TOKENS_SOFT_CAP && now < END_DATE) throw;
 

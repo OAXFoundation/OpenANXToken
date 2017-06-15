@@ -23,12 +23,12 @@
 
 
 Test 1.1 Deploy Token Contract
-tokenAddress=0x90d8927407c79c4a28ee879b821c76fc9bcc2688 gas=6000000 gasUsed=3004824 costETH=0.054086832 costUSD=20.57409002448 @ ETH/USD=380.39 gasPrice=18000000000 block=8 txId=0xbbae3e19b308f43570d09b3ea17c017c7271c967b1955dcc13e62e027cf9da17
-tokenAddress=0x90d8927407c79c4a28ee879b821c76fc9bcc2688 gas=6000000 gasUsed=3004824 costETH=0.054086832 costUSD=20.57409002448 @ ETH/USD=380.39 gasPrice=18000000000 block=8 txId=0xbbae3e19b308f43570d09b3ea17c017c7271c967b1955dcc13e62e027cf9da17
+tokenAddress=0x354059c8c025b0bb359d8a9a6afaf1e550b2ea4b gas=6000000 gasUsed=3064799 costETH=0.055166382 costUSD=20.98474004898 @ ETH/USD=380.39 gasPrice=18000000000 block=497 txId=0x9bbbca18680cbf07ab546837a1a57d74db3a7c872bdf4e0e7ac66b47a8f9a2c9
+tokenAddress=0x354059c8c025b0bb359d8a9a6afaf1e550b2ea4b gas=6000000 gasUsed=3064799 costETH=0.055166382 costUSD=20.98474004898 @ ETH/USD=380.39 gasPrice=18000000000 block=497 txId=0x9bbbca18680cbf07ab546837a1a57d74db3a7c872bdf4e0e7ac66b47a8f9a2c9
  # Account                                             EtherBalanceChange                 Unlocked Token                      Locked 1Y                      Locked 2Y                          Total Name
 -- ------------------------------------------ --------------------------- ------------------------------ ------------------------------ ------------------------------ ------------------------------ ---------------------------
- 1 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       35.054086832000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #0 - Miner
- 2 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.054086832000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #1 - Token Owner
+ 1 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       35.055166382000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #0 - Miner
+ 2 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.055166382000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #1 - Token Owner
  3 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976        0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #2 - KYCed
  4 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0        0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #3 - KYCed
  5 0xa44a08d3f6933c69212114bb66e2df1813651844        0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #4
@@ -43,7 +43,7 @@ tokenAddress=0x90d8927407c79c4a28ee879b821c76fc9bcc2688 gas=6000000 gasUsed=3004
 14 0xadda9b762a00ff12711113bfdc36958b73d7f915        0.000000000000000000           0.000000000000000000     2000000.000000000000000000     2000000.000000000000000000     4000000.000000000000000000 Account #13 - Early Backers
 15 0xaeea63b5479b50f79583ec49dacdcf86ddeff392        0.000000000000000000           0.000000000000000000     8000000.000000000000000000           0.000000000000000000     8000000.000000000000000000 Account #14 - Developers
 16 0xaffa4d3a80add8ce4018540e056dacb649589394        0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #15 - Precommitments
-17 0x90d8927407c79c4a28ee879b821c76fc9bcc2688        0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 OAX 'openANX Token' *
+17 0x354059c8c025b0bb359d8a9a6afaf1e550b2ea4b        0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 OAX 'openANX Token' *
 -- ------------------------------------------ --------------------------- ------------------------------ ------------------------------ ------------------------------ ------------------------------ ---------------------------
                                                                                     0.000000000000000000    14000000.000000000000000000    26000000.000000000000000000    40000000.000000000000000000 Total Token Balances *
 -- ------------------------------------------ --------------------------- ------------------------------ ------------------------------ ------------------------------ ------------------------------ ---------------------------
@@ -54,16 +54,16 @@ token.symbol=OAX
 token.name=openANX Token
 token.decimals=18
 token.DECIMALSFACTOR=1000000000000000000
-token.START_DATE=1497328376 Tue, 13 Jun 2017 04:32:56 UTC / Tue, 13 Jun 2017 04:32:56 GMT
-token.END_DATE=1497328616 Tue, 13 Jun 2017 04:36:56 UTC / Tue, 13 Jun 2017 04:36:56 GMT
+token.START_DATE=1497547214 Thu, 15 Jun 2017 17:20:14 UTC / Thu, 15 Jun 2017 17:20:14 GMT
+token.END_DATE=1497547454 Thu, 15 Jun 2017 17:24:14 UTC / Thu, 15 Jun 2017 17:24:14 GMT
 token.TOKENS_SOFT_CAP=13000000
 token.TOKENS_HARD_CAP=30000000
 token.TOKENS_TOTAL=100000000
 token.finalised=false
 token.tokensPerKEther=343734
 token.totalSupply=0
-token.LOCKED_1Y_DATE=1528864376 Wed, 13 Jun 2018 04:32:56 UTC / Wed, 13 Jun 2018 04:32:56 GMT
-token.LOCKED_2Y_DATE=1560400376 Thu, 13 Jun 2019 04:32:56 UTC / Thu, 13 Jun 2019 04:32:56 GMT
+token.LOCKED_1Y_DATE=1529083214 Fri, 15 Jun 2018 17:20:14 UTC / Fri, 15 Jun 2018 17:20:14 GMT
+token.LOCKED_2Y_DATE=1560619214 Sat, 15 Jun 2019 17:20:14 UTC / Sat, 15 Jun 2019 17:20:14 GMT
 lockedToken.TOKENS_LOCKED_1Y_TOTAL=14000000
 lockedToken.TOKENS_LOCKED_2Y_TOTAL=26000000
 lockedToken.totalSupplyLocked1Y=14000000
@@ -73,13 +73,13 @@ token.owner=0xa11aae29840fbb5c86e6fd4cf809eba183aef433
 token.newOwner=0x0000000000000000000000000000000000000000
 
 Test 1.2 Precommitments, TokensPerKEther, Wallet
-tx1_2_1 gas=4000000 gasUsed=66434 costETH=0.001195812 costUSD=0.45487492668 @ ETH/USD=380.39 gasPrice=18000000000 block=13 txId=0xe1987ab89a4c6aadc8a02a13ad870177a23fbf1ff55ba97916cc29850a85f064
-tx1_2_2 gas=4000000 gasUsed=28020 costETH=0.00050436 costUSD=0.1918535004 @ ETH/USD=380.39 gasPrice=18000000000 block=13 txId=0xba0ef8f986a0773f8b819be341d12470f3c99cac62818a9861aede9d72474267
-tx1_2_3 gas=4000000 gasUsed=29821 costETH=0.000536778 costUSD=0.20418498342 @ ETH/USD=380.39 gasPrice=18000000000 block=13 txId=0x911374e9968d486e361791d39c8f5d1930a0c98f58c4b1ab4774754ed7897d91
+tx1_2_1 gas=4000000 gasUsed=66434 costETH=0.001195812 costUSD=0.45487492668 @ ETH/USD=380.39 gasPrice=18000000000 block=500 txId=0x43b00570579ef52cf0f1dd23f49b4f52d033eed296c2a920a824fc6809b782e5
+tx1_2_2 gas=4000000 gasUsed=28020 costETH=0.00050436 costUSD=0.1918535004 @ ETH/USD=380.39 gasPrice=18000000000 block=500 txId=0xf5d57e664c8eda7650d522bd9fdec8762ec4cb1a6564e2d565c2cc6251d8675b
+tx1_2_3 gas=4000000 gasUsed=29843 costETH=0.000537174 costUSD=0.20433561786 @ ETH/USD=380.39 gasPrice=18000000000 block=500 txId=0x8e112e7401a52b230a1a39edbda4755b778b9388cb322b0ed2f5063843ab8db7
  # Account                                             EtherBalanceChange                 Unlocked Token                      Locked 1Y                      Locked 2Y                          Total Name
 -- ------------------------------------------ --------------------------- ------------------------------ ------------------------------ ------------------------------ ------------------------------ ---------------------------
- 1 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       60.056323782000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #0 - Miner
- 2 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.056323782000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #1 - Token Owner
+ 1 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       50.057403728000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #0 - Miner
+ 2 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.057403728000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #1 - Token Owner
  3 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976        0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #2 - KYCed
  4 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0        0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #3 - KYCed
  5 0xa44a08d3f6933c69212114bb66e2df1813651844        0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #4
@@ -94,7 +94,7 @@ tx1_2_3 gas=4000000 gasUsed=29821 costETH=0.000536778 costUSD=0.20418498342 @ ET
 14 0xadda9b762a00ff12711113bfdc36958b73d7f915        0.000000000000000000           0.000000000000000000     2000000.000000000000000000     2000000.000000000000000000     4000000.000000000000000000 Account #13 - Early Backers
 15 0xaeea63b5479b50f79583ec49dacdcf86ddeff392        0.000000000000000000           0.000000000000000000     8000000.000000000000000000           0.000000000000000000     8000000.000000000000000000 Account #14 - Developers
 16 0xaffa4d3a80add8ce4018540e056dacb649589394        0.000000000000000000    10000000.000000000000000000           0.000000000000000000           0.000000000000000000    10000000.000000000000000000 Account #15 - Precommitments
-17 0x90d8927407c79c4a28ee879b821c76fc9bcc2688        0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 OAX 'openANX Token' *
+17 0x354059c8c025b0bb359d8a9a6afaf1e550b2ea4b        0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 OAX 'openANX Token' *
 -- ------------------------------------------ --------------------------- ------------------------------ ------------------------------ ------------------------------ ------------------------------ ---------------------------
                                                                              10000000.000000000000000000    14000000.000000000000000000    26000000.000000000000000000    50000000.000000000000000000 Total Token Balances *
 -- ------------------------------------------ --------------------------- ------------------------------ ------------------------------ ------------------------------ ------------------------------ ---------------------------
@@ -106,8 +106,8 @@ PASS Test 1.2 Precommitments, TokensPerKEther, Wallet - change crowdsale wallet
 token.finalised=false
 token.tokensPerKEther=1000000
 token.totalSupply=10000000
-token.LOCKED_1Y_DATE=1528864376 Wed, 13 Jun 2018 04:32:56 UTC / Wed, 13 Jun 2018 04:32:56 GMT
-token.LOCKED_2Y_DATE=1560400376 Thu, 13 Jun 2019 04:32:56 UTC / Thu, 13 Jun 2019 04:32:56 GMT
+token.LOCKED_1Y_DATE=1529083214 Fri, 15 Jun 2018 17:20:14 UTC / Fri, 15 Jun 2018 17:20:14 GMT
+token.LOCKED_2Y_DATE=1560619214 Sat, 15 Jun 2019 17:20:14 UTC / Sat, 15 Jun 2019 17:20:14 GMT
 lockedToken.TOKENS_LOCKED_1Y_TOTAL=14000000
 lockedToken.TOKENS_LOCKED_2Y_TOTAL=26000000
 lockedToken.totalSupplyLocked1Y=14000000
@@ -115,38 +115,39 @@ lockedToken.totalSupplyLocked2Y=26000000
 lockedToken.totalSupplyLocked=40000000
 token.owner=0xa11aae29840fbb5c86e6fd4cf809eba183aef433
 token.newOwner=0x0000000000000000000000000000000000000000
-TokensPerKEtherUpdated Event 0: tokensPerKEther=1000000 block=13
-WalletUpdated Event 0: from=0xa99a0ae3354c06b1459fd441a32a3f71005d7da0 block=13
-Transfer Event 0: from=0x0000000000000000000000000000000000000000 to=0xaffa4d3a80add8ce4018540e056dacb649589394 value=10000000 block=13
+TokensPerKEtherUpdated Event 0: tokensPerKEther=1000000 block=500
+WalletUpdated Event 0: from=0xa99a0ae3354c06b1459fd441a32a3f71005d7da0 block=500
+Transfer Event 0: from=0x0000000000000000000000000000000000000000 to=0xaffa4d3a80add8ce4018540e056dacb649589394 value=10000000 block=500
 
-Waiting until start date at 1497328376 Tue, 13 Jun 2017 14:32:56 AEST currentDate=Tue, 13 Jun 2017 14:32:32 AEST
-Waited until start date at 1497328376 Tue, 13 Jun 2017 14:32:56 AEST currentDate=Tue, 13 Jun 2017 14:32:56 AEST
+Waiting until start date at 1497547214 Fri, 16 Jun 2017 03:20:14 AEST currentDate=Fri, 16 Jun 2017 03:19:56 AEST
+Waited until start date at 1497547214 Fri, 16 Jun 2017 03:20:14 AEST currentDate=Fri, 16 Jun 2017 03:20:14 AEST
 Test 2.1 Buy tokens
-tx2_1_1 gas=400000 gasUsed=78972 costETH=0.001421496 costUSD=0.54072286344 @ ETH/USD=380.39 gasPrice=18000000000 block=23 txId=0x862c86b33d44bf01bf739ae3f1047170638fe35965c23e5c8cb2c17ab8af298b
-tx2_1_2 gas=400000 gasUsed=78972 costETH=0.001421496 costUSD=0.54072286344 @ ETH/USD=380.39 gasPrice=18000000000 block=23 txId=0x82cacd5182c6038fa4f5b9373e876e36ab1375448809068e92385d97e2d76808
-tx2_1_3 gas=400000 gasUsed=78972 costETH=0.001421496 costUSD=0.54072286344 @ ETH/USD=380.39 gasPrice=18000000000 block=23 txId=0x681ba49b4f3fe4ce89d9cd304c5a03ec287ba0b45a232d258b88c9652fea2c22
-tx2_1_4 gas=400000 gasUsed=78972 costETH=0.001421496 costUSD=0.54072286344 @ ETH/USD=380.39 gasPrice=18000000000 block=23 txId=0x74a05fd2c2f8b31bb0a9515b03b2db438fe138b6e4f0a830ee49c311f8a6c5ae
+tx2_1_1 gas=400000 gasUsed=78977 costETH=0.001421586 costUSD=0.54075709854 @ ETH/USD=380.39 gasPrice=18000000000 block=508 txId=0x522901f40c34b866e53607eacce253b2f91273b975410a97b28151321adc2a4d
+tx2_1_2 gas=400000 gasUsed=78977 costETH=0.001421586 costUSD=0.54075709854 @ ETH/USD=380.39 gasPrice=18000000000 block=508 txId=0xe42c53c75edbfa2c2223497b76bf08fa3d830df64c59d1005e5b42f310cec27e
+tx2_1_3 gas=400000 gasUsed=78977 costETH=0.001421586 costUSD=0.54075709854 @ ETH/USD=380.39 gasPrice=18000000000 block=508 txId=0x5aba06f44465babaffe3e86c97de188e207815ffbf2356b643f72b2fae4cbade
+tx2_1_4 gas=400000 gasUsed=78977 costETH=0.001421586 costUSD=0.54075709854 @ ETH/USD=380.39 gasPrice=18000000000 block=508 txId=0x41a0eb4bb3b54006deb67eae5816c23cd28ae12eeed44375f3a059c175513906
+tx2_1_5 gas=400000 gasUsed=81538 costETH=0.001467684 costUSD=0.55829231676 @ ETH/USD=380.39 gasPrice=18000000000 block=508 txId=0x881af67274d13a22b362d408c4a5ea6df3b7453c2e89435cf7485115a8a13604
  # Account                                             EtherBalanceChange                 Unlocked Token                      Locked 1Y                      Locked 2Y                          Total Name
 -- ------------------------------------------ --------------------------- ------------------------------ ------------------------------ ------------------------------ ------------------------------ ---------------------------
- 1 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e      115.062009766000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #0 - Miner
- 2 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.056323782000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #1 - Token Owner
- 3 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976     -100.001421496000000000      100000.000000000000000000           0.000000000000000000           0.000000000000000000      100000.000000000000000000 Account #2 - KYCed
- 4 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0    -1000.001421496000000000     1000000.000000000000000000           0.000000000000000000           0.000000000000000000     1000000.000000000000000000 Account #3 - KYCed
- 5 0xa44a08d3f6933c69212114bb66e2df1813651844   -10000.001421496000000000    10000000.000000000000000000           0.000000000000000000           0.000000000000000000    10000000.000000000000000000 Account #4
- 6 0xa55a151eb00fded1634d27d1127b4be4627079ea        0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #5
- 7 0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9        0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #6
+ 1 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       90.064557756000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #0 - Miner
+ 2 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.057403728000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #1 - Token Owner
+ 3 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976     -100.001421586000000000      100000.000000000000000000           0.000000000000000000           0.000000000000000000      100000.000000000000000000 Account #2 - KYCed
+ 4 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0    -1000.001421586000000000     1000000.000000000000000000           0.000000000000000000           0.000000000000000000     1000000.000000000000000000 Account #3 - KYCed
+ 5 0xa44a08d3f6933c69212114bb66e2df1813651844   -10000.001421586000000000    10000000.000000000000000000           0.000000000000000000           0.000000000000000000    10000000.000000000000000000 Account #4
+ 6 0xa55a151eb00fded1634d27d1127b4be4627079ea       -0.501467684000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #5
+ 7 0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9        0.000000000000000000         500.000000000000000000           0.000000000000000000           0.000000000000000000         500.000000000000000000 Account #6
  8 0xa77a2b9d4b1c010a22a7c565dc418cef683dbcec        0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #7
  9 0xa88a05d2b88283ce84c8325760b72a64591279a2        0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #8
-10 0xa99a0ae3354c06b1459fd441a32a3f71005d7da0    12100.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #9 - Crowdfund Wallet
+10 0xa99a0ae3354c06b1459fd441a32a3f71005d7da0    12100.500000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #9 - Crowdfund Wallet
 11 0xaaaa9de1e6c564446ebca0fd102d8bd92093c756        0.000000000000000000           0.000000000000000000           0.000000000000000000    20000000.000000000000000000    20000000.000000000000000000 Account #10 - Foundation
 12 0xabba43e7594e3b76afb157989e93c6621497fd4b        0.000000000000000000           0.000000000000000000     2000000.000000000000000000     2000000.000000000000000000     4000000.000000000000000000 Account #11 - Advisors
-13 0xacca534c9f62ab495bd986e002ddf0f054caae4f    -1000.001421496000000000     1000000.000000000000000000     2000000.000000000000000000     2000000.000000000000000000     5000000.000000000000000000 Account #12 - Directors
+13 0xacca534c9f62ab495bd986e002ddf0f054caae4f    -1000.001421586000000000     1000000.000000000000000000     2000000.000000000000000000     2000000.000000000000000000     5000000.000000000000000000 Account #12 - Directors
 14 0xadda9b762a00ff12711113bfdc36958b73d7f915        0.000000000000000000           0.000000000000000000     2000000.000000000000000000     2000000.000000000000000000     4000000.000000000000000000 Account #13 - Early Backers
 15 0xaeea63b5479b50f79583ec49dacdcf86ddeff392        0.000000000000000000           0.000000000000000000     8000000.000000000000000000           0.000000000000000000     8000000.000000000000000000 Account #14 - Developers
 16 0xaffa4d3a80add8ce4018540e056dacb649589394        0.000000000000000000    10000000.000000000000000000           0.000000000000000000           0.000000000000000000    10000000.000000000000000000 Account #15 - Precommitments
-17 0x90d8927407c79c4a28ee879b821c76fc9bcc2688        0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 OAX 'openANX Token' *
+17 0x354059c8c025b0bb359d8a9a6afaf1e550b2ea4b        0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 OAX 'openANX Token' *
 -- ------------------------------------------ --------------------------- ------------------------------ ------------------------------ ------------------------------ ------------------------------ ---------------------------
-                                                                             22100000.000000000000000000    14000000.000000000000000000    26000000.000000000000000000    62100000.000000000000000000 Total Token Balances *
+                                                                             22100500.000000000000000000    14000000.000000000000000000    26000000.000000000000000000    62100500.000000000000000000 Total Token Balances *
 -- ------------------------------------------ --------------------------- ------------------------------ ------------------------------ ------------------------------ ------------------------------ ---------------------------
 * Note that the sum of all the locked tokens is represented in the unlocked balance at the token contract address, and this will be double counted in the grand total balance above
 
@@ -154,11 +155,12 @@ PASS Test 2.1 Buy tokens - account2 buys 100,000 OAX for 100 ETH
 PASS Test 2.1 Buy tokens - account3 buys 1,000,000 OAX for 1,000 ETH
 PASS Test 2.1 Buy tokens - account4 buys 10,000,000 OAX for 10,000 ETH
 PASS Test 2.1 Buy tokens - directorsAccount buys 1,000,000 OAX for 1,000 ETH
+PASS Test 2.1 Buy tokens - account5 buys 500 OAX for 0.5 ETH on behalf of account6
 token.finalised=false
 token.tokensPerKEther=1000000
-token.totalSupply=22100000
-token.LOCKED_1Y_DATE=1528864376 Wed, 13 Jun 2018 04:32:56 UTC / Wed, 13 Jun 2018 04:32:56 GMT
-token.LOCKED_2Y_DATE=1560400376 Thu, 13 Jun 2019 04:32:56 UTC / Thu, 13 Jun 2019 04:32:56 GMT
+token.totalSupply=22100500
+token.LOCKED_1Y_DATE=1529083214 Fri, 15 Jun 2018 17:20:14 UTC / Fri, 15 Jun 2018 17:20:14 GMT
+token.LOCKED_2Y_DATE=1560619214 Sat, 15 Jun 2019 17:20:14 UTC / Sat, 15 Jun 2019 17:20:14 GMT
 lockedToken.TOKENS_LOCKED_1Y_TOTAL=14000000
 lockedToken.TOKENS_LOCKED_2Y_TOTAL=26000000
 lockedToken.totalSupplyLocked1Y=14000000
@@ -166,43 +168,45 @@ lockedToken.totalSupplyLocked2Y=26000000
 lockedToken.totalSupplyLocked=40000000
 token.owner=0xa11aae29840fbb5c86e6fd4cf809eba183aef433
 token.newOwner=0x0000000000000000000000000000000000000000
-TokensBought Event 0: buyer=0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976 ethers=100 newEtherBalance=100 tokens=100000 newTotalSupply=10100000 tokensPerKEther=1000000 block=23
-TokensBought Event 1: buyer=0xacca534c9f62ab495bd986e002ddf0f054caae4f ethers=1000 newEtherBalance=1000 tokens=1000000 newTotalSupply=11100000 tokensPerKEther=1000000 block=23
-TokensBought Event 2: buyer=0xa44a08d3f6933c69212114bb66e2df1813651844 ethers=10000 newEtherBalance=10000 tokens=10000000 newTotalSupply=21100000 tokensPerKEther=1000000 block=23
-TokensBought Event 3: buyer=0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0 ethers=1000 newEtherBalance=1000 tokens=1000000 newTotalSupply=22100000 tokensPerKEther=1000000 block=23
-Transfer Event 0: from=0x0000000000000000000000000000000000000000 to=0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976 value=100000 block=23
-Transfer Event 1: from=0x0000000000000000000000000000000000000000 to=0xacca534c9f62ab495bd986e002ddf0f054caae4f value=1000000 block=23
-Transfer Event 2: from=0x0000000000000000000000000000000000000000 to=0xa44a08d3f6933c69212114bb66e2df1813651844 value=10000000 block=23
-Transfer Event 3: from=0x0000000000000000000000000000000000000000 to=0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0 value=1000000 block=23
+TokensBought Event 0: buyer=0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0 ethers=1000 newEtherBalance=1000 tokens=1000000 newTotalSupply=11000000 tokensPerKEther=1000000 block=508
+TokensBought Event 1: buyer=0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976 ethers=100 newEtherBalance=100 tokens=100000 newTotalSupply=11100000 tokensPerKEther=1000000 block=508
+TokensBought Event 2: buyer=0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9 ethers=0.5 newEtherBalance=0.5 tokens=500 newTotalSupply=11100500 tokensPerKEther=1000000 block=508
+TokensBought Event 3: buyer=0xacca534c9f62ab495bd986e002ddf0f054caae4f ethers=1000 newEtherBalance=1000 tokens=1000000 newTotalSupply=12100500 tokensPerKEther=1000000 block=508
+TokensBought Event 4: buyer=0xa44a08d3f6933c69212114bb66e2df1813651844 ethers=10000 newEtherBalance=10000 tokens=10000000 newTotalSupply=22100500 tokensPerKEther=1000000 block=508
+Transfer Event 0: from=0x0000000000000000000000000000000000000000 to=0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0 value=1000000 block=508
+Transfer Event 1: from=0x0000000000000000000000000000000000000000 to=0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976 value=100000 block=508
+Transfer Event 2: from=0x0000000000000000000000000000000000000000 to=0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9 value=500 block=508
+Transfer Event 3: from=0x0000000000000000000000000000000000000000 to=0xacca534c9f62ab495bd986e002ddf0f054caae4f value=1000000 block=508
+Transfer Event 4: from=0x0000000000000000000000000000000000000000 to=0xa44a08d3f6933c69212114bb66e2df1813651844 value=10000000 block=508
 
 Test 3.1 Cannot Move Tokens Without Finalisation And KYC Verification
-tx3_1_1 gas=100000 gasUsed=100000 costETH=0.0018 costUSD=0.684702 @ ETH/USD=380.39 gasPrice=18000000000 block=28 txId=0x1bf9c99e5f5503ce6529e3a031be49f305653bda4a72892d9b296e351237b427
-tx3_1_2 gas=100000 gasUsed=100000 costETH=0.0018 costUSD=0.684702 @ ETH/USD=380.39 gasPrice=18000000000 block=28 txId=0xb75e6f3aad3adb702d767d11102ee9a87312a0ead7c1d2622d0e8b59c225009f
-tx3_1_3 gas=100000 gasUsed=45404 costETH=0.000817272 costUSD=0.31088209608 @ ETH/USD=380.39 gasPrice=18000000000 block=28 txId=0x37947ee5fdb7053b7ef90392afbf739bb8777bc70ebb50e49d253ffa5c2ee1ea
-tx3_1_4 gas=100000 gasUsed=45468 costETH=0.000818424 costUSD=0.31132030536 @ ETH/USD=380.39 gasPrice=18000000000 block=28 txId=0x734d71a1113e83ec571dd29e81f4eb1a0deead333febe48cc5ee48c5c682f6b2
-tx3_1_5 gas=100000 gasUsed=100000 costETH=0.0018 costUSD=0.684702 @ ETH/USD=380.39 gasPrice=18000000000 block=30 txId=0x52b3ac9d4db9fb99b1c21f905906496ea966e4e964de37d70e26bc5da0fcb3d1
-tx3_1_6 gas=100000 gasUsed=100000 costETH=0.0018 costUSD=0.684702 @ ETH/USD=380.39 gasPrice=18000000000 block=30 txId=0xce9b14e864ffd6bca0dce2d067f75fad2a11b61b75c87ff04521cac8a5d244a3
+tx3_1_1 gas=100000 gasUsed=100000 costETH=0.0018 costUSD=0.684702 @ ETH/USD=380.39 gasPrice=18000000000 block=510 txId=0x877619847ffa47b76fc349275574cdafc956a7080362a24673ddc44a0e6ec4fc
+tx3_1_2 gas=100000 gasUsed=100000 costETH=0.0018 costUSD=0.684702 @ ETH/USD=380.39 gasPrice=18000000000 block=510 txId=0x1cfb76e873ea5459f47e247e05865b9270ed4cf3dcad55898f12d19ddd54d6e7
+tx3_1_3 gas=100000 gasUsed=45404 costETH=0.000817272 costUSD=0.31088209608 @ ETH/USD=380.39 gasPrice=18000000000 block=510 txId=0xec7cc7a2ee093f4dccfc8700a79b3802941425600e1d71bc144e575867248336
+tx3_1_4 gas=100000 gasUsed=45468 costETH=0.000818424 costUSD=0.31132030536 @ ETH/USD=380.39 gasPrice=18000000000 block=510 txId=0x8b2efb0a1b9564c4f1a2c277093ab600f45bcef6ad639294d6bb6d525e30512a
+tx3_1_5 gas=100000 gasUsed=100000 costETH=0.0018 costUSD=0.684702 @ ETH/USD=380.39 gasPrice=18000000000 block=512 txId=0x81fd2244a3e922415fff3e6167cf369cc5de0ab248e90c34ca8987c7bdece8df
+tx3_1_6 gas=100000 gasUsed=100000 costETH=0.0018 costUSD=0.684702 @ ETH/USD=380.39 gasPrice=18000000000 block=512 txId=0xda9d5eda79dbe98ebcede9dac1513d490dc9645884c61452e8b256eb040f7c84
  # Account                                             EtherBalanceChange                 Unlocked Token                      Locked 1Y                      Locked 2Y                          Total Name
 -- ------------------------------------------ --------------------------- ------------------------------ ------------------------------ ------------------------------ ------------------------------ ---------------------------
- 1 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e      145.070845462000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #0 - Miner
- 2 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.056323782000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #1 - Token Owner
- 3 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976     -100.003221496000000000      100000.000000000000000000           0.000000000000000000           0.000000000000000000      100000.000000000000000000 Account #2 - KYCed
- 4 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0    -1000.002238768000000000     1000000.000000000000000000           0.000000000000000000           0.000000000000000000     1000000.000000000000000000 Account #3 - KYCed
- 5 0xa44a08d3f6933c69212114bb66e2df1813651844   -10000.004039920000000000    10000000.000000000000000000           0.000000000000000000           0.000000000000000000    10000000.000000000000000000 Account #4
- 6 0xa55a151eb00fded1634d27d1127b4be4627079ea        0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #5
- 7 0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9        0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #6
+ 1 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e      110.073393452000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #0 - Miner
+ 2 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.057403728000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #1 - Token Owner
+ 3 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976     -100.003221586000000000      100000.000000000000000000           0.000000000000000000           0.000000000000000000      100000.000000000000000000 Account #2 - KYCed
+ 4 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0    -1000.002238858000000000     1000000.000000000000000000           0.000000000000000000           0.000000000000000000     1000000.000000000000000000 Account #3 - KYCed
+ 5 0xa44a08d3f6933c69212114bb66e2df1813651844   -10000.004040010000000000    10000000.000000000000000000           0.000000000000000000           0.000000000000000000    10000000.000000000000000000 Account #4
+ 6 0xa55a151eb00fded1634d27d1127b4be4627079ea       -0.501467684000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #5
+ 7 0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9        0.000000000000000000         500.000000000000000000           0.000000000000000000           0.000000000000000000         500.000000000000000000 Account #6
  8 0xa77a2b9d4b1c010a22a7c565dc418cef683dbcec       -0.001800000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #7
  9 0xa88a05d2b88283ce84c8325760b72a64591279a2       -0.001800000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #8
-10 0xa99a0ae3354c06b1459fd441a32a3f71005d7da0    12100.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #9 - Crowdfund Wallet
+10 0xa99a0ae3354c06b1459fd441a32a3f71005d7da0    12100.500000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #9 - Crowdfund Wallet
 11 0xaaaa9de1e6c564446ebca0fd102d8bd92093c756        0.000000000000000000           0.000000000000000000           0.000000000000000000    20000000.000000000000000000    20000000.000000000000000000 Account #10 - Foundation
 12 0xabba43e7594e3b76afb157989e93c6621497fd4b        0.000000000000000000           0.000000000000000000     2000000.000000000000000000     2000000.000000000000000000     4000000.000000000000000000 Account #11 - Advisors
-13 0xacca534c9f62ab495bd986e002ddf0f054caae4f    -1000.001421496000000000     1000000.000000000000000000     2000000.000000000000000000     2000000.000000000000000000     5000000.000000000000000000 Account #12 - Directors
+13 0xacca534c9f62ab495bd986e002ddf0f054caae4f    -1000.001421586000000000     1000000.000000000000000000     2000000.000000000000000000     2000000.000000000000000000     5000000.000000000000000000 Account #12 - Directors
 14 0xadda9b762a00ff12711113bfdc36958b73d7f915        0.000000000000000000           0.000000000000000000     2000000.000000000000000000     2000000.000000000000000000     4000000.000000000000000000 Account #13 - Early Backers
 15 0xaeea63b5479b50f79583ec49dacdcf86ddeff392        0.000000000000000000           0.000000000000000000     8000000.000000000000000000           0.000000000000000000     8000000.000000000000000000 Account #14 - Developers
 16 0xaffa4d3a80add8ce4018540e056dacb649589394        0.000000000000000000    10000000.000000000000000000           0.000000000000000000           0.000000000000000000    10000000.000000000000000000 Account #15 - Precommitments
-17 0x90d8927407c79c4a28ee879b821c76fc9bcc2688        0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 OAX 'openANX Token' *
+17 0x354059c8c025b0bb359d8a9a6afaf1e550b2ea4b        0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 OAX 'openANX Token' *
 -- ------------------------------------------ --------------------------- ------------------------------ ------------------------------ ------------------------------ ------------------------------ ---------------------------
-                                                                             22100000.000000000000000000    14000000.000000000000000000    26000000.000000000000000000    62100000.000000000000000000 Total Token Balances *
+                                                                             22100500.000000000000000000    14000000.000000000000000000    26000000.000000000000000000    62100500.000000000000000000 Total Token Balances *
 -- ------------------------------------------ --------------------------- ------------------------------ ------------------------------ ------------------------------ ------------------------------ ---------------------------
 * Note that the sum of all the locked tokens is represented in the unlocked balance at the token contract address, and this will be double counted in the grand total balance above
 
@@ -214,9 +218,9 @@ PASS Test 3.1 Cannot Move Tokens Without Finalisation And KYC Verification - tra
 PASS Test 3.1 Cannot Move Tokens Without Finalisation And KYC Verification - transferFrom 4 OAX ac4 -> ac6. CHECK no movement
 token.finalised=false
 token.tokensPerKEther=1000000
-token.totalSupply=22100000
-token.LOCKED_1Y_DATE=1528864376 Wed, 13 Jun 2018 04:32:56 UTC / Wed, 13 Jun 2018 04:32:56 GMT
-token.LOCKED_2Y_DATE=1560400376 Thu, 13 Jun 2019 04:32:56 UTC / Thu, 13 Jun 2019 04:32:56 GMT
+token.totalSupply=22100500
+token.LOCKED_1Y_DATE=1529083214 Fri, 15 Jun 2018 17:20:14 UTC / Fri, 15 Jun 2018 17:20:14 GMT
+token.LOCKED_2Y_DATE=1560619214 Sat, 15 Jun 2019 17:20:14 UTC / Sat, 15 Jun 2019 17:20:14 GMT
 lockedToken.TOKENS_LOCKED_1Y_TOTAL=14000000
 lockedToken.TOKENS_LOCKED_2Y_TOTAL=26000000
 lockedToken.totalSupplyLocked1Y=14000000
@@ -224,32 +228,32 @@ lockedToken.totalSupplyLocked2Y=26000000
 lockedToken.totalSupplyLocked=40000000
 token.owner=0xa11aae29840fbb5c86e6fd4cf809eba183aef433
 token.newOwner=0x0000000000000000000000000000000000000000
-Approval Event 0: owner=0xa44a08d3f6933c69212114bb66e2df1813651844 spender=0xa88a05d2b88283ce84c8325760b72a64591279a2 4 block=28
-Approval Event 1: owner=0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0 spender=0xa77a2b9d4b1c010a22a7c565dc418cef683dbcec 0.03 block=28
+Approval Event 0: owner=0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0 spender=0xa77a2b9d4b1c010a22a7c565dc418cef683dbcec 0.03 block=510
+Approval Event 1: owner=0xa44a08d3f6933c69212114bb66e2df1813651844 spender=0xa88a05d2b88283ce84c8325760b72a64591279a2 4 block=510
 
 Test 4.1 Finalise crowdsale
-tx4_1 gas=4000000 gasUsed=97491 costETH=0.001754838 costUSD=0.66752282682 @ ETH/USD=380.39 gasPrice=18000000000 block=32 txId=0xf0acf6b9504a67d54271193bfe497d7ac1b304d008bc7a2a4eff5c8bff0f18e3
+tx4_1 gas=4000000 gasUsed=97513 costETH=0.001755234 costUSD=0.66767346126 @ ETH/USD=380.39 gasPrice=18000000000 block=516 txId=0x39526436e607cc6b130c1a23307f5a53c43e6f38376abd7b1deb6a51891289f3
  # Account                                             EtherBalanceChange                 Unlocked Token                      Locked 1Y                      Locked 2Y                          Total Name
 -- ------------------------------------------ --------------------------- ------------------------------ ------------------------------ ------------------------------ ------------------------------ ---------------------------
- 1 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e      155.072600300000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #0 - Miner
- 2 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.058078620000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #1 - Token Owner
- 3 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976     -100.003221496000000000      100000.000000000000000000           0.000000000000000000           0.000000000000000000      100000.000000000000000000 Account #2 - KYCed
- 4 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0    -1000.002238768000000000     1000000.000000000000000000           0.000000000000000000           0.000000000000000000     1000000.000000000000000000 Account #3 - KYCed
- 5 0xa44a08d3f6933c69212114bb66e2df1813651844   -10000.004039920000000000    10000000.000000000000000000           0.000000000000000000           0.000000000000000000    10000000.000000000000000000 Account #4
- 6 0xa55a151eb00fded1634d27d1127b4be4627079ea        0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #5
- 7 0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9        0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #6
+ 1 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e      130.075148686000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #0 - Miner
+ 2 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.059158962000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #1 - Token Owner
+ 3 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976     -100.003221586000000000      100000.000000000000000000           0.000000000000000000           0.000000000000000000      100000.000000000000000000 Account #2 - KYCed
+ 4 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0    -1000.002238858000000000     1000000.000000000000000000           0.000000000000000000           0.000000000000000000     1000000.000000000000000000 Account #3 - KYCed
+ 5 0xa44a08d3f6933c69212114bb66e2df1813651844   -10000.004040010000000000    10000000.000000000000000000           0.000000000000000000           0.000000000000000000    10000000.000000000000000000 Account #4
+ 6 0xa55a151eb00fded1634d27d1127b4be4627079ea       -0.501467684000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #5
+ 7 0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9        0.000000000000000000         500.000000000000000000           0.000000000000000000           0.000000000000000000         500.000000000000000000 Account #6
  8 0xa77a2b9d4b1c010a22a7c565dc418cef683dbcec       -0.001800000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #7
  9 0xa88a05d2b88283ce84c8325760b72a64591279a2       -0.001800000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #8
-10 0xa99a0ae3354c06b1459fd441a32a3f71005d7da0    12100.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #9 - Crowdfund Wallet
+10 0xa99a0ae3354c06b1459fd441a32a3f71005d7da0    12100.500000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #9 - Crowdfund Wallet
 11 0xaaaa9de1e6c564446ebca0fd102d8bd92093c756        0.000000000000000000           0.000000000000000000           0.000000000000000000    20000000.000000000000000000    20000000.000000000000000000 Account #10 - Foundation
 12 0xabba43e7594e3b76afb157989e93c6621497fd4b        0.000000000000000000           0.000000000000000000     2000000.000000000000000000     2000000.000000000000000000     4000000.000000000000000000 Account #11 - Advisors
-13 0xacca534c9f62ab495bd986e002ddf0f054caae4f    -1000.001421496000000000     1000000.000000000000000000     2000000.000000000000000000     2000000.000000000000000000     5000000.000000000000000000 Account #12 - Directors
+13 0xacca534c9f62ab495bd986e002ddf0f054caae4f    -1000.001421586000000000     1000000.000000000000000000     2000000.000000000000000000     2000000.000000000000000000     5000000.000000000000000000 Account #12 - Directors
 14 0xadda9b762a00ff12711113bfdc36958b73d7f915        0.000000000000000000           0.000000000000000000     2000000.000000000000000000     2000000.000000000000000000     4000000.000000000000000000 Account #13 - Early Backers
 15 0xaeea63b5479b50f79583ec49dacdcf86ddeff392        0.000000000000000000           0.000000000000000000     8000000.000000000000000000           0.000000000000000000     8000000.000000000000000000 Account #14 - Developers
 16 0xaffa4d3a80add8ce4018540e056dacb649589394        0.000000000000000000    10000000.000000000000000000           0.000000000000000000           0.000000000000000000    10000000.000000000000000000 Account #15 - Precommitments
-17 0x90d8927407c79c4a28ee879b821c76fc9bcc2688        0.000000000000000000    77900000.000000000000000000    37900000.000000000000000000           0.000000000000000000   115800000.000000000000000000 OAX 'openANX Token' *
+17 0x354059c8c025b0bb359d8a9a6afaf1e550b2ea4b        0.000000000000000000    77899500.000000000000000000    37899500.000000000000000000           0.000000000000000000   115799000.000000000000000000 OAX 'openANX Token' *
 -- ------------------------------------------ --------------------------- ------------------------------ ------------------------------ ------------------------------ ------------------------------ ---------------------------
-                                                                            100000000.000000000000000000    51900000.000000000000000000    26000000.000000000000000000   177900000.000000000000000000 Total Token Balances *
+                                                                            100000000.000000000000000000    51899500.000000000000000000    26000000.000000000000000000   177899500.000000000000000000 Total Token Balances *
 -- ------------------------------------------ --------------------------- ------------------------------ ------------------------------ ------------------------------ ------------------------------ ---------------------------
 * Note that the sum of all the locked tokens is represented in the unlocked balance at the token contract address, and this will be double counted in the grand total balance above
 
@@ -257,40 +261,40 @@ PASS Test 4.1 Finalise crowdsale
 token.finalised=true
 token.tokensPerKEther=1000000
 token.totalSupply=100000000
-token.LOCKED_1Y_DATE=1528864376 Wed, 13 Jun 2018 04:32:56 UTC / Wed, 13 Jun 2018 04:32:56 GMT
-token.LOCKED_2Y_DATE=1560400376 Thu, 13 Jun 2019 04:32:56 UTC / Thu, 13 Jun 2019 04:32:56 GMT
+token.LOCKED_1Y_DATE=1529083214 Fri, 15 Jun 2018 17:20:14 UTC / Fri, 15 Jun 2018 17:20:14 GMT
+token.LOCKED_2Y_DATE=1560619214 Sat, 15 Jun 2019 17:20:14 UTC / Sat, 15 Jun 2019 17:20:14 GMT
 lockedToken.TOKENS_LOCKED_1Y_TOTAL=14000000
 lockedToken.TOKENS_LOCKED_2Y_TOTAL=26000000
-lockedToken.totalSupplyLocked1Y=51900000
+lockedToken.totalSupplyLocked1Y=51899500
 lockedToken.totalSupplyLocked2Y=26000000
-lockedToken.totalSupplyLocked=77900000
+lockedToken.totalSupplyLocked=77899500
 token.owner=0xa11aae29840fbb5c86e6fd4cf809eba183aef433
 token.newOwner=0x0000000000000000000000000000000000000000
 
 Test 5.1 KYC Verify
-tx5_1_1 gas=4000000 gasUsed=14705 costETH=0.00026469 costUSD=0.1006854291 @ ETH/USD=380.39 gasPrice=18000000000 block=35 txId=0x87e202e21367cbd26ac61225ca890deb3a93f24a5534ea8073d64e85c70ca608
-tx5_1_2 gas=4000000 gasUsed=14705 costETH=0.00026469 costUSD=0.1006854291 @ ETH/USD=380.39 gasPrice=18000000000 block=36 txId=0x539eede0a63bde713eacb2cbf258f7b444565c5af6cfa88d1eface73795dfe0e
+tx5_1_1 gas=4000000 gasUsed=14705 costETH=0.00026469 costUSD=0.1006854291 @ ETH/USD=380.39 gasPrice=18000000000 block=520 txId=0x59ea20bb9ebaeec1326aa7db0d36da9f9ab7c1808c3dc1b2630221234da5e001
+tx5_1_2 gas=4000000 gasUsed=14705 costETH=0.00026469 costUSD=0.1006854291 @ ETH/USD=380.39 gasPrice=18000000000 block=520 txId=0xddbf015ec07fca461182263560d211b34b9b41e7354097fb745dbc1524806d59
  # Account                                             EtherBalanceChange                 Unlocked Token                      Locked 1Y                      Locked 2Y                          Total Name
 -- ------------------------------------------ --------------------------- ------------------------------ ------------------------------ ------------------------------ ------------------------------ ---------------------------
- 1 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e      180.073129680000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #0 - Miner
- 2 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.058608000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #1 - Token Owner
- 3 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976     -100.003221496000000000      100000.000000000000000000           0.000000000000000000           0.000000000000000000      100000.000000000000000000 Account #2 - KYCed
- 4 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0    -1000.002238768000000000     1000000.000000000000000000           0.000000000000000000           0.000000000000000000     1000000.000000000000000000 Account #3 - KYCed
- 5 0xa44a08d3f6933c69212114bb66e2df1813651844   -10000.004039920000000000    10000000.000000000000000000           0.000000000000000000           0.000000000000000000    10000000.000000000000000000 Account #4
- 6 0xa55a151eb00fded1634d27d1127b4be4627079ea        0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #5
- 7 0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9        0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #6
+ 1 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e      150.075678066000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #0 - Miner
+ 2 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.059688342000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #1 - Token Owner
+ 3 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976     -100.003221586000000000      100000.000000000000000000           0.000000000000000000           0.000000000000000000      100000.000000000000000000 Account #2 - KYCed
+ 4 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0    -1000.002238858000000000     1000000.000000000000000000           0.000000000000000000           0.000000000000000000     1000000.000000000000000000 Account #3 - KYCed
+ 5 0xa44a08d3f6933c69212114bb66e2df1813651844   -10000.004040010000000000    10000000.000000000000000000           0.000000000000000000           0.000000000000000000    10000000.000000000000000000 Account #4
+ 6 0xa55a151eb00fded1634d27d1127b4be4627079ea       -0.501467684000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #5
+ 7 0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9        0.000000000000000000         500.000000000000000000           0.000000000000000000           0.000000000000000000         500.000000000000000000 Account #6
  8 0xa77a2b9d4b1c010a22a7c565dc418cef683dbcec       -0.001800000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #7
  9 0xa88a05d2b88283ce84c8325760b72a64591279a2       -0.001800000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #8
-10 0xa99a0ae3354c06b1459fd441a32a3f71005d7da0    12100.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #9 - Crowdfund Wallet
+10 0xa99a0ae3354c06b1459fd441a32a3f71005d7da0    12100.500000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #9 - Crowdfund Wallet
 11 0xaaaa9de1e6c564446ebca0fd102d8bd92093c756        0.000000000000000000           0.000000000000000000           0.000000000000000000    20000000.000000000000000000    20000000.000000000000000000 Account #10 - Foundation
 12 0xabba43e7594e3b76afb157989e93c6621497fd4b        0.000000000000000000           0.000000000000000000     2000000.000000000000000000     2000000.000000000000000000     4000000.000000000000000000 Account #11 - Advisors
-13 0xacca534c9f62ab495bd986e002ddf0f054caae4f    -1000.001421496000000000     1000000.000000000000000000     2000000.000000000000000000     2000000.000000000000000000     5000000.000000000000000000 Account #12 - Directors
+13 0xacca534c9f62ab495bd986e002ddf0f054caae4f    -1000.001421586000000000     1000000.000000000000000000     2000000.000000000000000000     2000000.000000000000000000     5000000.000000000000000000 Account #12 - Directors
 14 0xadda9b762a00ff12711113bfdc36958b73d7f915        0.000000000000000000           0.000000000000000000     2000000.000000000000000000     2000000.000000000000000000     4000000.000000000000000000 Account #13 - Early Backers
 15 0xaeea63b5479b50f79583ec49dacdcf86ddeff392        0.000000000000000000           0.000000000000000000     8000000.000000000000000000           0.000000000000000000     8000000.000000000000000000 Account #14 - Developers
 16 0xaffa4d3a80add8ce4018540e056dacb649589394        0.000000000000000000    10000000.000000000000000000           0.000000000000000000           0.000000000000000000    10000000.000000000000000000 Account #15 - Precommitments
-17 0x90d8927407c79c4a28ee879b821c76fc9bcc2688        0.000000000000000000    77900000.000000000000000000    37900000.000000000000000000           0.000000000000000000   115800000.000000000000000000 OAX 'openANX Token' *
+17 0x354059c8c025b0bb359d8a9a6afaf1e550b2ea4b        0.000000000000000000    77899500.000000000000000000    37899500.000000000000000000           0.000000000000000000   115799000.000000000000000000 OAX 'openANX Token' *
 -- ------------------------------------------ --------------------------- ------------------------------ ------------------------------ ------------------------------ ------------------------------ ---------------------------
-                                                                            100000000.000000000000000000    51900000.000000000000000000    26000000.000000000000000000   177900000.000000000000000000 Total Token Balances *
+                                                                            100000000.000000000000000000    51899500.000000000000000000    26000000.000000000000000000   177899500.000000000000000000 Total Token Balances *
 -- ------------------------------------------ --------------------------- ------------------------------ ------------------------------ ------------------------------ ------------------------------ ---------------------------
 * Note that the sum of all the locked tokens is represented in the unlocked balance at the token contract address, and this will be double counted in the grand total balance above
 
@@ -299,48 +303,48 @@ PASS Test 5.1 KYC Verify - account3
 token.finalised=true
 token.tokensPerKEther=1000000
 token.totalSupply=100000000
-token.LOCKED_1Y_DATE=1528864376 Wed, 13 Jun 2018 04:32:56 UTC / Wed, 13 Jun 2018 04:32:56 GMT
-token.LOCKED_2Y_DATE=1560400376 Thu, 13 Jun 2019 04:32:56 UTC / Thu, 13 Jun 2019 04:32:56 GMT
+token.LOCKED_1Y_DATE=1529083214 Fri, 15 Jun 2018 17:20:14 UTC / Fri, 15 Jun 2018 17:20:14 GMT
+token.LOCKED_2Y_DATE=1560619214 Sat, 15 Jun 2019 17:20:14 UTC / Sat, 15 Jun 2019 17:20:14 GMT
 lockedToken.TOKENS_LOCKED_1Y_TOTAL=14000000
 lockedToken.TOKENS_LOCKED_2Y_TOTAL=26000000
-lockedToken.totalSupplyLocked1Y=51900000
+lockedToken.totalSupplyLocked1Y=51899500
 lockedToken.totalSupplyLocked2Y=26000000
-lockedToken.totalSupplyLocked=77900000
+lockedToken.totalSupplyLocked=77899500
 token.owner=0xa11aae29840fbb5c86e6fd4cf809eba183aef433
 token.newOwner=0x0000000000000000000000000000000000000000
-KycVerified Event 0: participant=0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976 block=35
-KycVerified Event 1: participant=0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0 block=36
+KycVerified Event 0: participant=0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976 block=520
+KycVerified Event 1: participant=0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0 block=520
 
 Test 6.1 Move Tokens After Finalising
 kyc(account3)=false
 kyc(account4)=true
-tx6_1_1 gas=100000 gasUsed=52234 costETH=0.000940212 costUSD=0.35764724268 @ ETH/USD=380.39 gasPrice=18000000000 block=43 txId=0x185341852791a039ffa65e9e0df7c8d5230e1a924aef37d5e51b59b2c24cdfac
-tx6_1_2 gas=100000 gasUsed=100000 costETH=0.0018 costUSD=0.684702 @ ETH/USD=380.39 gasPrice=18000000000 block=43 txId=0x881ff922945dfea5d37bd5eadbfcaf2c6c72718d7427c3be7b6a493dc95aa6a3
-tx6_1_3 gas=100000 gasUsed=30404 costETH=0.000547272 costUSD=0.20817679608 @ ETH/USD=380.39 gasPrice=18000000000 block=43 txId=0x79dcee5eaa555daa00416fba7b2bd30ce2779a66eb0d05aa6685d2d853b8e339
-tx6_1_4 gas=100000 gasUsed=30468 costETH=0.000548424 costUSD=0.20861500536 @ ETH/USD=380.39 gasPrice=18000000000 block=43 txId=0x47d423b50f5192b3ba9b3752c1d962941ad5803d279ed0114f8bebcf2ea59530
-tx6_1_5 gas=100000 gasUsed=44040 costETH=0.00079272 costUSD=0.3015427608 @ ETH/USD=380.39 gasPrice=18000000000 block=46 txId=0xc629b9cc3c5543d46da8d52f072282641802e11884838696799cc57e5c732da7
-tx6_1_6 gas=100000 gasUsed=100000 costETH=0.0018 costUSD=0.684702 @ ETH/USD=380.39 gasPrice=18000000000 block=46 txId=0x7822199d4f8531591433e3f4ede3116c5f75bc25e3cf14f0429b4e394211f2ce
+tx6_1_1 gas=100000 gasUsed=52256 costETH=0.000940608 costUSD=0.35779787712 @ ETH/USD=380.39 gasPrice=18000000000 block=522 txId=0xe26eafdf7b79305b0a769f19d40fe48a8e294a4f8aa488c4f76228dcb182a92e
+tx6_1_2 gas=100000 gasUsed=100000 costETH=0.0018 costUSD=0.684702 @ ETH/USD=380.39 gasPrice=18000000000 block=522 txId=0x93da9292c97d794e434d85fb963814a0e41a086ff5be02d859cce178c99542e1
+tx6_1_3 gas=100000 gasUsed=30404 costETH=0.000547272 costUSD=0.20817679608 @ ETH/USD=380.39 gasPrice=18000000000 block=522 txId=0xd68823c4ce649d5f84368c4492152be991a32c196d318d56a86fe21065107d39
+tx6_1_4 gas=100000 gasUsed=30468 costETH=0.000548424 costUSD=0.20861500536 @ ETH/USD=380.39 gasPrice=18000000000 block=522 txId=0x4c8d2ab4a5ad7b2da0a97048bc2f5176f644a9ab201d72bfa1ad7ed2b06ab89f
+tx6_1_5 gas=100000 gasUsed=44040 costETH=0.00079272 costUSD=0.3015427608 @ ETH/USD=380.39 gasPrice=18000000000 block=524 txId=0x58f99c76d9cabf537bdcb2e8f8ec1753d9ae46d5b32e1a7ba1e7559b1edeb2ac
+tx6_1_6 gas=100000 gasUsed=100000 costETH=0.0018 costUSD=0.684702 @ ETH/USD=380.39 gasPrice=18000000000 block=524 txId=0xcd074fdac5a79f97678a94c109dd72a05f5b1ce763a887071080826ac3a7e230
  # Account                                             EtherBalanceChange                 Unlocked Token                      Locked 1Y                      Locked 2Y                          Total Name
 -- ------------------------------------------ --------------------------- ------------------------------ ------------------------------ ------------------------------ ------------------------------ ---------------------------
- 1 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e      225.079558308000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #0 - Miner
- 2 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.058608000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #1 - Token Owner
- 3 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976     -100.004161708000000000       99999.999999000000000000           0.000000000000000000           0.000000000000000000       99999.999999000000000000 Account #2 - KYCed
- 4 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0    -1000.002786040000000000      999999.970000000000000000           0.000000000000000000           0.000000000000000000      999999.970000000000000000 Account #3 - KYCed
- 5 0xa44a08d3f6933c69212114bb66e2df1813651844   -10000.006388344000000000    10000000.000000000000000000           0.000000000000000000           0.000000000000000000    10000000.000000000000000000 Account #4
- 6 0xa55a151eb00fded1634d27d1127b4be4627079ea        0.000000000000000000           0.000001000000000000           0.000000000000000000           0.000000000000000000           0.000001000000000000 Account #5
- 7 0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9        0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #6
+ 1 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e      170.082107090000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #0 - Miner
+ 2 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.059688342000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #1 - Token Owner
+ 3 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976     -100.004162194000000000       99999.999999000000000000           0.000000000000000000           0.000000000000000000       99999.999999000000000000 Account #2 - KYCed
+ 4 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0    -1000.002786130000000000      999999.970000000000000000           0.000000000000000000           0.000000000000000000      999999.970000000000000000 Account #3 - KYCed
+ 5 0xa44a08d3f6933c69212114bb66e2df1813651844   -10000.006388434000000000    10000000.000000000000000000           0.000000000000000000           0.000000000000000000    10000000.000000000000000000 Account #4
+ 6 0xa55a151eb00fded1634d27d1127b4be4627079ea       -0.501467684000000000           0.000001000000000000           0.000000000000000000           0.000000000000000000           0.000001000000000000 Account #5
+ 7 0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9        0.000000000000000000         500.000000000000000000           0.000000000000000000           0.000000000000000000         500.000000000000000000 Account #6
  8 0xa77a2b9d4b1c010a22a7c565dc418cef683dbcec       -0.002592720000000000           0.030000000000000000           0.000000000000000000           0.000000000000000000           0.030000000000000000 Account #7
  9 0xa88a05d2b88283ce84c8325760b72a64591279a2       -0.003600000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #8
-10 0xa99a0ae3354c06b1459fd441a32a3f71005d7da0    12100.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #9 - Crowdfund Wallet
+10 0xa99a0ae3354c06b1459fd441a32a3f71005d7da0    12100.500000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #9 - Crowdfund Wallet
 11 0xaaaa9de1e6c564446ebca0fd102d8bd92093c756        0.000000000000000000           0.000000000000000000           0.000000000000000000    20000000.000000000000000000    20000000.000000000000000000 Account #10 - Foundation
 12 0xabba43e7594e3b76afb157989e93c6621497fd4b        0.000000000000000000           0.000000000000000000     2000000.000000000000000000     2000000.000000000000000000     4000000.000000000000000000 Account #11 - Advisors
-13 0xacca534c9f62ab495bd986e002ddf0f054caae4f    -1000.001421496000000000     1000000.000000000000000000     2000000.000000000000000000     2000000.000000000000000000     5000000.000000000000000000 Account #12 - Directors
+13 0xacca534c9f62ab495bd986e002ddf0f054caae4f    -1000.001421586000000000     1000000.000000000000000000     2000000.000000000000000000     2000000.000000000000000000     5000000.000000000000000000 Account #12 - Directors
 14 0xadda9b762a00ff12711113bfdc36958b73d7f915        0.000000000000000000           0.000000000000000000     2000000.000000000000000000     2000000.000000000000000000     4000000.000000000000000000 Account #13 - Early Backers
 15 0xaeea63b5479b50f79583ec49dacdcf86ddeff392        0.000000000000000000           0.000000000000000000     8000000.000000000000000000           0.000000000000000000     8000000.000000000000000000 Account #14 - Developers
 16 0xaffa4d3a80add8ce4018540e056dacb649589394        0.000000000000000000    10000000.000000000000000000           0.000000000000000000           0.000000000000000000    10000000.000000000000000000 Account #15 - Precommitments
-17 0x90d8927407c79c4a28ee879b821c76fc9bcc2688        0.000000000000000000    77900000.000000000000000000    37900000.000000000000000000           0.000000000000000000   115800000.000000000000000000 OAX 'openANX Token' *
+17 0x354059c8c025b0bb359d8a9a6afaf1e550b2ea4b        0.000000000000000000    77899500.000000000000000000    37899500.000000000000000000           0.000000000000000000   115799000.000000000000000000 OAX 'openANX Token' *
 -- ------------------------------------------ --------------------------- ------------------------------ ------------------------------ ------------------------------ ------------------------------ ---------------------------
-                                                                            100000000.000000000000000000    51900000.000000000000000000    26000000.000000000000000000   177900000.000000000000000000 Total Token Balances *
+                                                                            100000000.000000000000000000    51899500.000000000000000000    26000000.000000000000000000   177899500.000000000000000000 Total Token Balances *
 -- ------------------------------------------ --------------------------- ------------------------------ ------------------------------ ------------------------------ ------------------------------ ---------------------------
 * Note that the sum of all the locked tokens is represented in the unlocked balance at the token contract address, and this will be double counted in the grand total balance above
 
@@ -353,17 +357,17 @@ PASS Test 6.1 Move Tokens After Finalising - transferFrom 4 OAX ac4 -> ac6. CHEC
 token.finalised=true
 token.tokensPerKEther=1000000
 token.totalSupply=100000000
-token.LOCKED_1Y_DATE=1528864376 Wed, 13 Jun 2018 04:32:56 UTC / Wed, 13 Jun 2018 04:32:56 GMT
-token.LOCKED_2Y_DATE=1560400376 Thu, 13 Jun 2019 04:32:56 UTC / Thu, 13 Jun 2019 04:32:56 GMT
+token.LOCKED_1Y_DATE=1529083214 Fri, 15 Jun 2018 17:20:14 UTC / Fri, 15 Jun 2018 17:20:14 GMT
+token.LOCKED_2Y_DATE=1560619214 Sat, 15 Jun 2019 17:20:14 UTC / Sat, 15 Jun 2019 17:20:14 GMT
 lockedToken.TOKENS_LOCKED_1Y_TOTAL=14000000
 lockedToken.TOKENS_LOCKED_2Y_TOTAL=26000000
-lockedToken.totalSupplyLocked1Y=51900000
+lockedToken.totalSupplyLocked1Y=51899500
 lockedToken.totalSupplyLocked2Y=26000000
-lockedToken.totalSupplyLocked=77900000
+lockedToken.totalSupplyLocked=77899500
 token.owner=0xa11aae29840fbb5c86e6fd4cf809eba183aef433
 token.newOwner=0x0000000000000000000000000000000000000000
-Approval Event 0: owner=0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0 spender=0xa77a2b9d4b1c010a22a7c565dc418cef683dbcec 0.03 block=43
-Approval Event 1: owner=0xa44a08d3f6933c69212114bb66e2df1813651844 spender=0xa88a05d2b88283ce84c8325760b72a64591279a2 4 block=43
-Transfer Event 0: from=0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976 to=0xa55a151eb00fded1634d27d1127b4be4627079ea value=0.000001 block=43
-Transfer Event 1: from=0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0 to=0xa77a2b9d4b1c010a22a7c565dc418cef683dbcec value=0.03 block=46
+Approval Event 0: owner=0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0 spender=0xa77a2b9d4b1c010a22a7c565dc418cef683dbcec 0.03 block=522
+Approval Event 1: owner=0xa44a08d3f6933c69212114bb66e2df1813651844 spender=0xa88a05d2b88283ce84c8325760b72a64591279a2 4 block=522
+Transfer Event 0: from=0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976 to=0xa55a151eb00fded1634d27d1127b4be4627079ea value=0.000001 block=522
+Transfer Event 1: from=0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0 to=0xa77a2b9d4b1c010a22a7c565dc418cef683dbcec value=0.03 block=524
 

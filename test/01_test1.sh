@@ -178,17 +178,20 @@ var tx2_1_1 = eth.sendTransaction({from: account2, to: tokenAddress, gas: 400000
 var tx2_1_2 = eth.sendTransaction({from: account3, to: tokenAddress, gas: 400000, value: web3.toWei("1000", "ether")});
 var tx2_1_3 = eth.sendTransaction({from: account4, to: tokenAddress, gas: 400000, value: web3.toWei("10000", "ether")});
 var tx2_1_4 = eth.sendTransaction({from: directorsAccount, to: tokenAddress, gas: 400000, value: web3.toWei("1000", "ether")});
+var tx2_1_5 = token.proxyPayment(account6, {from: account5, to: tokenAddress, gas: 400000, value: web3.toWei("0.5", "ether")});
 while (txpool.status.pending > 0) {
 }
 printTxData("tx2_1_1", tx2_1_1);
 printTxData("tx2_1_2", tx2_1_2);
 printTxData("tx2_1_3", tx2_1_3);
 printTxData("tx2_1_4", tx2_1_4);
+printTxData("tx2_1_5", tx2_1_5);
 printBalances();
 failIfGasEqualsGasUsed(tx2_1_1, testMessage + " - account2 buys 100,000 OAX for 100 ETH");
 failIfGasEqualsGasUsed(tx2_1_2, testMessage + " - account3 buys 1,000,000 OAX for 1,000 ETH");
 failIfGasEqualsGasUsed(tx2_1_3, testMessage + " - account4 buys 10,000,000 OAX for 10,000 ETH");
 failIfGasEqualsGasUsed(tx2_1_4, testMessage + " - directorsAccount buys 1,000,000 OAX for 1,000 ETH");
+failIfGasEqualsGasUsed(tx2_1_5, testMessage + " - account5 buys 500 OAX for 0.5 ETH on behalf of account6");
 printTokenContractDynamicDetails();
 console.log("RESULT: ");
 

@@ -218,6 +218,16 @@ contract OpenANXToken is ERC20Token, OpenANXTokenConfig {
     // Accept ethers to buy tokens during the crowdsale
     // ------------------------------------------------------------------------
     function () payable {
+        proxyPayment(msg.sender);
+    }
+
+
+    // ------------------------------------------------------------------------
+    // Accept ethers from one account for tokens to be created for another
+    // account. Can be used by exchanges to purchase tokens on behalf of 
+    // it's user
+    // ------------------------------------------------------------------------
+    function proxyPayment(address participant) payable {
         // No contributions after the crowdsale is finalised
         if (finalised) throw;
 
@@ -241,16 +251,16 @@ contract OpenANXToken is ERC20Token, OpenANXTokenConfig {
         if (totalSupply + tokens > TOKENS_HARD_CAP) throw;
 
         // Add tokens purchased to account's balance and total supply
-        balances[msg.sender] = balances[msg.sender].add(tokens);
+        balances[participant] = balances[participant].add(tokens);
         totalSupply = totalSupply.add(tokens);
 
         // Log the tokens purchased 
-        Transfer(0x0, msg.sender, tokens);
-        TokensBought(msg.sender, msg.value, this.balance, tokens,
+        Transfer(0x0, participant, tokens);
+        TokensBought(participant, msg.value, this.balance, tokens,
              totalSupply, tokensPerKEther);
 
         // KYC verification required before participant can transfer the tokens
-        kycRequired[msg.sender] = true;
+        kycRequired[participant] = true;
 
         // Transfer the contributed ethers to the crowdsale wallet
         if (!wallet.send(msg.value)) throw;
@@ -336,6 +346,17 @@ contract OpenANXToken is ERC20Token, OpenANXTokenConfig {
         KycVerified(participant);
     }
     event KycVerified(address indexed participant);
+
+
+    // ------------------------------------------------------------------------
+    // openANX can burn tokens
+    // ------------------------------------------------------------------------
+    function burnTokens(uint256 value) onlyOwner {
+        if (balances[owner] < value) throw;
+        balances[owner] -= value;
+        totalSupply -= value;
+        Transfer(owner, 0, value);
+    }
 
 
     // ------------------------------------------------------------------------

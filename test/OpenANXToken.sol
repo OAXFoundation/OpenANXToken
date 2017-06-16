@@ -385,10 +385,38 @@ contract OpenANXToken is ERC20Token, OpenANXTokenConfig {
 
 
     // ------------------------------------------------------------------------
+    // 1y locked total supply
+    // ------------------------------------------------------------------------
+    function totalSupplyLocked1Y() constant returns (uint) {
+        if (finalised) {
+            return lockedTokens.totalSupplyLocked1Y();
+        } else {
+            return 0;
+        }
+    }
+
+
+    // ------------------------------------------------------------------------
+    // 2y locked total supply
+    // ------------------------------------------------------------------------
+    function totalSupplyLocked2Y() constant returns (uint) {
+        if (finalised) {
+            return lockedTokens.totalSupplyLocked2Y();
+        } else {
+            return 0;
+        }
+    }
+
+
+    // ------------------------------------------------------------------------
     // 1y and 2y locked total supply
     // ------------------------------------------------------------------------
     function totalSupplyLocked() constant returns (uint) {
-        return lockedTokens.totalSupplyLocked();
+        if (finalised) {
+            return lockedTokens.totalSupplyLocked();
+        } else {
+            return 0;
+        }
     }
 
 
@@ -396,7 +424,7 @@ contract OpenANXToken is ERC20Token, OpenANXTokenConfig {
     // Unlocked total supply
     // ------------------------------------------------------------------------
     function totalSupplyUnlocked() constant returns (uint) {
-        if (totalSupply >= lockedTokens.totalSupplyLocked()) {
+        if (finalised && totalSupply >= lockedTokens.totalSupplyLocked()) {
             return totalSupply - lockedTokens.totalSupplyLocked();
         } else {
             return 0;

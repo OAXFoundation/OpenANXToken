@@ -236,12 +236,13 @@ function printTokenContractDynamicDetails() {
     console.log("RESULT: token.finalised=" + contract.finalised());
     console.log("RESULT: token.tokensPerKEther=" + contract.tokensPerKEther());
     console.log("RESULT: token.totalSupply=" + contract.totalSupply().shift(-decimals));
+    console.log("RESULT: token.totalSupplyLocked(1Y/2Y)=" + contract.totalSupplyLocked1Y().shift(-decimals) + " / " + contract.totalSupplyLocked2Y().shift(-decimals));
     console.log("RESULT: token.totalSupplyLocked=" + contract.totalSupplyLocked().shift(-decimals));
     console.log("RESULT: token.totalSupplyUnlocked=" + contract.totalSupplyUnlocked().shift(-decimals));
-    console.log("RESULT: token.balanceOfLocked1Y(earlyBackersAccount)=" + contract.balanceOfLocked1Y(earlyBackersAccount).shift(-decimals));
-    console.log("RESULT: token.balanceOfLocked2Y(earlyBackersAccount)=" + contract.balanceOfLocked2Y(earlyBackersAccount).shift(-decimals));
-    console.log("RESULT: token.balanceOfLocked1Y(developersAccount)=" + contract.balanceOfLocked1Y(developersAccount).shift(-decimals));
-    console.log("RESULT: token.balanceOfLocked2Y(developersAccount)=" + contract.balanceOfLocked2Y(developersAccount).shift(-decimals));
+    console.log("RESULT: token.balanceOfLocked(earlyBackersAccount)(1Y/2Y)=" + contract.balanceOfLocked1Y(earlyBackersAccount).shift(-decimals) + " / " + 
+        contract.balanceOfLocked2Y(earlyBackersAccount).shift(-decimals));
+    console.log("RESULT: token.balanceOfLocked(developersAccount)(1Y/2Y)=" + contract.balanceOfLocked1Y(developersAccount).shift(-decimals) + " / " + 
+        contract.balanceOfLocked2Y(developersAccount).shift(-decimals));
     var locked1YDate = contract.LOCKED_1Y_DATE();
     console.log("RESULT: token.LOCKED_1Y_DATE=" + locked1YDate + " " + new Date(locked1YDate * 1000).toUTCString()  + 
         " / " + new Date(locked1YDate * 1000).toGMTString());

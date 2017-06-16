@@ -621,7 +621,7 @@ contract OpenANXToken is ERC20Token, OpenANXTokenConfig {
     // ------------------------------------------------------------------------
     function finalise() onlyOwner {
         // Can only finalise if raised > soft cap or after the end date
-        if (totalSupply < TOKENS_SOFT_CAP && now < END_DATE) throw;
+        require(totalSupply >= TOKENS_SOFT_CAP || now > END_DATE);
 
         // Can only finalise once
         require(!finalised);

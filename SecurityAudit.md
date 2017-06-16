@@ -268,7 +268,7 @@ contract LockedTokens is OpenANXTokenConfig {
     using SafeMath for uint;
 
     // ------------------------------------------------------------------------
-    // 1y and 2y locked totals, not including unsold tranche1 and all tranch2
+    // 1y and 2y locked totals, not including unsold tranche1 and all tranche2
     // tokens
     // ------------------------------------------------------------------------
     // BK - Both lines Ok
@@ -363,7 +363,7 @@ contract LockedTokens is OpenANXTokenConfig {
     // ------------------------------------------------------------------------
     // Add to 1y locked balances and totalSupply
     // ------------------------------------------------------------------------
-    // BK Ok - Private, only called by constructor
+    // BK Ok - Private, only called by constructor and addRemainingTokens()
     function add1Y(address account, uint value) private {
         // BK Ok
         balancesLocked1Y[account] = balancesLocked1Y[account].add(value);
@@ -718,7 +718,7 @@ contract OpenANXToken is ERC20Token, OpenANXTokenConfig {
     // ------------------------------------------------------------------------
     function finalise() onlyOwner {
         // Can only finalise if raised > soft cap or after the end date
-        if (totalSupply < TOKENS_SOFT_CAP && now < END_DATE) throw;
+        require(totalSupply >= TOKENS_SOFT_CAP || now > END_DATE);
 
         // Can only finalise once
         require(!finalised);

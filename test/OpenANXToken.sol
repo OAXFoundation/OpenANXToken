@@ -12,8 +12,8 @@ pragma solidity ^0.4.11;
 import "./ERC20Interface.sol";
 import "./Owned.sol";
 import "./SafeMath.sol";
-import "./LockedTokens.sol";
 import "./OpenANXTokenConfig.sol";
+import "./LockedTokens.sol";
 
 
 // ----------------------------------------------------------------------------
@@ -286,7 +286,8 @@ contract OpenANXToken is ERC20Token, OpenANXTokenConfig {
         lockedTokens.addRemainingTokens();
 
         // Allocate locked and premined tokens
-        balances[address(lockedTokens)] = balances[address(lockedTokens)].add(lockedTokens.totalSupplyLocked());
+        balances[address(lockedTokens)] = balances[address(lockedTokens)].
+            add(lockedTokens.totalSupplyLocked());
         totalSupply = totalSupply.add(lockedTokens.totalSupplyLocked());
 
         // Can only finalise once

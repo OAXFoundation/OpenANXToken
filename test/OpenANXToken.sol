@@ -426,7 +426,7 @@ contract OpenANXToken is ERC20Token, OpenANXTokenConfig {
     // ------------------------------------------------------------------------
     function totalSupplyUnlocked() constant returns (uint) {
         if (finalised && totalSupply >= lockedTokens.totalSupplyLocked()) {
-            return totalSupply - lockedTokens.totalSupplyLocked();
+            return totalSupply.sub(lockedTokens.totalSupplyLocked());
         } else {
             return 0;
         }

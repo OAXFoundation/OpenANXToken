@@ -2,7 +2,7 @@ Welcome to the Geth JavaScript console!
 
 instance: Geth/v1.6.5-stable-cf87713d/darwin-amd64/go1.8.3
 coinbase: 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e
-at block: 490 (Fri, 16 Jun 2017 03:18:59 AEST)
+at block: 600 (Fri, 16 Jun 2017 15:46:32 AEST)
  datadir: /Users/bok/Projects/OpenANXToken/test/testchain
  modules: admin:1.0 debug:1.0 eth:1.0 miner:1.0 net:1.0 personal:1.0 rpc:1.0 txpool:1.0 web3:1.0
 
@@ -32,7 +32,7 @@ DEBUG: tokenContractAddress: null
 DEBUG: tokenContractAbi: null
 RESULT:  # Account                                             EtherBalanceChange                 Unlocked Token                      Locked 1Y                      Locked 2Y                          Total Name
 RESULT: -- ------------------------------------------ --------------------------- ------------------------------ ------------------------------ ------------------------------ ------------------------------ ---------------------------
-RESULT:  1 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       25.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #0 - Miner
+RESULT:  1 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       20.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #0 - Miner
 RESULT:  2 0xa11aae29840fbb5c86e6fd4cf809eba183aef433        0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #1 - Token Owner
 RESULT:  3 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976        0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #2 - KYCed
 RESULT:  4 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0        0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #3 - KYCed
@@ -73,7 +73,7 @@ undefined
 > 
 undefined
 > 
-{"abi":[{"constant":true,"inputs":[],"name":"name","outputs":[{"name":"","type":"string"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_spender","type":"address"},{"name":"_amount","type":"uint256"}],"name":"approve","outputs":[{"name":"success","type":"bool"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"TOKENS_TOTAL","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_tokensPerKEther","type":"uint256"}],"name":"setTokensPerKEther","outputs":[],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"lockedTokens","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"totalSupply","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"participant","type":"address"}],"name":"kycVerify","outputs":[],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"finalised","outputs":[{"name":"","type":"bool"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_from","type":"address"},{"name":"_to","type":"address"},{"name":"_amount","type":"uint256"}],"name":"transferFrom","outputs":[{"name":"success","type":"bool"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"CONTRIBUTIONS_MIN","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"DECIMALS","outputs":[{"name":"","type":"uint8"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"decimals","outputs":[{"name":"","type":"uint8"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"START_DATE","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"participant","type":"address"},{"name":"balance","type":"uint256"}],"name":"addPrecommitment","outputs":[],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"TOKENS_SOFT_CAP","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"wallet","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"END_DATE","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"value","type":"uint256"}],"name":"burnTokens","outputs":[],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"_owner","type":"address"}],"name":"balanceOf","outputs":[{"name":"balance","type":"uint256"}],"payable":false,"type":"function"},{"constant":false,"inputs":[],"name":"acceptOwnership","outputs":[],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"TOKENS_HARD_CAP","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"DECIMALSFACTOR","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"owner","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"CONTRIBUTIONS_MAX","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"symbol","outputs":[{"name":"","type":"string"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"LOCKED_2Y_DATE","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"NAME","outputs":[{"name":"","type":"string"}],"payable":false,"type":"function"},{"constant":false,"inputs":[],"name":"finalise","outputs":[],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"tokensPerKEther","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_to","type":"address"},{"name":"_amount","type":"uint256"}],"name":"transfer","outputs":[{"name":"success","type":"bool"}],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"","type":"address"}],"name":"kycRequired","outputs":[{"name":"","type":"bool"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"newOwner","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"tokenAddress","type":"address"},{"name":"amount","type":"uint256"}],"name":"transferAnyERC20Token","outputs":[{"name":"success","type":"bool"}],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"_owner","type":"address"},{"name":"_spender","type":"address"}],"name":"allowance","outputs":[{"name":"remaining","type":"uint256"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_wallet","type":"address"}],"name":"setWallet","outputs":[],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"LOCKED_1Y_DATE","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"participant","type":"address"}],"name":"proxyPayment","outputs":[],"payable":true,"type":"function"},{"constant":true,"inputs":[],"name":"SYMBOL","outputs":[{"name":"","type":"string"}],"payable":false,"type":"function"},{"inputs":[{"name":"_wallet","type":"address"}],"payable":false,"type":"constructor"},{"payable":true,"type":"fallback"},{"anonymous":false,"inputs":[{"indexed":false,"name":"newWallet","type":"address"}],"name":"WalletUpdated","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"tokensPerKEther","type":"uint256"}],"name":"TokensPerKEtherUpdated","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"buyer","type":"address"},{"indexed":false,"name":"ethers","type":"uint256"},{"indexed":false,"name":"newEtherBalance","type":"uint256"},{"indexed":false,"name":"tokens","type":"uint256"},{"indexed":false,"name":"newTotalSupply","type":"uint256"},{"indexed":false,"name":"tokensPerKEther","type":"uint256"}],"name":"TokensBought","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"participant","type":"address"},{"indexed":false,"name":"balance","type":"uint256"}],"name":"PrecommitmentAdded","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"participant","type":"address"}],"name":"KycVerified","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"_from","type":"address"},{"indexed":true,"name":"_to","type":"address"}],"name":"OwnershipTransferred","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"_from","type":"address"},{"indexed":true,"name":"_to","type":"address"},{"indexed":false,"name":"_value","type":"uint256"}],"name":"Transfer","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"_owner","type":"address"},{"indexed":true,"name":"_spender","type":"address"},{"indexed":false,"name":"_value","type":"uint256"}],"name":"Approval","type":"event"}],"eth":{"_requestManager":{"polls":{},"provider":{},"timeout":null},"accounts":["0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e","0xa11aae29840fbb5c86e6fd4cf809eba183aef433","0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976","0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0","0xa44a08d3f6933c69212114bb66e2df1813651844","0xa55a151eb00fded1634d27d1127b4be4627079ea","0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9","0xa77a2b9d4b1c010a22a7c565dc418cef683dbcec","0xa88a05d2b88283ce84c8325760b72a64591279a2","0xa99a0ae3354c06b1459fd441a32a3f71005d7da0","0xaaaa9de1e6c564446ebca0fd102d8bd92093c756","0xabba43e7594e3b76afb157989e93c6621497fd4b","0xacca534c9f62ab495bd986e002ddf0f054caae4f","0xadda9b762a00ff12711113bfdc36958b73d7f915","0xaeea63b5479b50f79583ec49dacdcf86ddeff392","0xaffa4d3a80add8ce4018540e056dacb649589394"],"blockNumber":495,"coinbase":"0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e","compile":{},"gasPrice":"18000000000","hashrate":41756,"mining":true,"pendingTransactions":[],"protocolVersion":"0x3f","syncing":false}}
+{"abi":[{"constant":true,"inputs":[],"name":"name","outputs":[{"name":"","type":"string"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_spender","type":"address"},{"name":"_amount","type":"uint256"}],"name":"approve","outputs":[{"name":"success","type":"bool"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"TOKENS_TOTAL","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_tokensPerKEther","type":"uint256"}],"name":"setTokensPerKEther","outputs":[],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"lockedTokens","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"totalSupply","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"participant","type":"address"}],"name":"kycVerify","outputs":[],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"finalised","outputs":[{"name":"","type":"bool"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_from","type":"address"},{"name":"_to","type":"address"},{"name":"_amount","type":"uint256"}],"name":"transferFrom","outputs":[{"name":"success","type":"bool"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"CONTRIBUTIONS_MIN","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"DECIMALS","outputs":[{"name":"","type":"uint8"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"decimals","outputs":[{"name":"","type":"uint8"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"START_DATE","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"participant","type":"address"},{"name":"balance","type":"uint256"}],"name":"addPrecommitment","outputs":[],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"TOKENS_SOFT_CAP","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"wallet","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"END_DATE","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"value","type":"uint256"}],"name":"burnTokens","outputs":[],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"_owner","type":"address"}],"name":"balanceOf","outputs":[{"name":"balance","type":"uint256"}],"payable":false,"type":"function"},{"constant":false,"inputs":[],"name":"acceptOwnership","outputs":[],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"TOKENS_HARD_CAP","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"DECIMALSFACTOR","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"owner","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"CONTRIBUTIONS_MAX","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"symbol","outputs":[{"name":"","type":"string"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"LOCKED_2Y_DATE","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"NAME","outputs":[{"name":"","type":"string"}],"payable":false,"type":"function"},{"constant":false,"inputs":[],"name":"finalise","outputs":[],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"tokensPerKEther","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_to","type":"address"},{"name":"_amount","type":"uint256"}],"name":"transfer","outputs":[{"name":"success","type":"bool"}],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"","type":"address"}],"name":"kycRequired","outputs":[{"name":"","type":"bool"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"newOwner","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"tokenAddress","type":"address"},{"name":"amount","type":"uint256"}],"name":"transferAnyERC20Token","outputs":[{"name":"success","type":"bool"}],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"_owner","type":"address"},{"name":"_spender","type":"address"}],"name":"allowance","outputs":[{"name":"remaining","type":"uint256"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_wallet","type":"address"}],"name":"setWallet","outputs":[],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"LOCKED_1Y_DATE","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"participant","type":"address"}],"name":"proxyPayment","outputs":[],"payable":true,"type":"function"},{"constant":true,"inputs":[],"name":"SYMBOL","outputs":[{"name":"","type":"string"}],"payable":false,"type":"function"},{"inputs":[{"name":"_wallet","type":"address"}],"payable":false,"type":"constructor"},{"payable":true,"type":"fallback"},{"anonymous":false,"inputs":[{"indexed":false,"name":"newWallet","type":"address"}],"name":"WalletUpdated","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"tokensPerKEther","type":"uint256"}],"name":"TokensPerKEtherUpdated","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"buyer","type":"address"},{"indexed":false,"name":"ethers","type":"uint256"},{"indexed":false,"name":"newEtherBalance","type":"uint256"},{"indexed":false,"name":"tokens","type":"uint256"},{"indexed":false,"name":"newTotalSupply","type":"uint256"},{"indexed":false,"name":"tokensPerKEther","type":"uint256"}],"name":"TokensBought","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"participant","type":"address"},{"indexed":false,"name":"balance","type":"uint256"}],"name":"PrecommitmentAdded","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"participant","type":"address"}],"name":"KycVerified","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"_from","type":"address"},{"indexed":true,"name":"_to","type":"address"}],"name":"OwnershipTransferred","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"_from","type":"address"},{"indexed":true,"name":"_to","type":"address"},{"indexed":false,"name":"_value","type":"uint256"}],"name":"Transfer","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"_owner","type":"address"},{"indexed":true,"name":"_spender","type":"address"},{"indexed":false,"name":"_value","type":"uint256"}],"name":"Approval","type":"event"}],"eth":{"_requestManager":{"polls":{},"provider":{},"timeout":null},"accounts":["0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e","0xa11aae29840fbb5c86e6fd4cf809eba183aef433","0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976","0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0","0xa44a08d3f6933c69212114bb66e2df1813651844","0xa55a151eb00fded1634d27d1127b4be4627079ea","0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9","0xa77a2b9d4b1c010a22a7c565dc418cef683dbcec","0xa88a05d2b88283ce84c8325760b72a64591279a2","0xa99a0ae3354c06b1459fd441a32a3f71005d7da0","0xaaaa9de1e6c564446ebca0fd102d8bd92093c756","0xabba43e7594e3b76afb157989e93c6621497fd4b","0xacca534c9f62ab495bd986e002ddf0f054caae4f","0xadda9b762a00ff12711113bfdc36958b73d7f915","0xaeea63b5479b50f79583ec49dacdcf86ddeff392","0xaffa4d3a80add8ce4018540e056dacb649589394"],"blockNumber":604,"coinbase":"0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e","compile":{},"gasPrice":"18000000000","hashrate":38629,"mining":true,"pendingTransactions":[],"protocolVersion":"0x3f","syncing":false}}
 undefined
 > 
 undefined
@@ -83,6 +83,7 @@ undefined
 ... 
 ...... 
 ......... 
+............ 
 ............ 
 ............ 
 ............ 
@@ -100,16 +101,16 @@ undefined
 undefined
 > 
 DATA: tokenAddress=0x354059c8c025b0bb359d8a9a6afaf1e550b2ea4b
-RESULT: tokenAddress=0x354059c8c025b0bb359d8a9a6afaf1e550b2ea4b gas=6000000 gasUsed=3064799 costETH=0.055166382 costUSD=20.98474004898 @ ETH/USD=380.39 gasPrice=18000000000 block=497 txId=0x9bbbca18680cbf07ab546837a1a57d74db3a7c872bdf4e0e7ac66b47a8f9a2c9
-RESULT: tokenAddress=0x354059c8c025b0bb359d8a9a6afaf1e550b2ea4b gas=6000000 gasUsed=3064799 costETH=0.055166382 costUSD=20.98474004898 @ ETH/USD=380.39 gasPrice=18000000000 block=497 txId=0x9bbbca18680cbf07ab546837a1a57d74db3a7c872bdf4e0e7ac66b47a8f9a2c9
+RESULT: tokenAddress=0x354059c8c025b0bb359d8a9a6afaf1e550b2ea4b gas=6000000 gasUsed=3069000 costETH=0.055242 costUSD=21.01350438 @ ETH/USD=380.39 gasPrice=18000000000 block=606 txId=0x1b97cb75ae2ff36e21098e6b977c2c1dac1867e9da858b7a38d8646ec5029928
+RESULT: tokenAddress=0x354059c8c025b0bb359d8a9a6afaf1e550b2ea4b gas=6000000 gasUsed=3069000 costETH=0.055242 costUSD=21.01350438 @ ETH/USD=380.39 gasPrice=18000000000 block=606 txId=0x1b97cb75ae2ff36e21098e6b977c2c1dac1867e9da858b7a38d8646ec5029928
 undefined
 > 
 DEBUG: tokenContractAddress: 0x354059c8c025b0bb359d8a9a6afaf1e550b2ea4b
 DEBUG: tokenContractAbi: [object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object]
 RESULT:  # Account                                             EtherBalanceChange                 Unlocked Token                      Locked 1Y                      Locked 2Y                          Total Name
 RESULT: -- ------------------------------------------ --------------------------- ------------------------------ ------------------------------ ------------------------------ ------------------------------ ---------------------------
-RESULT:  1 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       35.055166382000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #0 - Miner
-RESULT:  2 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.055166382000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #1 - Token Owner
+RESULT:  1 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       30.055242000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #0 - Miner
+RESULT:  2 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.055242000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #1 - Token Owner
 RESULT:  3 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976        0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #2 - KYCed
 RESULT:  4 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0        0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #3 - KYCed
 RESULT:  5 0xa44a08d3f6933c69212114bb66e2df1813651844        0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #4
@@ -125,6 +126,7 @@ RESULT: 14 0xadda9b762a00ff12711113bfdc36958b73d7f915        0.00000000000000000
 RESULT: 15 0xaeea63b5479b50f79583ec49dacdcf86ddeff392        0.000000000000000000           0.000000000000000000     8000000.000000000000000000           0.000000000000000000     8000000.000000000000000000 Account #14 - Developers
 RESULT: 16 0xaffa4d3a80add8ce4018540e056dacb649589394        0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #15 - Precommitments
 RESULT: 17 0x354059c8c025b0bb359d8a9a6afaf1e550b2ea4b        0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 OAX 'openANX Token' *
+RESULT: 18 0x519172068aa711e6e53dc3982b63e1df5b482be9        0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Locked Tokens
 RESULT: -- ------------------------------------------ --------------------------- ------------------------------ ------------------------------ ------------------------------ ------------------------------ ---------------------------
 RESULT:                                                                                     0.000000000000000000    14000000.000000000000000000    26000000.000000000000000000    40000000.000000000000000000 Total Token Balances *
 RESULT: -- ------------------------------------------ --------------------------- ------------------------------ ------------------------------ ------------------------------ ------------------------------ ---------------------------
@@ -139,8 +141,8 @@ RESULT: token.symbol=OAX
 RESULT: token.name=openANX Token
 RESULT: token.decimals=18
 RESULT: token.DECIMALSFACTOR=1000000000000000000
-RESULT: token.START_DATE=1497547214 Thu, 15 Jun 2017 17:20:14 UTC / Thu, 15 Jun 2017 17:20:14 GMT
-RESULT: token.END_DATE=1497547454 Thu, 15 Jun 2017 17:24:14 UTC / Thu, 15 Jun 2017 17:24:14 GMT
+RESULT: token.START_DATE=1497592065 Fri, 16 Jun 2017 05:47:45 UTC / Fri, 16 Jun 2017 05:47:45 GMT
+RESULT: token.END_DATE=1497592305 Fri, 16 Jun 2017 05:51:45 UTC / Fri, 16 Jun 2017 05:51:45 GMT
 RESULT: token.TOKENS_SOFT_CAP=13000000
 RESULT: token.TOKENS_HARD_CAP=30000000
 RESULT: token.TOKENS_TOTAL=100000000
@@ -149,8 +151,8 @@ undefined
 RESULT: token.finalised=false
 RESULT: token.tokensPerKEther=343734
 RESULT: token.totalSupply=0
-RESULT: token.LOCKED_1Y_DATE=1529083214 Fri, 15 Jun 2018 17:20:14 UTC / Fri, 15 Jun 2018 17:20:14 GMT
-RESULT: token.LOCKED_2Y_DATE=1560619214 Sat, 15 Jun 2019 17:20:14 UTC / Sat, 15 Jun 2019 17:20:14 GMT
+RESULT: token.LOCKED_1Y_DATE=1529128065 Sat, 16 Jun 2018 05:47:45 UTC / Sat, 16 Jun 2018 05:47:45 GMT
+RESULT: token.LOCKED_2Y_DATE=1560664065 Sun, 16 Jun 2019 05:47:45 UTC / Sun, 16 Jun 2019 05:47:45 GMT
 RESULT: lockedToken.TOKENS_LOCKED_1Y_TOTAL=14000000
 RESULT: lockedToken.TOKENS_LOCKED_2Y_TOTAL=26000000
 RESULT: lockedToken.totalSupplyLocked1Y=14000000
@@ -163,7 +165,7 @@ undefined
 RESULT: 
 undefined
 > 
-{"_eth":{"_requestManager":{"polls":{},"provider":{},"timeout":null},"accounts":["0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e","0xa11aae29840fbb5c86e6fd4cf809eba183aef433","0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976","0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0","0xa44a08d3f6933c69212114bb66e2df1813651844","0xa55a151eb00fded1634d27d1127b4be4627079ea","0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9","0xa77a2b9d4b1c010a22a7c565dc418cef683dbcec","0xa88a05d2b88283ce84c8325760b72a64591279a2","0xa99a0ae3354c06b1459fd441a32a3f71005d7da0","0xaaaa9de1e6c564446ebca0fd102d8bd92093c756","0xabba43e7594e3b76afb157989e93c6621497fd4b","0xacca534c9f62ab495bd986e002ddf0f054caae4f","0xadda9b762a00ff12711113bfdc36958b73d7f915","0xaeea63b5479b50f79583ec49dacdcf86ddeff392","0xaffa4d3a80add8ce4018540e056dacb649589394"],"blockNumber":498,"coinbase":"0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e","compile":{},"gasPrice":"18000000000","hashrate":40376,"mining":true,"pendingTransactions":[],"protocolVersion":"0x3f","syncing":false},"abi":[{"constant":true,"inputs":[],"name":"name","outputs":[{"name":"","type":"string"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_spender","type":"address"},{"name":"_amount","type":"uint256"}],"name":"approve","outputs":[{"name":"success","type":"bool"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"TOKENS_TOTAL","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_tokensPerKEther","type":"uint256"}],"name":"setTokensPerKEther","outputs":[],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"lockedTokens","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"totalSupply","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"participant","type":"address"}],"name":"kycVerify","outputs":[],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"finalised","outputs":[{"name":"","type":"bool"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_from","type":"address"},{"name":"_to","type":"address"},{"name":"_amount","type":"uint256"}],"name":"transferFrom","outputs":[{"name":"success","type":"bool"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"CONTRIBUTIONS_MIN","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"DECIMALS","outputs":[{"name":"","type":"uint8"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"decimals","outputs":[{"name":"","type":"uint8"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"START_DATE","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"participant","type":"address"},{"name":"balance","type":"uint256"}],"name":"addPrecommitment","outputs":[],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"TOKENS_SOFT_CAP","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"wallet","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"END_DATE","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"value","type":"uint256"}],"name":"burnTokens","outputs":[],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"_owner","type":"address"}],"name":"balanceOf","outputs":[{"name":"balance","type":"uint256"}],"payable":false,"type":"function"},{"constant":false,"inputs":[],"name":"acceptOwnership","outputs":[],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"TOKENS_HARD_CAP","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"DECIMALSFACTOR","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"owner","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"CONTRIBUTIONS_MAX","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"symbol","outputs":[{"name":"","type":"string"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"LOCKED_2Y_DATE","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"NAME","outputs":[{"name":"","type":"string"}],"payable":false,"type":"function"},{"constant":false,"inputs":[],"name":"finalise","outputs":[],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"tokensPerKEther","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_to","type":"address"},{"name":"_amount","type":"uint256"}],"name":"transfer","outputs":[{"name":"success","type":"bool"}],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"","type":"address"}],"name":"kycRequired","outputs":[{"name":"","type":"bool"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"newOwner","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"tokenAddress","type":"address"},{"name":"amount","type":"uint256"}],"name":"transferAnyERC20Token","outputs":[{"name":"success","type":"bool"}],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"_owner","type":"address"},{"name":"_spender","type":"address"}],"name":"allowance","outputs":[{"name":"remaining","type":"uint256"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_wallet","type":"address"}],"name":"setWallet","outputs":[],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"LOCKED_1Y_DATE","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"participant","type":"address"}],"name":"proxyPayment","outputs":[],"payable":true,"type":"function"},{"constant":true,"inputs":[],"name":"SYMBOL","outputs":[{"name":"","type":"string"}],"payable":false,"type":"function"},{"inputs":[{"name":"_wallet","type":"address"}],"payable":false,"type":"constructor"},{"payable":true,"type":"fallback"},{"anonymous":false,"inputs":[{"indexed":false,"name":"newWallet","type":"address"}],"name":"WalletUpdated","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"tokensPerKEther","type":"uint256"}],"name":"TokensPerKEtherUpdated","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"buyer","type":"address"},{"indexed":false,"name":"ethers","type":"uint256"},{"indexed":false,"name":"newEtherBalance","type":"uint256"},{"indexed":false,"name":"tokens","type":"uint256"},{"indexed":false,"name":"newTotalSupply","type":"uint256"},{"indexed":false,"name":"tokensPerKEther","type":"uint256"}],"name":"TokensBought","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"participant","type":"address"},{"indexed":false,"name":"balance","type":"uint256"}],"name":"PrecommitmentAdded","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"participant","type":"address"}],"name":"KycVerified","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"_from","type":"address"},{"indexed":true,"name":"_to","type":"address"}],"name":"OwnershipTransferred","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"_from","type":"address"},{"indexed":true,"name":"_to","type":"address"},{"indexed":false,"name":"_value","type":"uint256"}],"name":"Transfer","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"_owner","type":"address"},{"indexed":true,"name":"_spender","type":"address"},{"indexed":false,"name":"_value","type":"uint256"}],"name":"Approval","type":"event"}],"address":"0x354059c8c025b0bb359d8a9a6afaf1e550b2ea4b","transactionHash":"0x9bbbca18680cbf07ab546837a1a57d74db3a7c872bdf4e0e7ac66b47a8f9a2c9"}
+{"_eth":{"_requestManager":{"polls":{},"provider":{},"timeout":null},"accounts":["0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e","0xa11aae29840fbb5c86e6fd4cf809eba183aef433","0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976","0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0","0xa44a08d3f6933c69212114bb66e2df1813651844","0xa55a151eb00fded1634d27d1127b4be4627079ea","0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9","0xa77a2b9d4b1c010a22a7c565dc418cef683dbcec","0xa88a05d2b88283ce84c8325760b72a64591279a2","0xa99a0ae3354c06b1459fd441a32a3f71005d7da0","0xaaaa9de1e6c564446ebca0fd102d8bd92093c756","0xabba43e7594e3b76afb157989e93c6621497fd4b","0xacca534c9f62ab495bd986e002ddf0f054caae4f","0xadda9b762a00ff12711113bfdc36958b73d7f915","0xaeea63b5479b50f79583ec49dacdcf86ddeff392","0xaffa4d3a80add8ce4018540e056dacb649589394"],"blockNumber":607,"coinbase":"0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e","compile":{},"gasPrice":"18000000000","hashrate":38693,"mining":true,"pendingTransactions":[],"protocolVersion":"0x3f","syncing":false},"abi":[{"constant":true,"inputs":[],"name":"name","outputs":[{"name":"","type":"string"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_spender","type":"address"},{"name":"_amount","type":"uint256"}],"name":"approve","outputs":[{"name":"success","type":"bool"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"TOKENS_TOTAL","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_tokensPerKEther","type":"uint256"}],"name":"setTokensPerKEther","outputs":[],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"lockedTokens","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"totalSupply","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"participant","type":"address"}],"name":"kycVerify","outputs":[],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"finalised","outputs":[{"name":"","type":"bool"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_from","type":"address"},{"name":"_to","type":"address"},{"name":"_amount","type":"uint256"}],"name":"transferFrom","outputs":[{"name":"success","type":"bool"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"CONTRIBUTIONS_MIN","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"DECIMALS","outputs":[{"name":"","type":"uint8"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"decimals","outputs":[{"name":"","type":"uint8"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"START_DATE","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"participant","type":"address"},{"name":"balance","type":"uint256"}],"name":"addPrecommitment","outputs":[],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"TOKENS_SOFT_CAP","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"wallet","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"END_DATE","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"value","type":"uint256"}],"name":"burnTokens","outputs":[],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"_owner","type":"address"}],"name":"balanceOf","outputs":[{"name":"balance","type":"uint256"}],"payable":false,"type":"function"},{"constant":false,"inputs":[],"name":"acceptOwnership","outputs":[],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"TOKENS_HARD_CAP","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"DECIMALSFACTOR","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"owner","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"CONTRIBUTIONS_MAX","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"symbol","outputs":[{"name":"","type":"string"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"LOCKED_2Y_DATE","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"NAME","outputs":[{"name":"","type":"string"}],"payable":false,"type":"function"},{"constant":false,"inputs":[],"name":"finalise","outputs":[],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"tokensPerKEther","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_to","type":"address"},{"name":"_amount","type":"uint256"}],"name":"transfer","outputs":[{"name":"success","type":"bool"}],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"","type":"address"}],"name":"kycRequired","outputs":[{"name":"","type":"bool"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"newOwner","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"tokenAddress","type":"address"},{"name":"amount","type":"uint256"}],"name":"transferAnyERC20Token","outputs":[{"name":"success","type":"bool"}],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"_owner","type":"address"},{"name":"_spender","type":"address"}],"name":"allowance","outputs":[{"name":"remaining","type":"uint256"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_wallet","type":"address"}],"name":"setWallet","outputs":[],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"LOCKED_1Y_DATE","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"participant","type":"address"}],"name":"proxyPayment","outputs":[],"payable":true,"type":"function"},{"constant":true,"inputs":[],"name":"SYMBOL","outputs":[{"name":"","type":"string"}],"payable":false,"type":"function"},{"inputs":[{"name":"_wallet","type":"address"}],"payable":false,"type":"constructor"},{"payable":true,"type":"fallback"},{"anonymous":false,"inputs":[{"indexed":false,"name":"newWallet","type":"address"}],"name":"WalletUpdated","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"tokensPerKEther","type":"uint256"}],"name":"TokensPerKEtherUpdated","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"buyer","type":"address"},{"indexed":false,"name":"ethers","type":"uint256"},{"indexed":false,"name":"newEtherBalance","type":"uint256"},{"indexed":false,"name":"tokens","type":"uint256"},{"indexed":false,"name":"newTotalSupply","type":"uint256"},{"indexed":false,"name":"tokensPerKEther","type":"uint256"}],"name":"TokensBought","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"participant","type":"address"},{"indexed":false,"name":"balance","type":"uint256"}],"name":"PrecommitmentAdded","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"participant","type":"address"}],"name":"KycVerified","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"_from","type":"address"},{"indexed":true,"name":"_to","type":"address"}],"name":"OwnershipTransferred","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"_from","type":"address"},{"indexed":true,"name":"_to","type":"address"},{"indexed":false,"name":"_value","type":"uint256"}],"name":"Transfer","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"_owner","type":"address"},{"indexed":true,"name":"_spender","type":"address"},{"indexed":false,"name":"_value","type":"uint256"}],"name":"Approval","type":"event"}],"address":"0x354059c8c025b0bb359d8a9a6afaf1e550b2ea4b","transactionHash":"0x1b97cb75ae2ff36e21098e6b977c2c1dac1867e9da858b7a38d8646ec5029928"}
 undefined
 > 
 > 
@@ -184,21 +186,21 @@ undefined
 ... 
 undefined
 > 
-RESULT: tx1_2_1 gas=4000000 gasUsed=66434 costETH=0.001195812 costUSD=0.45487492668 @ ETH/USD=380.39 gasPrice=18000000000 block=500 txId=0x43b00570579ef52cf0f1dd23f49b4f52d033eed296c2a920a824fc6809b782e5
+RESULT: tx1_2_1 gas=4000000 gasUsed=66434 costETH=0.001195812 costUSD=0.45487492668 @ ETH/USD=380.39 gasPrice=18000000000 block=609 txId=0x43b00570579ef52cf0f1dd23f49b4f52d033eed296c2a920a824fc6809b782e5
 undefined
 > 
-RESULT: tx1_2_2 gas=4000000 gasUsed=28020 costETH=0.00050436 costUSD=0.1918535004 @ ETH/USD=380.39 gasPrice=18000000000 block=500 txId=0xf5d57e664c8eda7650d522bd9fdec8762ec4cb1a6564e2d565c2cc6251d8675b
+RESULT: tx1_2_2 gas=4000000 gasUsed=28020 costETH=0.00050436 costUSD=0.1918535004 @ ETH/USD=380.39 gasPrice=18000000000 block=609 txId=0xf5d57e664c8eda7650d522bd9fdec8762ec4cb1a6564e2d565c2cc6251d8675b
 undefined
 > 
-RESULT: tx1_2_3 gas=4000000 gasUsed=29843 costETH=0.000537174 costUSD=0.20433561786 @ ETH/USD=380.39 gasPrice=18000000000 block=500 txId=0x8e112e7401a52b230a1a39edbda4755b778b9388cb322b0ed2f5063843ab8db7
+RESULT: tx1_2_3 gas=4000000 gasUsed=29843 costETH=0.000537174 costUSD=0.20433561786 @ ETH/USD=380.39 gasPrice=18000000000 block=609 txId=0x8e112e7401a52b230a1a39edbda4755b778b9388cb322b0ed2f5063843ab8db7
 undefined
 > 
 DEBUG: tokenContractAddress: 0x354059c8c025b0bb359d8a9a6afaf1e550b2ea4b
 DEBUG: tokenContractAbi: [object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object]
 RESULT:  # Account                                             EtherBalanceChange                 Unlocked Token                      Locked 1Y                      Locked 2Y                          Total Name
 RESULT: -- ------------------------------------------ --------------------------- ------------------------------ ------------------------------ ------------------------------ ------------------------------ ---------------------------
-RESULT:  1 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       50.057403728000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #0 - Miner
-RESULT:  2 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.057403728000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #1 - Token Owner
+RESULT:  1 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       45.057479346000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #0 - Miner
+RESULT:  2 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.057479346000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #1 - Token Owner
 RESULT:  3 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976        0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #2 - KYCed
 RESULT:  4 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0        0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #3 - KYCed
 RESULT:  5 0xa44a08d3f6933c69212114bb66e2df1813651844        0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #4
@@ -214,6 +216,7 @@ RESULT: 14 0xadda9b762a00ff12711113bfdc36958b73d7f915        0.00000000000000000
 RESULT: 15 0xaeea63b5479b50f79583ec49dacdcf86ddeff392        0.000000000000000000           0.000000000000000000     8000000.000000000000000000           0.000000000000000000     8000000.000000000000000000 Account #14 - Developers
 RESULT: 16 0xaffa4d3a80add8ce4018540e056dacb649589394        0.000000000000000000    10000000.000000000000000000           0.000000000000000000           0.000000000000000000    10000000.000000000000000000 Account #15 - Precommitments
 RESULT: 17 0x354059c8c025b0bb359d8a9a6afaf1e550b2ea4b        0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 OAX 'openANX Token' *
+RESULT: 18 0x519172068aa711e6e53dc3982b63e1df5b482be9        0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Locked Tokens
 RESULT: -- ------------------------------------------ --------------------------- ------------------------------ ------------------------------ ------------------------------ ------------------------------ ---------------------------
 RESULT:                                                                              10000000.000000000000000000    14000000.000000000000000000    26000000.000000000000000000    50000000.000000000000000000 Total Token Balances *
 RESULT: -- ------------------------------------------ --------------------------- ------------------------------ ------------------------------ ------------------------------ ------------------------------ ---------------------------
@@ -233,8 +236,8 @@ RESULT: PASS Test 1.2 Precommitments, TokensPerKEther, Wallet - change crowdsale
 RESULT: token.finalised=false
 RESULT: token.tokensPerKEther=1000000
 RESULT: token.totalSupply=10000000
-RESULT: token.LOCKED_1Y_DATE=1529083214 Fri, 15 Jun 2018 17:20:14 UTC / Fri, 15 Jun 2018 17:20:14 GMT
-RESULT: token.LOCKED_2Y_DATE=1560619214 Sat, 15 Jun 2019 17:20:14 UTC / Sat, 15 Jun 2019 17:20:14 GMT
+RESULT: token.LOCKED_1Y_DATE=1529128065 Sat, 16 Jun 2018 05:47:45 UTC / Sat, 16 Jun 2018 05:47:45 GMT
+RESULT: token.LOCKED_2Y_DATE=1560664065 Sun, 16 Jun 2019 05:47:45 UTC / Sun, 16 Jun 2019 05:47:45 GMT
 RESULT: lockedToken.TOKENS_LOCKED_1Y_TOTAL=14000000
 RESULT: lockedToken.TOKENS_LOCKED_2Y_TOTAL=26000000
 RESULT: lockedToken.totalSupplyLocked1Y=14000000
@@ -242,9 +245,9 @@ RESULT: lockedToken.totalSupplyLocked2Y=26000000
 RESULT: lockedToken.totalSupplyLocked=40000000
 RESULT: token.owner=0xa11aae29840fbb5c86e6fd4cf809eba183aef433
 RESULT: token.newOwner=0x0000000000000000000000000000000000000000
-RESULT: TokensPerKEtherUpdated Event 0: tokensPerKEther=1000000 block=500
-RESULT: WalletUpdated Event 0: from=0xa99a0ae3354c06b1459fd441a32a3f71005d7da0 block=500
-RESULT: Transfer Event 0: from=0x0000000000000000000000000000000000000000 to=0xaffa4d3a80add8ce4018540e056dacb649589394 value=10000000 block=500
+RESULT: TokensPerKEtherUpdated Event 0: tokensPerKEther=1000000 block=609
+RESULT: WalletUpdated Event 0: from=0xa99a0ae3354c06b1459fd441a32a3f71005d7da0 block=609
+RESULT: Transfer Event 0: from=0x0000000000000000000000000000000000000000 to=0xaffa4d3a80add8ce4018540e056dacb649589394 value=10000000 block=609
 undefined
 > 
 RESULT: 
@@ -263,14 +266,14 @@ undefined
 undefined
 > 
 ... 
-RESULT: Waiting until start date at 1497547214 Fri, 16 Jun 2017 03:20:14 AEST currentDate=Fri, 16 Jun 2017 03:19:56 AEST
+RESULT: Waiting until start date at 1497592065 Fri, 16 Jun 2017 15:47:45 AEST currentDate=Fri, 16 Jun 2017 15:47:44 AEST
 undefined
 > 
 ... 
 undefined
 > 
 ... 
-RESULT: Waited until start date at 1497547214 Fri, 16 Jun 2017 03:20:14 AEST currentDate=Fri, 16 Jun 2017 03:20:14 AEST
+RESULT: Waited until start date at 1497592065 Fri, 16 Jun 2017 15:47:45 AEST currentDate=Fri, 16 Jun 2017 15:47:45 AEST
 undefined
 > 
 > 
@@ -295,42 +298,43 @@ undefined
 ... 
 undefined
 > 
-RESULT: tx2_1_1 gas=400000 gasUsed=78977 costETH=0.001421586 costUSD=0.54075709854 @ ETH/USD=380.39 gasPrice=18000000000 block=508 txId=0x522901f40c34b866e53607eacce253b2f91273b975410a97b28151321adc2a4d
+RESULT: tx2_1_1 gas=400000 gasUsed=78986 costETH=0.001421748 costUSD=0.54081872172 @ ETH/USD=380.39 gasPrice=18000000000 block=613 txId=0x937f0d53922da8bb9b4699035e6f6d805299103fb7de574e3b8e91e556b92449
 undefined
 > 
-RESULT: tx2_1_2 gas=400000 gasUsed=78977 costETH=0.001421586 costUSD=0.54075709854 @ ETH/USD=380.39 gasPrice=18000000000 block=508 txId=0xe42c53c75edbfa2c2223497b76bf08fa3d830df64c59d1005e5b42f310cec27e
+RESULT: tx2_1_2 gas=400000 gasUsed=78986 costETH=0.001421748 costUSD=0.54081872172 @ ETH/USD=380.39 gasPrice=18000000000 block=613 txId=0xba8dacf5f2e4f01b4172b44d21d7e9126dea759af612519e574f744284e5f55e
 undefined
 > 
-RESULT: tx2_1_3 gas=400000 gasUsed=78977 costETH=0.001421586 costUSD=0.54075709854 @ ETH/USD=380.39 gasPrice=18000000000 block=508 txId=0x5aba06f44465babaffe3e86c97de188e207815ffbf2356b643f72b2fae4cbade
+RESULT: tx2_1_3 gas=400000 gasUsed=78986 costETH=0.001421748 costUSD=0.54081872172 @ ETH/USD=380.39 gasPrice=18000000000 block=613 txId=0x5035680e76396e195c733f7a101fc13a34d9b4ba748dc65d70f61853d5287833
 undefined
 > 
-RESULT: tx2_1_4 gas=400000 gasUsed=78977 costETH=0.001421586 costUSD=0.54075709854 @ ETH/USD=380.39 gasPrice=18000000000 block=508 txId=0x41a0eb4bb3b54006deb67eae5816c23cd28ae12eeed44375f3a059c175513906
+RESULT: tx2_1_4 gas=400000 gasUsed=78986 costETH=0.001421748 costUSD=0.54081872172 @ ETH/USD=380.39 gasPrice=18000000000 block=613 txId=0x125812408735c0bd9d0062461981698267d93f7c01d45c7bbad6d119b620aa78
 undefined
 > 
-RESULT: tx2_1_5 gas=400000 gasUsed=81538 costETH=0.001467684 costUSD=0.55829231676 @ ETH/USD=380.39 gasPrice=18000000000 block=508 txId=0x881af67274d13a22b362d408c4a5ea6df3b7453c2e89435cf7485115a8a13604
+RESULT: tx2_1_5 gas=400000 gasUsed=81547 costETH=0.001467846 costUSD=0.55835393994 @ ETH/USD=380.39 gasPrice=18000000000 block=613 txId=0x639fd7b1400a54270439f8dc1983e3f80962b58010b6f06b7a916ecebb7d22ee
 undefined
 > 
 DEBUG: tokenContractAddress: 0x354059c8c025b0bb359d8a9a6afaf1e550b2ea4b
 DEBUG: tokenContractAbi: [object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object]
 RESULT:  # Account                                             EtherBalanceChange                 Unlocked Token                      Locked 1Y                      Locked 2Y                          Total Name
 RESULT: -- ------------------------------------------ --------------------------- ------------------------------ ------------------------------ ------------------------------ ------------------------------ ---------------------------
-RESULT:  1 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       90.064557756000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #0 - Miner
-RESULT:  2 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.057403728000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #1 - Token Owner
-RESULT:  3 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976     -100.001421586000000000      100000.000000000000000000           0.000000000000000000           0.000000000000000000      100000.000000000000000000 Account #2 - KYCed
-RESULT:  4 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0    -1000.001421586000000000     1000000.000000000000000000           0.000000000000000000           0.000000000000000000     1000000.000000000000000000 Account #3 - KYCed
-RESULT:  5 0xa44a08d3f6933c69212114bb66e2df1813651844   -10000.001421586000000000    10000000.000000000000000000           0.000000000000000000           0.000000000000000000    10000000.000000000000000000 Account #4
-RESULT:  6 0xa55a151eb00fded1634d27d1127b4be4627079ea       -0.501467684000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #5
+RESULT:  1 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       65.064634184000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #0 - Miner
+RESULT:  2 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.057479346000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #1 - Token Owner
+RESULT:  3 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976     -100.001421748000000000      100000.000000000000000000           0.000000000000000000           0.000000000000000000      100000.000000000000000000 Account #2 - KYCed
+RESULT:  4 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0    -1000.001421748000000000     1000000.000000000000000000           0.000000000000000000           0.000000000000000000     1000000.000000000000000000 Account #3 - KYCed
+RESULT:  5 0xa44a08d3f6933c69212114bb66e2df1813651844   -10000.001421748000000000    10000000.000000000000000000           0.000000000000000000           0.000000000000000000    10000000.000000000000000000 Account #4
+RESULT:  6 0xa55a151eb00fded1634d27d1127b4be4627079ea       -0.501467846000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #5
 RESULT:  7 0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9        0.000000000000000000         500.000000000000000000           0.000000000000000000           0.000000000000000000         500.000000000000000000 Account #6
 RESULT:  8 0xa77a2b9d4b1c010a22a7c565dc418cef683dbcec        0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #7
 RESULT:  9 0xa88a05d2b88283ce84c8325760b72a64591279a2        0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #8
 RESULT: 10 0xa99a0ae3354c06b1459fd441a32a3f71005d7da0    12100.500000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #9 - Crowdfund Wallet
 RESULT: 11 0xaaaa9de1e6c564446ebca0fd102d8bd92093c756        0.000000000000000000           0.000000000000000000           0.000000000000000000    20000000.000000000000000000    20000000.000000000000000000 Account #10 - Foundation
 RESULT: 12 0xabba43e7594e3b76afb157989e93c6621497fd4b        0.000000000000000000           0.000000000000000000     2000000.000000000000000000     2000000.000000000000000000     4000000.000000000000000000 Account #11 - Advisors
-RESULT: 13 0xacca534c9f62ab495bd986e002ddf0f054caae4f    -1000.001421586000000000     1000000.000000000000000000     2000000.000000000000000000     2000000.000000000000000000     5000000.000000000000000000 Account #12 - Directors
+RESULT: 13 0xacca534c9f62ab495bd986e002ddf0f054caae4f    -1000.001421748000000000     1000000.000000000000000000     2000000.000000000000000000     2000000.000000000000000000     5000000.000000000000000000 Account #12 - Directors
 RESULT: 14 0xadda9b762a00ff12711113bfdc36958b73d7f915        0.000000000000000000           0.000000000000000000     2000000.000000000000000000     2000000.000000000000000000     4000000.000000000000000000 Account #13 - Early Backers
 RESULT: 15 0xaeea63b5479b50f79583ec49dacdcf86ddeff392        0.000000000000000000           0.000000000000000000     8000000.000000000000000000           0.000000000000000000     8000000.000000000000000000 Account #14 - Developers
 RESULT: 16 0xaffa4d3a80add8ce4018540e056dacb649589394        0.000000000000000000    10000000.000000000000000000           0.000000000000000000           0.000000000000000000    10000000.000000000000000000 Account #15 - Precommitments
 RESULT: 17 0x354059c8c025b0bb359d8a9a6afaf1e550b2ea4b        0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 OAX 'openANX Token' *
+RESULT: 18 0x519172068aa711e6e53dc3982b63e1df5b482be9        0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Locked Tokens
 RESULT: -- ------------------------------------------ --------------------------- ------------------------------ ------------------------------ ------------------------------ ------------------------------ ---------------------------
 RESULT:                                                                              22100500.000000000000000000    14000000.000000000000000000    26000000.000000000000000000    62100500.000000000000000000 Total Token Balances *
 RESULT: -- ------------------------------------------ --------------------------- ------------------------------ ------------------------------ ------------------------------ ------------------------------ ---------------------------
@@ -356,8 +360,8 @@ RESULT: PASS Test 2.1 Buy tokens - account5 buys 500 OAX for 0.5 ETH on behalf o
 RESULT: token.finalised=false
 RESULT: token.tokensPerKEther=1000000
 RESULT: token.totalSupply=22100500
-RESULT: token.LOCKED_1Y_DATE=1529083214 Fri, 15 Jun 2018 17:20:14 UTC / Fri, 15 Jun 2018 17:20:14 GMT
-RESULT: token.LOCKED_2Y_DATE=1560619214 Sat, 15 Jun 2019 17:20:14 UTC / Sat, 15 Jun 2019 17:20:14 GMT
+RESULT: token.LOCKED_1Y_DATE=1529128065 Sat, 16 Jun 2018 05:47:45 UTC / Sat, 16 Jun 2018 05:47:45 GMT
+RESULT: token.LOCKED_2Y_DATE=1560664065 Sun, 16 Jun 2019 05:47:45 UTC / Sun, 16 Jun 2019 05:47:45 GMT
 RESULT: lockedToken.TOKENS_LOCKED_1Y_TOTAL=14000000
 RESULT: lockedToken.TOKENS_LOCKED_2Y_TOTAL=26000000
 RESULT: lockedToken.totalSupplyLocked1Y=14000000
@@ -365,16 +369,16 @@ RESULT: lockedToken.totalSupplyLocked2Y=26000000
 RESULT: lockedToken.totalSupplyLocked=40000000
 RESULT: token.owner=0xa11aae29840fbb5c86e6fd4cf809eba183aef433
 RESULT: token.newOwner=0x0000000000000000000000000000000000000000
-RESULT: TokensBought Event 0: buyer=0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0 ethers=1000 newEtherBalance=1000 tokens=1000000 newTotalSupply=11000000 tokensPerKEther=1000000 block=508
-RESULT: TokensBought Event 1: buyer=0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976 ethers=100 newEtherBalance=100 tokens=100000 newTotalSupply=11100000 tokensPerKEther=1000000 block=508
-RESULT: TokensBought Event 2: buyer=0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9 ethers=0.5 newEtherBalance=0.5 tokens=500 newTotalSupply=11100500 tokensPerKEther=1000000 block=508
-RESULT: TokensBought Event 3: buyer=0xacca534c9f62ab495bd986e002ddf0f054caae4f ethers=1000 newEtherBalance=1000 tokens=1000000 newTotalSupply=12100500 tokensPerKEther=1000000 block=508
-RESULT: TokensBought Event 4: buyer=0xa44a08d3f6933c69212114bb66e2df1813651844 ethers=10000 newEtherBalance=10000 tokens=10000000 newTotalSupply=22100500 tokensPerKEther=1000000 block=508
-RESULT: Transfer Event 0: from=0x0000000000000000000000000000000000000000 to=0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0 value=1000000 block=508
-RESULT: Transfer Event 1: from=0x0000000000000000000000000000000000000000 to=0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976 value=100000 block=508
-RESULT: Transfer Event 2: from=0x0000000000000000000000000000000000000000 to=0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9 value=500 block=508
-RESULT: Transfer Event 3: from=0x0000000000000000000000000000000000000000 to=0xacca534c9f62ab495bd986e002ddf0f054caae4f value=1000000 block=508
-RESULT: Transfer Event 4: from=0x0000000000000000000000000000000000000000 to=0xa44a08d3f6933c69212114bb66e2df1813651844 value=10000000 block=508
+RESULT: TokensBought Event 0: buyer=0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976 ethers=100 newEtherBalance=100 tokens=100000 newTotalSupply=10100000 tokensPerKEther=1000000 block=613
+RESULT: TokensBought Event 1: buyer=0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9 ethers=0.5 newEtherBalance=0.5 tokens=500 newTotalSupply=10100500 tokensPerKEther=1000000 block=613
+RESULT: TokensBought Event 2: buyer=0xacca534c9f62ab495bd986e002ddf0f054caae4f ethers=1000 newEtherBalance=1000 tokens=1000000 newTotalSupply=11100500 tokensPerKEther=1000000 block=613
+RESULT: TokensBought Event 3: buyer=0xa44a08d3f6933c69212114bb66e2df1813651844 ethers=10000 newEtherBalance=10000 tokens=10000000 newTotalSupply=21100500 tokensPerKEther=1000000 block=613
+RESULT: TokensBought Event 4: buyer=0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0 ethers=1000 newEtherBalance=1000 tokens=1000000 newTotalSupply=22100500 tokensPerKEther=1000000 block=613
+RESULT: Transfer Event 0: from=0x0000000000000000000000000000000000000000 to=0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976 value=100000 block=613
+RESULT: Transfer Event 1: from=0x0000000000000000000000000000000000000000 to=0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9 value=500 block=613
+RESULT: Transfer Event 2: from=0x0000000000000000000000000000000000000000 to=0xacca534c9f62ab495bd986e002ddf0f054caae4f value=1000000 block=613
+RESULT: Transfer Event 3: from=0x0000000000000000000000000000000000000000 to=0xa44a08d3f6933c69212114bb66e2df1813651844 value=10000000 block=613
+RESULT: Transfer Event 4: from=0x0000000000000000000000000000000000000000 to=0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0 value=1000000 block=613
 undefined
 > 
 RESULT: 
@@ -407,45 +411,46 @@ undefined
 ... 
 undefined
 > 
-RESULT: tx3_1_1 gas=100000 gasUsed=100000 costETH=0.0018 costUSD=0.684702 @ ETH/USD=380.39 gasPrice=18000000000 block=510 txId=0x877619847ffa47b76fc349275574cdafc956a7080362a24673ddc44a0e6ec4fc
+RESULT: tx3_1_1 gas=100000 gasUsed=100000 costETH=0.0018 costUSD=0.684702 @ ETH/USD=380.39 gasPrice=18000000000 block=616 txId=0xe26eafdf7b79305b0a769f19d40fe48a8e294a4f8aa488c4f76228dcb182a92e
 undefined
 > 
-RESULT: tx3_1_2 gas=100000 gasUsed=100000 costETH=0.0018 costUSD=0.684702 @ ETH/USD=380.39 gasPrice=18000000000 block=510 txId=0x1cfb76e873ea5459f47e247e05865b9270ed4cf3dcad55898f12d19ddd54d6e7
+RESULT: tx3_1_2 gas=100000 gasUsed=100000 costETH=0.0018 costUSD=0.684702 @ ETH/USD=380.39 gasPrice=18000000000 block=616 txId=0x2784ffd06b44919dd89e550d9740072b9f9d55df126384fa6c550d6a40c462bf
 undefined
 > 
-RESULT: tx3_1_3 gas=100000 gasUsed=45404 costETH=0.000817272 costUSD=0.31088209608 @ ETH/USD=380.39 gasPrice=18000000000 block=510 txId=0xec7cc7a2ee093f4dccfc8700a79b3802941425600e1d71bc144e575867248336
+RESULT: tx3_1_3 gas=100000 gasUsed=45404 costETH=0.000817272 costUSD=0.31088209608 @ ETH/USD=380.39 gasPrice=18000000000 block=616 txId=0xd68823c4ce649d5f84368c4492152be991a32c196d318d56a86fe21065107d39
 undefined
 > 
-RESULT: tx3_1_4 gas=100000 gasUsed=45468 costETH=0.000818424 costUSD=0.31132030536 @ ETH/USD=380.39 gasPrice=18000000000 block=510 txId=0x8b2efb0a1b9564c4f1a2c277093ab600f45bcef6ad639294d6bb6d525e30512a
+RESULT: tx3_1_4 gas=100000 gasUsed=45468 costETH=0.000818424 costUSD=0.31132030536 @ ETH/USD=380.39 gasPrice=18000000000 block=616 txId=0x18b4bf45a193fe4ad1b03566ef96ce3c07a59c3e1e71015933c0889b69217f52
 undefined
 > 
-RESULT: tx3_1_5 gas=100000 gasUsed=100000 costETH=0.0018 costUSD=0.684702 @ ETH/USD=380.39 gasPrice=18000000000 block=512 txId=0x81fd2244a3e922415fff3e6167cf369cc5de0ab248e90c34ca8987c7bdece8df
+RESULT: tx3_1_5 gas=100000 gasUsed=100000 costETH=0.0018 costUSD=0.684702 @ ETH/USD=380.39 gasPrice=18000000000 block=618 txId=0x81fd2244a3e922415fff3e6167cf369cc5de0ab248e90c34ca8987c7bdece8df
 undefined
 > 
-RESULT: tx3_1_6 gas=100000 gasUsed=100000 costETH=0.0018 costUSD=0.684702 @ ETH/USD=380.39 gasPrice=18000000000 block=512 txId=0xda9d5eda79dbe98ebcede9dac1513d490dc9645884c61452e8b256eb040f7c84
+RESULT: tx3_1_6 gas=100000 gasUsed=100000 costETH=0.0018 costUSD=0.684702 @ ETH/USD=380.39 gasPrice=18000000000 block=618 txId=0xda9d5eda79dbe98ebcede9dac1513d490dc9645884c61452e8b256eb040f7c84
 undefined
 > 
 DEBUG: tokenContractAddress: 0x354059c8c025b0bb359d8a9a6afaf1e550b2ea4b
 DEBUG: tokenContractAbi: [object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object]
 RESULT:  # Account                                             EtherBalanceChange                 Unlocked Token                      Locked 1Y                      Locked 2Y                          Total Name
 RESULT: -- ------------------------------------------ --------------------------- ------------------------------ ------------------------------ ------------------------------ ------------------------------ ---------------------------
-RESULT:  1 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e      110.073393452000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #0 - Miner
-RESULT:  2 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.057403728000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #1 - Token Owner
-RESULT:  3 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976     -100.003221586000000000      100000.000000000000000000           0.000000000000000000           0.000000000000000000      100000.000000000000000000 Account #2 - KYCed
-RESULT:  4 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0    -1000.002238858000000000     1000000.000000000000000000           0.000000000000000000           0.000000000000000000     1000000.000000000000000000 Account #3 - KYCed
-RESULT:  5 0xa44a08d3f6933c69212114bb66e2df1813651844   -10000.004040010000000000    10000000.000000000000000000           0.000000000000000000           0.000000000000000000    10000000.000000000000000000 Account #4
-RESULT:  6 0xa55a151eb00fded1634d27d1127b4be4627079ea       -0.501467684000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #5
+RESULT:  1 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       90.073469880000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #0 - Miner
+RESULT:  2 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.057479346000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #1 - Token Owner
+RESULT:  3 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976     -100.003221748000000000      100000.000000000000000000           0.000000000000000000           0.000000000000000000      100000.000000000000000000 Account #2 - KYCed
+RESULT:  4 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0    -1000.002239020000000000     1000000.000000000000000000           0.000000000000000000           0.000000000000000000     1000000.000000000000000000 Account #3 - KYCed
+RESULT:  5 0xa44a08d3f6933c69212114bb66e2df1813651844   -10000.004040172000000000    10000000.000000000000000000           0.000000000000000000           0.000000000000000000    10000000.000000000000000000 Account #4
+RESULT:  6 0xa55a151eb00fded1634d27d1127b4be4627079ea       -0.501467846000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #5
 RESULT:  7 0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9        0.000000000000000000         500.000000000000000000           0.000000000000000000           0.000000000000000000         500.000000000000000000 Account #6
 RESULT:  8 0xa77a2b9d4b1c010a22a7c565dc418cef683dbcec       -0.001800000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #7
 RESULT:  9 0xa88a05d2b88283ce84c8325760b72a64591279a2       -0.001800000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #8
 RESULT: 10 0xa99a0ae3354c06b1459fd441a32a3f71005d7da0    12100.500000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #9 - Crowdfund Wallet
 RESULT: 11 0xaaaa9de1e6c564446ebca0fd102d8bd92093c756        0.000000000000000000           0.000000000000000000           0.000000000000000000    20000000.000000000000000000    20000000.000000000000000000 Account #10 - Foundation
 RESULT: 12 0xabba43e7594e3b76afb157989e93c6621497fd4b        0.000000000000000000           0.000000000000000000     2000000.000000000000000000     2000000.000000000000000000     4000000.000000000000000000 Account #11 - Advisors
-RESULT: 13 0xacca534c9f62ab495bd986e002ddf0f054caae4f    -1000.001421586000000000     1000000.000000000000000000     2000000.000000000000000000     2000000.000000000000000000     5000000.000000000000000000 Account #12 - Directors
+RESULT: 13 0xacca534c9f62ab495bd986e002ddf0f054caae4f    -1000.001421748000000000     1000000.000000000000000000     2000000.000000000000000000     2000000.000000000000000000     5000000.000000000000000000 Account #12 - Directors
 RESULT: 14 0xadda9b762a00ff12711113bfdc36958b73d7f915        0.000000000000000000           0.000000000000000000     2000000.000000000000000000     2000000.000000000000000000     4000000.000000000000000000 Account #13 - Early Backers
 RESULT: 15 0xaeea63b5479b50f79583ec49dacdcf86ddeff392        0.000000000000000000           0.000000000000000000     8000000.000000000000000000           0.000000000000000000     8000000.000000000000000000 Account #14 - Developers
 RESULT: 16 0xaffa4d3a80add8ce4018540e056dacb649589394        0.000000000000000000    10000000.000000000000000000           0.000000000000000000           0.000000000000000000    10000000.000000000000000000 Account #15 - Precommitments
 RESULT: 17 0x354059c8c025b0bb359d8a9a6afaf1e550b2ea4b        0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 OAX 'openANX Token' *
+RESULT: 18 0x519172068aa711e6e53dc3982b63e1df5b482be9        0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Locked Tokens
 RESULT: -- ------------------------------------------ --------------------------- ------------------------------ ------------------------------ ------------------------------ ------------------------------ ---------------------------
 RESULT:                                                                              22100500.000000000000000000    14000000.000000000000000000    26000000.000000000000000000    62100500.000000000000000000 Total Token Balances *
 RESULT: -- ------------------------------------------ --------------------------- ------------------------------ ------------------------------ ------------------------------ ------------------------------ ---------------------------
@@ -474,8 +479,8 @@ RESULT: PASS Test 3.1 Cannot Move Tokens Without Finalisation And KYC Verificati
 RESULT: token.finalised=false
 RESULT: token.tokensPerKEther=1000000
 RESULT: token.totalSupply=22100500
-RESULT: token.LOCKED_1Y_DATE=1529083214 Fri, 15 Jun 2018 17:20:14 UTC / Fri, 15 Jun 2018 17:20:14 GMT
-RESULT: token.LOCKED_2Y_DATE=1560619214 Sat, 15 Jun 2019 17:20:14 UTC / Sat, 15 Jun 2019 17:20:14 GMT
+RESULT: token.LOCKED_1Y_DATE=1529128065 Sat, 16 Jun 2018 05:47:45 UTC / Sat, 16 Jun 2018 05:47:45 GMT
+RESULT: token.LOCKED_2Y_DATE=1560664065 Sun, 16 Jun 2019 05:47:45 UTC / Sun, 16 Jun 2019 05:47:45 GMT
 RESULT: lockedToken.TOKENS_LOCKED_1Y_TOTAL=14000000
 RESULT: lockedToken.TOKENS_LOCKED_2Y_TOTAL=26000000
 RESULT: lockedToken.totalSupplyLocked1Y=14000000
@@ -483,8 +488,8 @@ RESULT: lockedToken.totalSupplyLocked2Y=26000000
 RESULT: lockedToken.totalSupplyLocked=40000000
 RESULT: token.owner=0xa11aae29840fbb5c86e6fd4cf809eba183aef433
 RESULT: token.newOwner=0x0000000000000000000000000000000000000000
-RESULT: Approval Event 0: owner=0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0 spender=0xa77a2b9d4b1c010a22a7c565dc418cef683dbcec 0.03 block=510
-RESULT: Approval Event 1: owner=0xa44a08d3f6933c69212114bb66e2df1813651844 spender=0xa88a05d2b88283ce84c8325760b72a64591279a2 4 block=510
+RESULT: Approval Event 0: owner=0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0 spender=0xa77a2b9d4b1c010a22a7c565dc418cef683dbcec 0.03 block=616
+RESULT: Approval Event 1: owner=0xa44a08d3f6933c69212114bb66e2df1813651844 spender=0xa88a05d2b88283ce84c8325760b72a64591279a2 4 block=616
 undefined
 > 
 RESULT: 
@@ -504,30 +509,31 @@ undefined
 ... 
 undefined
 > 
-RESULT: tx4_1 gas=4000000 gasUsed=97513 costETH=0.001755234 costUSD=0.66767346126 @ ETH/USD=380.39 gasPrice=18000000000 block=516 txId=0x39526436e607cc6b130c1a23307f5a53c43e6f38376abd7b1deb6a51891289f3
+RESULT: tx4_1 gas=4000000 gasUsed=97633 costETH=0.001757394 costUSD=0.66849510366 @ ETH/USD=380.39 gasPrice=18000000000 block=622 txId=0x39526436e607cc6b130c1a23307f5a53c43e6f38376abd7b1deb6a51891289f3
 undefined
 > 
 DEBUG: tokenContractAddress: 0x354059c8c025b0bb359d8a9a6afaf1e550b2ea4b
 DEBUG: tokenContractAbi: [object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object]
 RESULT:  # Account                                             EtherBalanceChange                 Unlocked Token                      Locked 1Y                      Locked 2Y                          Total Name
 RESULT: -- ------------------------------------------ --------------------------- ------------------------------ ------------------------------ ------------------------------ ------------------------------ ---------------------------
-RESULT:  1 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e      130.075148686000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #0 - Miner
-RESULT:  2 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.059158962000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #1 - Token Owner
-RESULT:  3 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976     -100.003221586000000000      100000.000000000000000000           0.000000000000000000           0.000000000000000000      100000.000000000000000000 Account #2 - KYCed
-RESULT:  4 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0    -1000.002238858000000000     1000000.000000000000000000           0.000000000000000000           0.000000000000000000     1000000.000000000000000000 Account #3 - KYCed
-RESULT:  5 0xa44a08d3f6933c69212114bb66e2df1813651844   -10000.004040010000000000    10000000.000000000000000000           0.000000000000000000           0.000000000000000000    10000000.000000000000000000 Account #4
-RESULT:  6 0xa55a151eb00fded1634d27d1127b4be4627079ea       -0.501467684000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #5
+RESULT:  1 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e      110.075227274000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #0 - Miner
+RESULT:  2 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.059236740000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #1 - Token Owner
+RESULT:  3 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976     -100.003221748000000000      100000.000000000000000000           0.000000000000000000           0.000000000000000000      100000.000000000000000000 Account #2 - KYCed
+RESULT:  4 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0    -1000.002239020000000000     1000000.000000000000000000           0.000000000000000000           0.000000000000000000     1000000.000000000000000000 Account #3 - KYCed
+RESULT:  5 0xa44a08d3f6933c69212114bb66e2df1813651844   -10000.004040172000000000    10000000.000000000000000000           0.000000000000000000           0.000000000000000000    10000000.000000000000000000 Account #4
+RESULT:  6 0xa55a151eb00fded1634d27d1127b4be4627079ea       -0.501467846000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #5
 RESULT:  7 0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9        0.000000000000000000         500.000000000000000000           0.000000000000000000           0.000000000000000000         500.000000000000000000 Account #6
 RESULT:  8 0xa77a2b9d4b1c010a22a7c565dc418cef683dbcec       -0.001800000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #7
 RESULT:  9 0xa88a05d2b88283ce84c8325760b72a64591279a2       -0.001800000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #8
 RESULT: 10 0xa99a0ae3354c06b1459fd441a32a3f71005d7da0    12100.500000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #9 - Crowdfund Wallet
 RESULT: 11 0xaaaa9de1e6c564446ebca0fd102d8bd92093c756        0.000000000000000000           0.000000000000000000           0.000000000000000000    20000000.000000000000000000    20000000.000000000000000000 Account #10 - Foundation
 RESULT: 12 0xabba43e7594e3b76afb157989e93c6621497fd4b        0.000000000000000000           0.000000000000000000     2000000.000000000000000000     2000000.000000000000000000     4000000.000000000000000000 Account #11 - Advisors
-RESULT: 13 0xacca534c9f62ab495bd986e002ddf0f054caae4f    -1000.001421586000000000     1000000.000000000000000000     2000000.000000000000000000     2000000.000000000000000000     5000000.000000000000000000 Account #12 - Directors
+RESULT: 13 0xacca534c9f62ab495bd986e002ddf0f054caae4f    -1000.001421748000000000     1000000.000000000000000000     2000000.000000000000000000     2000000.000000000000000000     5000000.000000000000000000 Account #12 - Directors
 RESULT: 14 0xadda9b762a00ff12711113bfdc36958b73d7f915        0.000000000000000000           0.000000000000000000     2000000.000000000000000000     2000000.000000000000000000     4000000.000000000000000000 Account #13 - Early Backers
 RESULT: 15 0xaeea63b5479b50f79583ec49dacdcf86ddeff392        0.000000000000000000           0.000000000000000000     8000000.000000000000000000           0.000000000000000000     8000000.000000000000000000 Account #14 - Developers
 RESULT: 16 0xaffa4d3a80add8ce4018540e056dacb649589394        0.000000000000000000    10000000.000000000000000000           0.000000000000000000           0.000000000000000000    10000000.000000000000000000 Account #15 - Precommitments
-RESULT: 17 0x354059c8c025b0bb359d8a9a6afaf1e550b2ea4b        0.000000000000000000    77899500.000000000000000000    37899500.000000000000000000           0.000000000000000000   115799000.000000000000000000 OAX 'openANX Token' *
+RESULT: 17 0x354059c8c025b0bb359d8a9a6afaf1e550b2ea4b        0.000000000000000000           0.000000000000000000    37899500.000000000000000000           0.000000000000000000    37899500.000000000000000000 OAX 'openANX Token' *
+RESULT: 18 0x519172068aa711e6e53dc3982b63e1df5b482be9        0.000000000000000000    77899500.000000000000000000           0.000000000000000000           0.000000000000000000    77899500.000000000000000000 Locked Tokens
 RESULT: -- ------------------------------------------ --------------------------- ------------------------------ ------------------------------ ------------------------------ ------------------------------ ---------------------------
 RESULT:                                                                             100000000.000000000000000000    51899500.000000000000000000    26000000.000000000000000000   177899500.000000000000000000 Total Token Balances *
 RESULT: -- ------------------------------------------ --------------------------- ------------------------------ ------------------------------ ------------------------------ ------------------------------ ---------------------------
@@ -541,8 +547,8 @@ RESULT: PASS Test 4.1 Finalise crowdsale
 RESULT: token.finalised=true
 RESULT: token.tokensPerKEther=1000000
 RESULT: token.totalSupply=100000000
-RESULT: token.LOCKED_1Y_DATE=1529083214 Fri, 15 Jun 2018 17:20:14 UTC / Fri, 15 Jun 2018 17:20:14 GMT
-RESULT: token.LOCKED_2Y_DATE=1560619214 Sat, 15 Jun 2019 17:20:14 UTC / Sat, 15 Jun 2019 17:20:14 GMT
+RESULT: token.LOCKED_1Y_DATE=1529128065 Sat, 16 Jun 2018 05:47:45 UTC / Sat, 16 Jun 2018 05:47:45 GMT
+RESULT: token.LOCKED_2Y_DATE=1560664065 Sun, 16 Jun 2019 05:47:45 UTC / Sun, 16 Jun 2019 05:47:45 GMT
 RESULT: lockedToken.TOKENS_LOCKED_1Y_TOTAL=14000000
 RESULT: lockedToken.TOKENS_LOCKED_2Y_TOTAL=26000000
 RESULT: lockedToken.totalSupplyLocked1Y=51899500
@@ -571,33 +577,34 @@ undefined
 ... 
 undefined
 > 
-RESULT: tx5_1_1 gas=4000000 gasUsed=14705 costETH=0.00026469 costUSD=0.1006854291 @ ETH/USD=380.39 gasPrice=18000000000 block=520 txId=0x59ea20bb9ebaeec1326aa7db0d36da9f9ab7c1808c3dc1b2630221234da5e001
+RESULT: tx5_1_1 gas=4000000 gasUsed=14705 costETH=0.00026469 costUSD=0.1006854291 @ ETH/USD=380.39 gasPrice=18000000000 block=625 txId=0x59ea20bb9ebaeec1326aa7db0d36da9f9ab7c1808c3dc1b2630221234da5e001
 undefined
 > 
-RESULT: tx5_1_2 gas=4000000 gasUsed=14705 costETH=0.00026469 costUSD=0.1006854291 @ ETH/USD=380.39 gasPrice=18000000000 block=520 txId=0xddbf015ec07fca461182263560d211b34b9b41e7354097fb745dbc1524806d59
+RESULT: tx5_1_2 gas=4000000 gasUsed=14705 costETH=0.00026469 costUSD=0.1006854291 @ ETH/USD=380.39 gasPrice=18000000000 block=625 txId=0xddbf015ec07fca461182263560d211b34b9b41e7354097fb745dbc1524806d59
 undefined
 > 
 DEBUG: tokenContractAddress: 0x354059c8c025b0bb359d8a9a6afaf1e550b2ea4b
 DEBUG: tokenContractAbi: [object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object]
 RESULT:  # Account                                             EtherBalanceChange                 Unlocked Token                      Locked 1Y                      Locked 2Y                          Total Name
 RESULT: -- ------------------------------------------ --------------------------- ------------------------------ ------------------------------ ------------------------------ ------------------------------ ---------------------------
-RESULT:  1 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e      150.075678066000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #0 - Miner
-RESULT:  2 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.059688342000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #1 - Token Owner
-RESULT:  3 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976     -100.003221586000000000      100000.000000000000000000           0.000000000000000000           0.000000000000000000      100000.000000000000000000 Account #2 - KYCed
-RESULT:  4 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0    -1000.002238858000000000     1000000.000000000000000000           0.000000000000000000           0.000000000000000000     1000000.000000000000000000 Account #3 - KYCed
-RESULT:  5 0xa44a08d3f6933c69212114bb66e2df1813651844   -10000.004040010000000000    10000000.000000000000000000           0.000000000000000000           0.000000000000000000    10000000.000000000000000000 Account #4
-RESULT:  6 0xa55a151eb00fded1634d27d1127b4be4627079ea       -0.501467684000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #5
+RESULT:  1 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e      125.075756654000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #0 - Miner
+RESULT:  2 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.059766120000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #1 - Token Owner
+RESULT:  3 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976     -100.003221748000000000      100000.000000000000000000           0.000000000000000000           0.000000000000000000      100000.000000000000000000 Account #2 - KYCed
+RESULT:  4 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0    -1000.002239020000000000     1000000.000000000000000000           0.000000000000000000           0.000000000000000000     1000000.000000000000000000 Account #3 - KYCed
+RESULT:  5 0xa44a08d3f6933c69212114bb66e2df1813651844   -10000.004040172000000000    10000000.000000000000000000           0.000000000000000000           0.000000000000000000    10000000.000000000000000000 Account #4
+RESULT:  6 0xa55a151eb00fded1634d27d1127b4be4627079ea       -0.501467846000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #5
 RESULT:  7 0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9        0.000000000000000000         500.000000000000000000           0.000000000000000000           0.000000000000000000         500.000000000000000000 Account #6
 RESULT:  8 0xa77a2b9d4b1c010a22a7c565dc418cef683dbcec       -0.001800000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #7
 RESULT:  9 0xa88a05d2b88283ce84c8325760b72a64591279a2       -0.001800000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #8
 RESULT: 10 0xa99a0ae3354c06b1459fd441a32a3f71005d7da0    12100.500000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #9 - Crowdfund Wallet
 RESULT: 11 0xaaaa9de1e6c564446ebca0fd102d8bd92093c756        0.000000000000000000           0.000000000000000000           0.000000000000000000    20000000.000000000000000000    20000000.000000000000000000 Account #10 - Foundation
 RESULT: 12 0xabba43e7594e3b76afb157989e93c6621497fd4b        0.000000000000000000           0.000000000000000000     2000000.000000000000000000     2000000.000000000000000000     4000000.000000000000000000 Account #11 - Advisors
-RESULT: 13 0xacca534c9f62ab495bd986e002ddf0f054caae4f    -1000.001421586000000000     1000000.000000000000000000     2000000.000000000000000000     2000000.000000000000000000     5000000.000000000000000000 Account #12 - Directors
+RESULT: 13 0xacca534c9f62ab495bd986e002ddf0f054caae4f    -1000.001421748000000000     1000000.000000000000000000     2000000.000000000000000000     2000000.000000000000000000     5000000.000000000000000000 Account #12 - Directors
 RESULT: 14 0xadda9b762a00ff12711113bfdc36958b73d7f915        0.000000000000000000           0.000000000000000000     2000000.000000000000000000     2000000.000000000000000000     4000000.000000000000000000 Account #13 - Early Backers
 RESULT: 15 0xaeea63b5479b50f79583ec49dacdcf86ddeff392        0.000000000000000000           0.000000000000000000     8000000.000000000000000000           0.000000000000000000     8000000.000000000000000000 Account #14 - Developers
 RESULT: 16 0xaffa4d3a80add8ce4018540e056dacb649589394        0.000000000000000000    10000000.000000000000000000           0.000000000000000000           0.000000000000000000    10000000.000000000000000000 Account #15 - Precommitments
-RESULT: 17 0x354059c8c025b0bb359d8a9a6afaf1e550b2ea4b        0.000000000000000000    77899500.000000000000000000    37899500.000000000000000000           0.000000000000000000   115799000.000000000000000000 OAX 'openANX Token' *
+RESULT: 17 0x354059c8c025b0bb359d8a9a6afaf1e550b2ea4b        0.000000000000000000           0.000000000000000000    37899500.000000000000000000           0.000000000000000000    37899500.000000000000000000 OAX 'openANX Token' *
+RESULT: 18 0x519172068aa711e6e53dc3982b63e1df5b482be9        0.000000000000000000    77899500.000000000000000000           0.000000000000000000           0.000000000000000000    77899500.000000000000000000 Locked Tokens
 RESULT: -- ------------------------------------------ --------------------------- ------------------------------ ------------------------------ ------------------------------ ------------------------------ ---------------------------
 RESULT:                                                                             100000000.000000000000000000    51899500.000000000000000000    26000000.000000000000000000   177899500.000000000000000000 Total Token Balances *
 RESULT: -- ------------------------------------------ --------------------------- ------------------------------ ------------------------------ ------------------------------ ------------------------------ ---------------------------
@@ -614,8 +621,8 @@ RESULT: PASS Test 5.1 KYC Verify - account3
 RESULT: token.finalised=true
 RESULT: token.tokensPerKEther=1000000
 RESULT: token.totalSupply=100000000
-RESULT: token.LOCKED_1Y_DATE=1529083214 Fri, 15 Jun 2018 17:20:14 UTC / Fri, 15 Jun 2018 17:20:14 GMT
-RESULT: token.LOCKED_2Y_DATE=1560619214 Sat, 15 Jun 2019 17:20:14 UTC / Sat, 15 Jun 2019 17:20:14 GMT
+RESULT: token.LOCKED_1Y_DATE=1529128065 Sat, 16 Jun 2018 05:47:45 UTC / Sat, 16 Jun 2018 05:47:45 GMT
+RESULT: token.LOCKED_2Y_DATE=1560664065 Sun, 16 Jun 2019 05:47:45 UTC / Sun, 16 Jun 2019 05:47:45 GMT
 RESULT: lockedToken.TOKENS_LOCKED_1Y_TOTAL=14000000
 RESULT: lockedToken.TOKENS_LOCKED_2Y_TOTAL=26000000
 RESULT: lockedToken.totalSupplyLocked1Y=51899500
@@ -623,8 +630,8 @@ RESULT: lockedToken.totalSupplyLocked2Y=26000000
 RESULT: lockedToken.totalSupplyLocked=77899500
 RESULT: token.owner=0xa11aae29840fbb5c86e6fd4cf809eba183aef433
 RESULT: token.newOwner=0x0000000000000000000000000000000000000000
-RESULT: KycVerified Event 0: participant=0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976 block=520
-RESULT: KycVerified Event 1: participant=0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0 block=520
+RESULT: KycVerified Event 0: participant=0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976 block=625
+RESULT: KycVerified Event 1: participant=0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0 block=625
 undefined
 > 
 RESULT: 
@@ -663,45 +670,46 @@ undefined
 ... 
 undefined
 > 
-RESULT: tx6_1_1 gas=100000 gasUsed=52256 costETH=0.000940608 costUSD=0.35779787712 @ ETH/USD=380.39 gasPrice=18000000000 block=522 txId=0xe26eafdf7b79305b0a769f19d40fe48a8e294a4f8aa488c4f76228dcb182a92e
+RESULT: tx6_1_1 gas=100000 gasUsed=52256 costETH=0.000940608 costUSD=0.35779787712 @ ETH/USD=380.39 gasPrice=18000000000 block=628 txId=0xfc70ff17c302b7ce77f5f6a150e7910bb977f03c19f39940d958bdc16b5e6b1f
 undefined
 > 
-RESULT: tx6_1_2 gas=100000 gasUsed=100000 costETH=0.0018 costUSD=0.684702 @ ETH/USD=380.39 gasPrice=18000000000 block=522 txId=0x93da9292c97d794e434d85fb963814a0e41a086ff5be02d859cce178c99542e1
+RESULT: tx6_1_2 gas=100000 gasUsed=100000 costETH=0.0018 costUSD=0.684702 @ ETH/USD=380.39 gasPrice=18000000000 block=628 txId=0x693f91a9f6584a13aa7184648970d712cf46462b0beed9f05ebee93c76574c1d
 undefined
 > 
-RESULT: tx6_1_3 gas=100000 gasUsed=30404 costETH=0.000547272 costUSD=0.20817679608 @ ETH/USD=380.39 gasPrice=18000000000 block=522 txId=0xd68823c4ce649d5f84368c4492152be991a32c196d318d56a86fe21065107d39
+RESULT: tx6_1_3 gas=100000 gasUsed=30404 costETH=0.000547272 costUSD=0.20817679608 @ ETH/USD=380.39 gasPrice=18000000000 block=628 txId=0x4354c4b2f50c5e289d507e3d12e47cfd08cd44fb9f2c726611eba0bc9655490e
 undefined
 > 
-RESULT: tx6_1_4 gas=100000 gasUsed=30468 costETH=0.000548424 costUSD=0.20861500536 @ ETH/USD=380.39 gasPrice=18000000000 block=522 txId=0x4c8d2ab4a5ad7b2da0a97048bc2f5176f644a9ab201d72bfa1ad7ed2b06ab89f
+RESULT: tx6_1_4 gas=100000 gasUsed=30468 costETH=0.000548424 costUSD=0.20861500536 @ ETH/USD=380.39 gasPrice=18000000000 block=628 txId=0x3c02c0d1b156606a211157b40661666d3ce909a39d9a9029aeffda8186309c55
 undefined
 > 
-RESULT: tx6_1_5 gas=100000 gasUsed=44040 costETH=0.00079272 costUSD=0.3015427608 @ ETH/USD=380.39 gasPrice=18000000000 block=524 txId=0x58f99c76d9cabf537bdcb2e8f8ec1753d9ae46d5b32e1a7ba1e7559b1edeb2ac
+RESULT: tx6_1_5 gas=100000 gasUsed=44040 costETH=0.00079272 costUSD=0.3015427608 @ ETH/USD=380.39 gasPrice=18000000000 block=630 txId=0x58f99c76d9cabf537bdcb2e8f8ec1753d9ae46d5b32e1a7ba1e7559b1edeb2ac
 undefined
 > 
-RESULT: tx6_1_6 gas=100000 gasUsed=100000 costETH=0.0018 costUSD=0.684702 @ ETH/USD=380.39 gasPrice=18000000000 block=524 txId=0xcd074fdac5a79f97678a94c109dd72a05f5b1ce763a887071080826ac3a7e230
+RESULT: tx6_1_6 gas=100000 gasUsed=100000 costETH=0.0018 costUSD=0.684702 @ ETH/USD=380.39 gasPrice=18000000000 block=630 txId=0xcd074fdac5a79f97678a94c109dd72a05f5b1ce763a887071080826ac3a7e230
 undefined
 > 
 DEBUG: tokenContractAddress: 0x354059c8c025b0bb359d8a9a6afaf1e550b2ea4b
 DEBUG: tokenContractAbi: [object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object]
 RESULT:  # Account                                             EtherBalanceChange                 Unlocked Token                      Locked 1Y                      Locked 2Y                          Total Name
 RESULT: -- ------------------------------------------ --------------------------- ------------------------------ ------------------------------ ------------------------------ ------------------------------ ---------------------------
-RESULT:  1 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e      170.082107090000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #0 - Miner
-RESULT:  2 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.059688342000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #1 - Token Owner
-RESULT:  3 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976     -100.004162194000000000       99999.999999000000000000           0.000000000000000000           0.000000000000000000       99999.999999000000000000 Account #2 - KYCed
-RESULT:  4 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0    -1000.002786130000000000      999999.970000000000000000           0.000000000000000000           0.000000000000000000      999999.970000000000000000 Account #3 - KYCed
-RESULT:  5 0xa44a08d3f6933c69212114bb66e2df1813651844   -10000.006388434000000000    10000000.000000000000000000           0.000000000000000000           0.000000000000000000    10000000.000000000000000000 Account #4
-RESULT:  6 0xa55a151eb00fded1634d27d1127b4be4627079ea       -0.501467684000000000           0.000001000000000000           0.000000000000000000           0.000000000000000000           0.000001000000000000 Account #5
+RESULT:  1 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e      150.082185678000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #0 - Miner
+RESULT:  2 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.059766120000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #1 - Token Owner
+RESULT:  3 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976     -100.004162356000000000       99999.999999000000000000           0.000000000000000000           0.000000000000000000       99999.999999000000000000 Account #2 - KYCed
+RESULT:  4 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0    -1000.002786292000000000      999999.970000000000000000           0.000000000000000000           0.000000000000000000      999999.970000000000000000 Account #3 - KYCed
+RESULT:  5 0xa44a08d3f6933c69212114bb66e2df1813651844   -10000.006388596000000000    10000000.000000000000000000           0.000000000000000000           0.000000000000000000    10000000.000000000000000000 Account #4
+RESULT:  6 0xa55a151eb00fded1634d27d1127b4be4627079ea       -0.501467846000000000           0.000001000000000000           0.000000000000000000           0.000000000000000000           0.000001000000000000 Account #5
 RESULT:  7 0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9        0.000000000000000000         500.000000000000000000           0.000000000000000000           0.000000000000000000         500.000000000000000000 Account #6
 RESULT:  8 0xa77a2b9d4b1c010a22a7c565dc418cef683dbcec       -0.002592720000000000           0.030000000000000000           0.000000000000000000           0.000000000000000000           0.030000000000000000 Account #7
 RESULT:  9 0xa88a05d2b88283ce84c8325760b72a64591279a2       -0.003600000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #8
 RESULT: 10 0xa99a0ae3354c06b1459fd441a32a3f71005d7da0    12100.500000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #9 - Crowdfund Wallet
 RESULT: 11 0xaaaa9de1e6c564446ebca0fd102d8bd92093c756        0.000000000000000000           0.000000000000000000           0.000000000000000000    20000000.000000000000000000    20000000.000000000000000000 Account #10 - Foundation
 RESULT: 12 0xabba43e7594e3b76afb157989e93c6621497fd4b        0.000000000000000000           0.000000000000000000     2000000.000000000000000000     2000000.000000000000000000     4000000.000000000000000000 Account #11 - Advisors
-RESULT: 13 0xacca534c9f62ab495bd986e002ddf0f054caae4f    -1000.001421586000000000     1000000.000000000000000000     2000000.000000000000000000     2000000.000000000000000000     5000000.000000000000000000 Account #12 - Directors
+RESULT: 13 0xacca534c9f62ab495bd986e002ddf0f054caae4f    -1000.001421748000000000     1000000.000000000000000000     2000000.000000000000000000     2000000.000000000000000000     5000000.000000000000000000 Account #12 - Directors
 RESULT: 14 0xadda9b762a00ff12711113bfdc36958b73d7f915        0.000000000000000000           0.000000000000000000     2000000.000000000000000000     2000000.000000000000000000     4000000.000000000000000000 Account #13 - Early Backers
 RESULT: 15 0xaeea63b5479b50f79583ec49dacdcf86ddeff392        0.000000000000000000           0.000000000000000000     8000000.000000000000000000           0.000000000000000000     8000000.000000000000000000 Account #14 - Developers
 RESULT: 16 0xaffa4d3a80add8ce4018540e056dacb649589394        0.000000000000000000    10000000.000000000000000000           0.000000000000000000           0.000000000000000000    10000000.000000000000000000 Account #15 - Precommitments
-RESULT: 17 0x354059c8c025b0bb359d8a9a6afaf1e550b2ea4b        0.000000000000000000    77899500.000000000000000000    37899500.000000000000000000           0.000000000000000000   115799000.000000000000000000 OAX 'openANX Token' *
+RESULT: 17 0x354059c8c025b0bb359d8a9a6afaf1e550b2ea4b        0.000000000000000000           0.000000000000000000    37899500.000000000000000000           0.000000000000000000    37899500.000000000000000000 OAX 'openANX Token' *
+RESULT: 18 0x519172068aa711e6e53dc3982b63e1df5b482be9        0.000000000000000000    77899500.000000000000000000           0.000000000000000000           0.000000000000000000    77899500.000000000000000000 Locked Tokens
 RESULT: -- ------------------------------------------ --------------------------- ------------------------------ ------------------------------ ------------------------------ ------------------------------ ---------------------------
 RESULT:                                                                             100000000.000000000000000000    51899500.000000000000000000    26000000.000000000000000000   177899500.000000000000000000 Total Token Balances *
 RESULT: -- ------------------------------------------ --------------------------- ------------------------------ ------------------------------ ------------------------------ ------------------------------ ---------------------------
@@ -730,8 +738,8 @@ RESULT: PASS Test 6.1 Move Tokens After Finalising - transferFrom 4 OAX ac4 -> a
 RESULT: token.finalised=true
 RESULT: token.tokensPerKEther=1000000
 RESULT: token.totalSupply=100000000
-RESULT: token.LOCKED_1Y_DATE=1529083214 Fri, 15 Jun 2018 17:20:14 UTC / Fri, 15 Jun 2018 17:20:14 GMT
-RESULT: token.LOCKED_2Y_DATE=1560619214 Sat, 15 Jun 2019 17:20:14 UTC / Sat, 15 Jun 2019 17:20:14 GMT
+RESULT: token.LOCKED_1Y_DATE=1529128065 Sat, 16 Jun 2018 05:47:45 UTC / Sat, 16 Jun 2018 05:47:45 GMT
+RESULT: token.LOCKED_2Y_DATE=1560664065 Sun, 16 Jun 2019 05:47:45 UTC / Sun, 16 Jun 2019 05:47:45 GMT
 RESULT: lockedToken.TOKENS_LOCKED_1Y_TOTAL=14000000
 RESULT: lockedToken.TOKENS_LOCKED_2Y_TOTAL=26000000
 RESULT: lockedToken.totalSupplyLocked1Y=51899500
@@ -739,10 +747,10 @@ RESULT: lockedToken.totalSupplyLocked2Y=26000000
 RESULT: lockedToken.totalSupplyLocked=77899500
 RESULT: token.owner=0xa11aae29840fbb5c86e6fd4cf809eba183aef433
 RESULT: token.newOwner=0x0000000000000000000000000000000000000000
-RESULT: Approval Event 0: owner=0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0 spender=0xa77a2b9d4b1c010a22a7c565dc418cef683dbcec 0.03 block=522
-RESULT: Approval Event 1: owner=0xa44a08d3f6933c69212114bb66e2df1813651844 spender=0xa88a05d2b88283ce84c8325760b72a64591279a2 4 block=522
-RESULT: Transfer Event 0: from=0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976 to=0xa55a151eb00fded1634d27d1127b4be4627079ea value=0.000001 block=522
-RESULT: Transfer Event 1: from=0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0 to=0xa77a2b9d4b1c010a22a7c565dc418cef683dbcec value=0.03 block=524
+RESULT: Approval Event 0: owner=0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0 spender=0xa77a2b9d4b1c010a22a7c565dc418cef683dbcec 0.03 block=628
+RESULT: Approval Event 1: owner=0xa44a08d3f6933c69212114bb66e2df1813651844 spender=0xa88a05d2b88283ce84c8325760b72a64591279a2 4 block=628
+RESULT: Transfer Event 0: from=0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976 to=0xa55a151eb00fded1634d27d1127b4be4627079ea value=0.000001 block=628
+RESULT: Transfer Event 1: from=0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0 to=0xa77a2b9d4b1c010a22a7c565dc418cef683dbcec value=0.03 block=630
 undefined
 > 
 RESULT: 

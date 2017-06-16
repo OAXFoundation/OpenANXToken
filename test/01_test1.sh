@@ -121,6 +121,7 @@ var token = tokenContract.new(tokenOwnerAccount, {from: tokenOwnerAccount, data:
       } else {
         tokenAddress = contract.address;
         addAccount(tokenAddress, token.symbol() + " '" + token.name() + "' *");
+        addAccount(token.lockedTokens(), "Locked Tokens");
         addTokenContractAddressAndAbi(tokenAddress, tokenAbi, lockedTokensAbi);
         console.log("DATA: tokenAddress=" + tokenAddress);
         printTxData("tokenAddress=" + tokenAddress, tokenTx);

@@ -186,6 +186,7 @@ contract OpenANXToken is ERC20Token, OpenANXTokenConfig {
     {
         wallet = _wallet;
         lockedTokens = new LockedTokens(this);
+        require(address(lockedTokens) != 0x0);
     }
 
     // ------------------------------------------------------------------------
@@ -206,8 +207,8 @@ contract OpenANXToken is ERC20Token, OpenANXTokenConfig {
     // Can only be set before the start of the crowdsale
     // ------------------------------------------------------------------------
     function setTokensPerKEther(uint _tokensPerKEther) onlyOwner {
-        if (now >= START_DATE) throw;
-        if (_tokensPerKEther == 0) throw;
+        require(now < START_DATE);
+        require(_tokensPerKEther > 0);
         tokensPerKEther = _tokensPerKEther;
         TokensPerKEtherUpdated(tokensPerKEther);
     }
@@ -229,17 +230,17 @@ contract OpenANXToken is ERC20Token, OpenANXTokenConfig {
     // ------------------------------------------------------------------------
     function proxyPayment(address participant) payable {
         // No contributions after the crowdsale is finalised
-        if (finalised) throw;
+        require(!finalised);
 
         // No contributions before the start of the crowdsale
-        if (now < START_DATE) throw;
+        require(now >= START_DATE);
         // No contributions after the end of the crowdsale
-        if (now > END_DATE) throw;
+        require(now <= END_DATE);
 
         // No contributions below the minimum (can be 0 ETH)
-        if (msg.value == 0 || msg.value < CONTRIBUTIONS_MIN) throw;
+        require(msg.value > 0 && msg.value >= CONTRIBUTIONS_MIN);
         // No contributions above a maximum (if maximum is set to non-0)
-        if (CONTRIBUTIONS_MAX > 0 && msg.value > CONTRIBUTIONS_MAX) throw;
+        require(CONTRIBUTIONS_MAX == 0 || msg.value < CONTRIBUTIONS_MAX);
 
         // Calculate number of tokens for contributed ETH
         // `18` is the ETH decimals
@@ -248,7 +249,7 @@ contract OpenANXToken is ERC20Token, OpenANXTokenConfig {
         uint tokens = msg.value * tokensPerKEther / 10**uint(18 - decimals + 3);
 
         // Check if the hard cap will be exceeded
-        if (totalSupply + tokens > TOKENS_HARD_CAP) throw;
+        require(totalSupply + tokens <= TOKENS_HARD_CAP);
 
         // Add tokens purchased to account's balance and total supply
         balances[participant] = balances[participant].add(tokens);
@@ -279,13 +280,13 @@ contract OpenANXToken is ERC20Token, OpenANXTokenConfig {
         if (totalSupply < TOKENS_SOFT_CAP && now < END_DATE) throw;
 
         // Can only finalise once
-        if (finalised) throw;
+        require(!finalised);
 
         // Calculate and add remaining tokens to locked balances
         lockedTokens.addRemainingTokens();
 
         // Allocate locked and premined tokens
-        balances[this] = balances[this].add(lockedTokens.totalSupplyLocked());
+        balances[address(lockedTokens)] = balances[address(lockedTokens)].add(lockedTokens.totalSupplyLocked());
         totalSupply = totalSupply.add(lockedTokens.totalSupplyLocked());
 
         // Can only finalise once
@@ -298,8 +299,8 @@ contract OpenANXToken is ERC20Token, OpenANXTokenConfig {
     // commences
     // ------------------------------------------------------------------------
     function addPrecommitment(address participant, uint balance) onlyOwner {
-        if (now >= START_DATE) throw;
-        if (balance == 0) throw;
+        require(now < START_DATE);
+        require(balance > 0);
         balances[participant] = balances[participant].add(balance);
         totalSupply = totalSupply.add(balance);
         Transfer(0x0, participant, balance);
@@ -313,9 +314,9 @@ contract OpenANXToken is ERC20Token, OpenANXTokenConfig {
     // ------------------------------------------------------------------------
     function transfer(address _to, uint _amount) returns (bool success) {
         // Cannot transfer before crowdsale ends
-        if (!finalised) throw;
+        require(finalised);
         // Cannot transfer if KYC verification is required
-        if (kycRequired[msg.sender]) throw;
+        require(!kycRequired[msg.sender]);
         // Standard transfer
         return super.transfer(_to, _amount);
     }
@@ -330,9 +331,9 @@ contract OpenANXToken is ERC20Token, OpenANXTokenConfig {
         returns (bool success)
     {
         // Cannot transfer before crowdsale ends
-        if (!finalised) throw;
+        require(finalised);
         // Cannot transfer if KYC verification is required
-        if (kycRequired[_from]) throw;
+        require(!kycRequired[_from]);
         // Standard transferFrom
         return super.transferFrom(_from, _to, _amount);
     }
@@ -352,7 +353,7 @@ contract OpenANXToken is ERC20Token, OpenANXTokenConfig {
     // openANX can burn tokens
     // ------------------------------------------------------------------------
     function burnTokens(uint256 value) onlyOwner {
-        if (balances[owner] < value) throw;
+        require(balances[owner] >= value);
         balances[owner] -= value;
         totalSupply -= value;
         Transfer(owner, 0, value);

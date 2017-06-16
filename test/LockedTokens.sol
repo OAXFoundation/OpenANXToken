@@ -82,7 +82,7 @@ contract LockedTokens is OpenANXTokenConfig {
     // ------------------------------------------------------------------------
     function addRemainingTokens() {
         // Only the crowdsale contract can call this function
-        if (msg.sender != address(tokenContract)) throw;
+        require(msg.sender == address(tokenContract));
         // Total tokens to be created
         uint remainingTokens = TOKENS_TOTAL;
         // Minus precommitments and public crowdsale tokens
@@ -150,9 +150,9 @@ contract LockedTokens is OpenANXTokenConfig {
     // An account can unlock their 1y locked tokens 1y after token launch date
     // ------------------------------------------------------------------------
     function unlock1Y() {
-        if (now < LOCKED_1Y_DATE) throw;
+        require(now >= LOCKED_1Y_DATE);
         uint amount = balancesLocked1Y[msg.sender];
-        if (amount == 0) throw;
+        require(amount > 0);
         balancesLocked1Y[msg.sender] = 0;
         totalSupplyLocked1Y = totalSupplyLocked1Y.sub(amount);
         if (!tokenContract.transfer(msg.sender, amount)) throw;
@@ -163,9 +163,9 @@ contract LockedTokens is OpenANXTokenConfig {
     // An account can unlock their 2y locked tokens 2y after token launch date
     // ------------------------------------------------------------------------
     function unlock2Y() {
-        if (now < LOCKED_2Y_DATE) throw;
+        require(now >= LOCKED_2Y_DATE);
         uint amount = balancesLocked2Y[msg.sender];
-        if (amount == 0) throw;
+        require(amount > 0);
         balancesLocked2Y[msg.sender] = 0;
         totalSupplyLocked2Y = totalSupplyLocked2Y.sub(amount);
         if (!tokenContract.transfer(msg.sender, amount)) throw;

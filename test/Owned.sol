@@ -32,7 +32,7 @@ contract Owned {
     // Modifier to mark that a function can only be executed by the owner
     // ------------------------------------------------------------------------
     modifier onlyOwner {
-        if (msg.sender != owner) throw;
+        require(msg.sender == owner);
         _;
     }
 
@@ -49,7 +49,7 @@ contract Owned {
     // New owner has to accept transfer of contract
     // ------------------------------------------------------------------------
     function acceptOwnership() {
-        if (msg.sender != newOwner) throw;
+        require(msg.sender == newOwner);
         OwnershipTransferred(owner, newOwner);
         owner = newOwner;
     }

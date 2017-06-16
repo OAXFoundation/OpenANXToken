@@ -40,8 +40,8 @@ contract OpenANXTokenConfig {
     // Start - Thursday, 22-Jun-17 13:00:00 UTC / 1pm GMT 22 June 2017
     // End - Saturday, 22-Jul-17 13:00:00 UTC / 1pm GMT 22 July 2017 
     // ------------------------------------------------------------------------
-    uint public constant START_DATE = 1497547214; // Thu 15 Jun 2017 17:20:14 UTC
-    uint public constant END_DATE = 1497547454; // Thu 15 Jun 2017 17:24:14 UTC
+    uint public constant START_DATE = 1497592065; // Fri 16 Jun 2017 05:47:45 UTC
+    uint public constant END_DATE = 1497592305; // Fri 16 Jun 2017 05:51:45 UTC
 
     // ------------------------------------------------------------------------
     // 1 year and 2 year dates for locked tokens

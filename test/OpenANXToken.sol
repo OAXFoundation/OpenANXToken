@@ -361,6 +361,50 @@ contract OpenANXToken is ERC20Token, OpenANXTokenConfig {
 
 
     // ------------------------------------------------------------------------
+    // 1y locked balances for an account
+    // ------------------------------------------------------------------------
+    function balanceOfLocked1Y(address account) constant returns (uint balance) {
+        return lockedTokens.balanceOfLocked1Y(account);
+    }
+
+
+    // ------------------------------------------------------------------------
+    // 2y locked balances for an account
+    // ------------------------------------------------------------------------
+    function balanceOfLocked2Y(address account) constant returns (uint balance) {
+        return lockedTokens.balanceOfLocked2Y(account);
+    }
+
+
+    // ------------------------------------------------------------------------
+    // 1y and 2y locked balances for an account
+    // ------------------------------------------------------------------------
+    function balanceOfLocked(address account) constant returns (uint balance) {
+        return lockedTokens.balanceOfLocked(account);
+    }
+
+
+    // ------------------------------------------------------------------------
+    // 1y and 2y locked total supply
+    // ------------------------------------------------------------------------
+    function totalSupplyLocked() constant returns (uint) {
+        return lockedTokens.totalSupplyLocked();
+    }
+
+
+    // ------------------------------------------------------------------------
+    // Unlocked total supply
+    // ------------------------------------------------------------------------
+    function totalSupplyUnlocked() constant returns (uint) {
+        if (totalSupply >= lockedTokens.totalSupplyLocked()) {
+            return totalSupply - lockedTokens.totalSupplyLocked();
+        } else {
+            return 0;
+        }
+    }
+
+
+    // ------------------------------------------------------------------------
     // openANX can transfer out any accidentally sent ERC20 tokens
     // ------------------------------------------------------------------------
     function transferAnyERC20Token(address tokenAddress, uint amount)

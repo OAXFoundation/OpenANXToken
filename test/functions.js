@@ -74,8 +74,6 @@ function addTokenContractAddressAndAbi(address, tokenAbi, lockedTokenAbi) {
 // Account ETH and token balances
 // -----------------------------------------------------------------------------
 function printBalances() {
-  console.log("DEBUG: tokenContractAddress: " + tokenContractAddress);
-  console.log("DEBUG: tokenContractAbi: " + tokenContractAbi);
   var token = tokenContractAddress == null || tokenContractAbi == null ? null : web3.eth.contract(tokenContractAbi).at(tokenContractAddress);
   var decimals = token == null ? 18 : token.decimals();
   var lockedTokenContract = token == null || lockedTokenContractAbi == null ? null : web3.eth.contract(lockedTokenContractAbi).at(token.lockedTokens());
@@ -238,6 +236,12 @@ function printTokenContractDynamicDetails() {
     console.log("RESULT: token.finalised=" + contract.finalised());
     console.log("RESULT: token.tokensPerKEther=" + contract.tokensPerKEther());
     console.log("RESULT: token.totalSupply=" + contract.totalSupply().shift(-decimals));
+    console.log("RESULT: token.totalSupplyLocked=" + contract.totalSupplyLocked().shift(-decimals));
+    console.log("RESULT: token.totalSupplyUnlocked=" + contract.totalSupplyUnlocked().shift(-decimals));
+    console.log("RESULT: token.balanceOfLocked1Y(earlyBackersAccount)=" + contract.balanceOfLocked1Y(earlyBackersAccount).shift(-decimals));
+    console.log("RESULT: token.balanceOfLocked2Y(earlyBackersAccount)=" + contract.balanceOfLocked2Y(earlyBackersAccount).shift(-decimals));
+    console.log("RESULT: token.balanceOfLocked1Y(developersAccount)=" + contract.balanceOfLocked1Y(developersAccount).shift(-decimals));
+    console.log("RESULT: token.balanceOfLocked2Y(developersAccount)=" + contract.balanceOfLocked2Y(developersAccount).shift(-decimals));
     var locked1YDate = contract.LOCKED_1Y_DATE();
     console.log("RESULT: token.LOCKED_1Y_DATE=" + locked1YDate + " " + new Date(locked1YDate * 1000).toUTCString()  + 
         " / " + new Date(locked1YDate * 1000).toGMTString());

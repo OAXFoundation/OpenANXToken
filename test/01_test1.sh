@@ -39,7 +39,7 @@ else
   STARTTIME=`echo "$CURRENTTIME+60" | bc`
 fi
 STARTTIME_S=`date -r $STARTTIME -u`
-ENDTIME=`echo "$CURRENTTIME+60*5" | bc`
+ENDTIME=`echo "$CURRENTTIME+60*3" | bc`
 ENDTIME_S=`date -r $ENDTIME -u`
 
 printf "MODE                  = '$MODE'\n"
@@ -78,6 +78,8 @@ printf "ENDTIME               = '$ENDTIME' '$ENDTIME_S'\n"
 # PRESALE_START_DATE = +1m
 `perl -pi -e "s/START_DATE = 1498136400;/START_DATE = $STARTTIME; \/\/ $STARTTIME_S/" $TOKENCONFIGTEMPSOL`
 `perl -pi -e "s/END_DATE = 1500728400;/END_DATE = $ENDTIME; \/\/ $ENDTIME_S/" $TOKENCONFIGTEMPSOL`
+`perl -pi -e "s/LOCKED_1Y_DATE \= START_DATE \+ 365 days;/LOCKED_1Y_DATE \= START_DATE \+ 4 minutes;/" $TOKENCONFIGTEMPSOL`
+`perl -pi -e "s/LOCKED_2Y_DATE \= START_DATE \+ 2 \* 365 days;/LOCKED_2Y_DATE \= START_DATE \+ 5 minutes;/" $TOKENCONFIGTEMPSOL`
 
 # --- Un-internal safeMaths ---
 #`perl -pi -e "s/internal/constant/" $TOKENTEMPSOL`
@@ -124,7 +126,6 @@ var token = tokenContract.new(tokenOwnerAccount, {from: tokenOwnerAccount, data:
         addAccount(token.lockedTokens(), "Locked Tokens");
         addTokenContractAddressAndAbi(tokenAddress, tokenAbi, lockedTokensAbi);
         console.log("DATA: tokenAddress=" + tokenAddress);
-        printTxData("tokenAddress=" + tokenAddress, tokenTx);
       }
     }
   }

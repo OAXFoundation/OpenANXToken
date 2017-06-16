@@ -1,14 +1,91 @@
 # Security Audit (Work in progress)
 
-* [ ] ERC20 functionality
-* [ ] Crowdsale functionality
-* [ ] Underflows, overflows, errors
-* [ ] Movement of funds
-* [ ] Sending of ETH after the crowdsale
-* [ ] ERC20 tokens cannot be trapped in the contract
-* [ ] ETH cannot be trapped in the contract - default `()` function and any other `payable` function cannot accept ETH outside the crowdfunding period
+See [README.md](README.md).
 
-# Source Code
+<br />
+
+<hr />
+
+**Table of contents**
+* [Background And History](#background-and-history)
+* [Security Overview Of The Smart Contract](#security-overview-of-the-smart-contract)
+* [Risks](#risks)
+* [Other Notes](#other-notes)
+* [Comments On The Source Code](#comments-on-the-source-code)
+* [References](#references)
+
+<br />
+
+<hr />
+
+## Background And History
+
+
+
+<br />
+
+<hr />
+
+## Security Overview Of The Smart Contract
+
+* This token contract is of low-moderate complexity
+* [x] The code has been tested for the normal [ERC20](https://github.com/ethereum/EIPs/issues/20) use cases, and around some of the boundary cases
+  * [x] Deployment, with correct `symbol()`, `name()`, `decimals()` and `totalSupply()`
+  * [x] `transfer(...)` from one account to another
+  * [x] `approve(...)` and `transferFrom(...)` from one account to another
+  * [ ] `transferOwnership(...)` and `acceptOwnership()` of the token contract
+  * While the `transfer(...)` and `transferFrom(...)` uses safe maths, there are checks so the function is able to return **true** and **false** instead of throwing an error
+* [x] ETH contributed to this contract is immediately moved to a separate wallet
+* [x] ETH cannot be trapped in this contract due to the logic preventing ETH being sent to this contract outside the crowdfunding dates
+* [x] The testing has been done using geth v1.6.5-stable-cf87713d/darwin-amd64/go1.8.3 and solc 0.4.11+commit.68ef5810.Darwin.appleclang instead of one of the testing frameworks and JavaScript VMs to simulate the live environment as closely as possible
+* [x] There is only one statement with a division, and the divisor is a non-zero constant, so there should be no division by zero errors
+  * `uint tokens = msg.value * tokensPerKEther / 10**uint(18 - decimals + 3);`
+* [x] All numbers used are **uint** (which is **uint256**), with the exception of `decimals`, reducing the risk of errors from type conversions
+* [ ] Areas with potential overflow errors in `transfer(...)` and `transferFrom(...)` have the logic to prevent overflows
+* [ ] Areas with potential underflow errors in `transfer(...)` and `transferFrom(...)` have the logic to prevent underflows
+* [x] Function and event names are differentiated by case - function names begin with a lowercase character and event names begin with an uppercase character
+* [x] The default function will receive contributions during the crowdsale phase and mint tokens. Users can also directly call `proxyPayment(...)` to purchase tokens on behalf of another account
+* [x] The function `transferAnyERC20Token(...)` has been added in case the owner has to free any accidentally trapped ERC20 tokens
+  * This has not been added to the LockedTokens contract as this will allow the owner to free the locked tokens
+* [x] The test results can be found in [test/test1results.txt](test/test1results.txt) for the results and [test/test1output.txt](test/test1output.txt) for the full output
+* [x] There is no switch to pause and then restart the contract being able to receive contributions
+* [x] The `send(...)` call is the last statements in the control flow of `proxyPayment(...)` to prevent the hijacking of the control flow
+  * [x] The return status from the `send(...)` call is checked and invalid results will **throw**
+
+<br />
+
+## Risks
+
+* This token contract has a low-moderate risk profile
+  * Funds received by the contract are immediately transferred to a separate wallet address, so there is a low risk of funds being attacked within this contract
+  * There is a moderate risk that the token balances and transfer can be errorneous due to bugs or the contract being attacked
+  * There is a low risk that the locked tokens cannot be unlocked after the locked periods due to bugs
+  * In the worst case of a bug or an attack, the token contract can be re-deployed to a new address with the token balances and transactions being corrected, causing inconvenience to users
+* There is a possibility that the Ethereum network is saturated with transactions during the contribution period (especially the start)
+  * There is a hard cap in place, so contributions over this cap will be rejected
+  * The `finalised()` transaction can be executed at any time after the soft cap threshold is reached, and there is no particular urgency to execute this transaction
+* There is a possibility that openANX's website displaying the contract address (and maybe the contribution statistics) is under heavy load during the contribution period (especially the start)
+  * This could be due to valid web views or from a DDoS attack to prevent users from obtaining the openANXToken contract address for contributions
+* There is a possibility that few large contributions may prevent many smaller contributions, but from my understanding, openANX is not too concerned about this scenario
+* This contract uses the unixtime to determine the start, stop, 1y and 2y dates. There are some concerns that miners can skew the time slightly, but this is of low risk
+* This token contract suffers from the same ERC20 double spend issue with the `approve(...)` and `transferFrom(...)` workflow, but this is a low risk exploit where:
+  * Account1 approves for account2 to spend `x`
+  * Account1 changes the approval limit to `y`. Account2 waits for the second approval transaction to be broadcasted and sends a `transferFrom(...)` to spend up to `x` before the second approval is mined
+  * Account2 spends up to `y` after the second approval is mined. Account2 can therefore spend up to `x` + `y`, instead of `x` or `y`
+  * To avoid this double spend, account1 has to set the approval limit to `0`, checking the `allowance(...)` and then setting the approval limit to `y` if account2 has not spent `x`
+
+<br />
+
+## Other Notes
+
+* This audit has been conducted by the author of the contract. An independent audit of this contract should be conducted
+
+<br />
+
+<hr />
+
+## Comments On The Source Code
+
 ```javascript
 pragma solidity ^0.4.11;
 
@@ -26,25 +103,17 @@ pragma solidity ^0.4.11;
 // ERC Token Standard #20 Interface
 // https://github.com/ethereum/EIPs/issues/20
 // ----------------------------------------------------------------------------
-// BK Ok
+// BK Ok - Checked signature against ERC20 docs
 contract ERC20Interface {
-    // BK Ok
     uint public totalSupply;
-    // BK Ok
     function balanceOf(address _owner) constant returns (uint balance);
-    // BK Ok
     function transfer(address _to, uint _value) returns (bool success);
-    // BK Ok
     function transferFrom(address _from, address _to, uint _value) 
         returns (bool success);
-    // BK Ok
     function approve(address _spender, uint _value) returns (bool success);
-    // BK Ok
     function allowance(address _owner, address _spender) constant 
         returns (uint remaining);
-    // BK Ok
     event Transfer(address indexed _from, address indexed _to, uint _value);
-    // BK Ok
     event Approval(address indexed _owner, address indexed _spender, 
         uint _value);
 }
@@ -53,7 +122,7 @@ contract ERC20Interface {
 // ----------------------------------------------------------------------------
 // Owned contract
 // ----------------------------------------------------------------------------
-// BK Ok
+// BK Ok - Ownership transfer requires acceptance by new owner
 contract Owned {
 
     // ------------------------------------------------------------------------
@@ -65,7 +134,7 @@ contract Owned {
     // ------------------------------------------------------------------------
     // Constructor - assign creator as the owner
     // ------------------------------------------------------------------------
-    // BK Ok
+    // BK Ok - Owner set to deploying account
     function Owned() {
         owner = msg.sender;
     }
@@ -74,7 +143,8 @@ contract Owned {
     // ------------------------------------------------------------------------
     // Modifier to mark that a function can only be executed by the owner
     // ------------------------------------------------------------------------
-    // BK Ok
+    // BK Ok - Execution of functions with this modifier will throw an error
+    //         instead of just silently failing
     modifier onlyOwner {
         require(msg.sender == owner);
         _;
@@ -84,7 +154,7 @@ contract Owned {
     // ------------------------------------------------------------------------
     // Owner can initiate transfer of contract to a new owner
     // ------------------------------------------------------------------------
-    // BK Ok - only owner
+    // BK Ok - Only the current owner can propose a new owner
     function transferOwnership(address _newOwner) onlyOwner {
         newOwner = _newOwner;
     }
@@ -93,7 +163,7 @@ contract Owned {
     // ------------------------------------------------------------------------
     // New owner has to accept transfer of contract
     // ------------------------------------------------------------------------
-    // BK Ok - only specified new owner
+    // BK Ok - Only the specified new owner can accept ownership
     function acceptOwnership() {
         require(msg.sender == newOwner);
         OwnershipTransferred(owner, newOwner);
@@ -270,22 +340,22 @@ contract LockedTokens is OpenANXTokenConfig {
     // ------------------------------------------------------------------------
     function addRemainingTokens() {
         // Only the crowdsale contract can call this function
-        // BK - Ok
+        // BK Ok - Only the crowdsale contract can call this function
         require(msg.sender == address(tokenContract));
         // Total tokens to be created
-        // BK - Ok
+        // BK Ok
         uint remainingTokens = TOKENS_TOTAL;
         // Minus precommitments and public crowdsale tokens
-        // BK - Ok
+        // BK Ok
         remainingTokens = remainingTokens.sub(tokenContract.totalSupply());
         // Minus 1y locked tokens
-        // BK - Ok
+        // BK Ok
         remainingTokens = remainingTokens.sub(totalSupplyLocked1Y);
         // Minus 2y locked tokens
-        // BK - Ok
+        // BK Ok
         remainingTokens = remainingTokens.sub(totalSupplyLocked2Y);
         // Unsold tranche1 and tranche2 tokens to be locked for 1y 
-        // BK - Ok
+        // BK Ok
         add1Y(address(tokenContract), remainingTokens);
     }
 
@@ -293,8 +363,11 @@ contract LockedTokens is OpenANXTokenConfig {
     // ------------------------------------------------------------------------
     // Add to 1y locked balances and totalSupply
     // ------------------------------------------------------------------------
+    // BK Ok - Private, only called by constructor
     function add1Y(address account, uint value) private {
+        // BK Ok
         balancesLocked1Y[account] = balancesLocked1Y[account].add(value);
+        // BK Ok
         totalSupplyLocked1Y = totalSupplyLocked1Y.add(value);
     }
 
@@ -302,8 +375,11 @@ contract LockedTokens is OpenANXTokenConfig {
     // ------------------------------------------------------------------------
     // Add to 2y locked balances and totalSupply
     // ------------------------------------------------------------------------
+    // BK Ok - Private, only called by constructor
     function add2Y(address account, uint value) private {
+        // BK Ok
         balancesLocked2Y[account] = balancesLocked2Y[account].add(value);
+        // BK Ok
         totalSupplyLocked2Y = totalSupplyLocked2Y.add(value);
     }
 
@@ -311,6 +387,7 @@ contract LockedTokens is OpenANXTokenConfig {
     // ------------------------------------------------------------------------
     // 1y locked balances for an account
     // ------------------------------------------------------------------------
+    // BK Ok - Read-only informational function
     function balanceOfLocked1Y(address account) constant returns (uint balance) {
         return balancesLocked1Y[account];
     }
@@ -319,6 +396,7 @@ contract LockedTokens is OpenANXTokenConfig {
     // ------------------------------------------------------------------------
     // 2y locked balances for an account
     // ------------------------------------------------------------------------
+    // BK Ok - Read-only informational function
     function balanceOfLocked2Y(address account) constant returns (uint balance) {
         return balancesLocked2Y[account];
     }
@@ -327,6 +405,7 @@ contract LockedTokens is OpenANXTokenConfig {
     // ------------------------------------------------------------------------
     // 1y and 2y locked balances for an account
     // ------------------------------------------------------------------------
+    // BK Ok - Read-only informational function
     function balanceOfLocked(address account) constant returns (uint balance) {
         return balancesLocked1Y[account].add(balancesLocked2Y[account]);
     }
@@ -335,6 +414,7 @@ contract LockedTokens is OpenANXTokenConfig {
     // ------------------------------------------------------------------------
     // 1y and 2y locked total supply
     // ------------------------------------------------------------------------
+    // BK Ok - Read-only informational function
     function totalSupplyLocked() constant returns (uint) {
         return totalSupplyLocked1Y + totalSupplyLocked2Y;
     }
@@ -420,11 +500,14 @@ contract ERC20Token is ERC20Interface, Owned {
     // ------------------------------------------------------------------------
     // Transfer the balance from owner's account to another account
     // ------------------------------------------------------------------------
+    // BK Ok - While safe maths is used for the addition and subtraction, the
+    //         conditions are used so the true/false status is returned
     function transfer(address _to, uint _amount) returns (bool success) {
         if (balances[msg.sender] >= _amount             // User has balance
             && _amount > 0                              // Non-zero transfer
             && balances[_to] + _amount > balances[_to]  // Overflow check
         ) {
+            // BK Ok - Balance subtracted from before being added to 
             balances[msg.sender] = balances[msg.sender].sub(_amount);
             balances[_to] = balances[_to].add(_amount);
             Transfer(msg.sender, _to, _amount);
@@ -440,6 +523,7 @@ contract ERC20Token is ERC20Interface, Owned {
     // _value amount. If this function is called again it overwrites the
     // current allowance with _value.
     // ------------------------------------------------------------------------
+    // BK Ok - There is the double spending attack but this is of low risk
     function approve(
         address _spender,
         uint _amount
@@ -455,6 +539,8 @@ contract ERC20Token is ERC20Interface, Owned {
     // balance to another account. The owner of the tokens must already
     // have approve(...)-d this transfer
     // ------------------------------------------------------------------------
+    // BK Ok - While safe maths is used for the addition and subtraction, the
+    //         conditions are used so the true/false status is returned
     function transferFrom(
         address _from,
         address _to,
@@ -465,6 +551,7 @@ contract ERC20Token is ERC20Interface, Owned {
             && _amount > 0                              // Non-zero transfer
             && balances[_to] + _amount > balances[_to]  // Overflow check
         ) {
+            // BK Ok - Balance subtracted from before being added to 
             balances[_from] = balances[_from].sub(_amount);
             allowed[_from][msg.sender] = allowed[_from][msg.sender].sub(_amount);
             balances[_to] = balances[_to].add(_amount);
@@ -570,6 +657,7 @@ contract OpenANXToken is ERC20Token, OpenANXTokenConfig {
     // ------------------------------------------------------------------------
     // Accept ethers to buy tokens during the crowdsale
     // ------------------------------------------------------------------------
+    // BK Ok - See `proxyPayment(...)` for further details
     function () payable {
         proxyPayment(msg.sender);
     }
@@ -582,6 +670,7 @@ contract OpenANXToken is ERC20Token, OpenANXTokenConfig {
     // ------------------------------------------------------------------------
     function proxyPayment(address participant) payable {
         // No contributions after the crowdsale is finalised
+        // BK Ok - This will prevent contribution of ethers outside the crowdsale period
         require(!finalised);
 
         // No contributions before the start of the crowdsale
@@ -667,8 +756,10 @@ contract OpenANXToken is ERC20Token, OpenANXTokenConfig {
     // ------------------------------------------------------------------------
     function transfer(address _to, uint _amount) returns (bool success) {
         // Cannot transfer before crowdsale ends
+        // BK Ok - This will prevent transfers being executed before the crowdsale is finalised
         require(finalised);
         // Cannot transfer if KYC verification is required
+        // BK Ok - This will prevent transfers being executed before the crowdsale participant is KYC verified
         require(!kycRequired[msg.sender]);
         // Standard transfer
         return super.transfer(_to, _amount);
@@ -684,8 +775,10 @@ contract OpenANXToken is ERC20Token, OpenANXTokenConfig {
         returns (bool success)
     {
         // Cannot transfer before crowdsale ends
+        // BK Ok - This will prevent transfers being executed before the crowdsale is finalised
         require(finalised);
         // Cannot transfer if KYC verification is required
+        // BK Ok - This will prevent transfers being executed before the crowdsale participant is KYC verified
         require(!kycRequired[_from]);
         // Standard transferFrom
         return super.transferFrom(_from, _to, _amount);
@@ -716,6 +809,7 @@ contract OpenANXToken is ERC20Token, OpenANXTokenConfig {
     // ------------------------------------------------------------------------
     // 1y locked balances for an account
     // ------------------------------------------------------------------------
+    // BK Ok - Read-only informational function
     function balanceOfLocked1Y(address account) constant returns (uint balance) {
         return lockedTokens.balanceOfLocked1Y(account);
     }
@@ -724,6 +818,7 @@ contract OpenANXToken is ERC20Token, OpenANXTokenConfig {
     // ------------------------------------------------------------------------
     // 2y locked balances for an account
     // ------------------------------------------------------------------------
+    // BK Ok - Read-only informational function
     function balanceOfLocked2Y(address account) constant returns (uint balance) {
         return lockedTokens.balanceOfLocked2Y(account);
     }
@@ -732,6 +827,7 @@ contract OpenANXToken is ERC20Token, OpenANXTokenConfig {
     // ------------------------------------------------------------------------
     // 1y and 2y locked balances for an account
     // ------------------------------------------------------------------------
+    // BK Ok - Read-only informational function
     function balanceOfLocked(address account) constant returns (uint balance) {
         return lockedTokens.balanceOfLocked(account);
     }
@@ -740,6 +836,7 @@ contract OpenANXToken is ERC20Token, OpenANXTokenConfig {
     // ------------------------------------------------------------------------
     // 1y locked total supply
     // ------------------------------------------------------------------------
+    // BK Ok - Read-only informational function
     function totalSupplyLocked1Y() constant returns (uint) {
         if (finalised) {
             return lockedTokens.totalSupplyLocked1Y();
@@ -752,6 +849,7 @@ contract OpenANXToken is ERC20Token, OpenANXTokenConfig {
     // ------------------------------------------------------------------------
     // 2y locked total supply
     // ------------------------------------------------------------------------
+    // BK Ok - Read-only informational function
     function totalSupplyLocked2Y() constant returns (uint) {
         if (finalised) {
             return lockedTokens.totalSupplyLocked2Y();
@@ -764,6 +862,7 @@ contract OpenANXToken is ERC20Token, OpenANXTokenConfig {
     // ------------------------------------------------------------------------
     // 1y and 2y locked total supply
     // ------------------------------------------------------------------------
+    // BK Ok - Read-only informational function
     function totalSupplyLocked() constant returns (uint) {
         if (finalised) {
             return lockedTokens.totalSupplyLocked();
@@ -776,6 +875,7 @@ contract OpenANXToken is ERC20Token, OpenANXTokenConfig {
     // ------------------------------------------------------------------------
     // Unlocked total supply
     // ------------------------------------------------------------------------
+    // BK Ok - Read-only informational function
     function totalSupplyUnlocked() constant returns (uint) {
         if (finalised && totalSupply >= lockedTokens.totalSupplyLocked()) {
             return totalSupply.sub(lockedTokens.totalSupplyLocked());
@@ -788,6 +888,9 @@ contract OpenANXToken is ERC20Token, OpenANXTokenConfig {
     // ------------------------------------------------------------------------
     // openANX can transfer out any accidentally sent ERC20 tokens
     // ------------------------------------------------------------------------
+    // BK Ok - This function can be used to move OAX tokens assigned to the 
+    //         OAX token contract as well. Locked tokens are locked against the
+    //         locked token address
     function transferAnyERC20Token(address tokenAddress, uint amount)
       onlyOwner returns (bool success) 
     {
@@ -795,3 +898,18 @@ contract OpenANXToken is ERC20Token, OpenANXTokenConfig {
     }
 }
 ```
+
+<br />
+
+<hr />
+
+## References
+
+* [Ethereum Contract Security Techniques and Tips](https://github.com/ConsenSys/smart-contract-best-practices)
+* Solidity [bugs.json](https://github.com/ethereum/solidity/blob/develop/docs/bugs.json) and [bugs_by_version.json](https://github.com/ethereum/solidity/blob/develop/docs/bugs_by_version.json).
+
+<br />
+
+<br />
+
+(c) BokkyPooBah / Bok Consulting Pty Ltd for openANX - Jun 17 2017

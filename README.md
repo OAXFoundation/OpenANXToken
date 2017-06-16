@@ -107,13 +107,13 @@ There is a subreddit at [https://www.reddit.com/r/OpenANX/](https://www.reddit.c
 * [x] BK Complete KYC functions
 * [ ] BK Testing different scenarios
   * [ ] Scenario where funding below soft cap and above soft cap
-  * [ ] Unlocking of tokens in 1 year and 2 years
-  * [ ] Public crowdsale participant can also have locked tokens
-* [ ] BK Maybe add some functions in the main contract to query the locked balances for accounts
+  * [x] Unlocking of tokens in 1 year and 2 years
+  * [x] Public crowdsale participant can also have locked tokens
+* [x] BK Add functions in the main contract to query the locked balances for accounts
 * [ ] BK May have to add the ability to fill locked addresses if the number of locked address increases deployment or `finalise()` gas too much
 * [ ] BK Develop and test token contract upgrade path
 * [ ] BK Develop test membership contract to test users burning tokens for membership
-* [ ] BK Security audit
+* [ ] BK Security audit - see [SecurityAudit.md](SecurityAudit.md).
 * [ ] JB Security audit
 
 <br />
@@ -148,6 +148,9 @@ Following are the functions that can be called at the different phases of the cr
 ## After 1 Year And 2 Years
 
 * Participants with locked tokens can called the `lockedTokens.unlock1Y()` and `lockedTokens.unlock2Y()` to unlock their tokens
+  * Find the address of the LockedTokens contract from the lockedTokens variable in the token contract
+  * Watch the LockedTokens address using the LockedTokens Application Binary Interface
+  * Execute `unlock1Y()` after 1 year has passed, or `unlock2Y()` after 2 years has passed, to unlock the tokens
 
 <br />
 
@@ -167,6 +170,8 @@ See [test](test) for details.
 * Check Solidity [release history](https://github.com/ethereum/solidity/releases) for potential bugs 
 * Deploy contract to Mainnet with specified wallet address as the deployment parameter
 * Verify the source code on EtherScan.io
+  * Verify the main openANXToken contract
+  * Verify the LockedToken contract
 
 <br />
 

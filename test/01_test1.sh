@@ -35,8 +35,8 @@ if [ "$MODE" == "dev" ]; then
   # Start time now
   STARTTIME=`echo "$CURRENTTIME" | bc`
 else
-  # Start time 1 minute in the future
-  STARTTIME=`echo "$CURRENTTIME+60" | bc`
+  # Start time 1m 10s in the future
+  STARTTIME=`echo "$CURRENTTIME+70" | bc`
 fi
 STARTTIME_S=`date -r $STARTTIME -u`
 ENDTIME=`echo "$CURRENTTIME+60*3" | bc`
@@ -78,8 +78,8 @@ printf "ENDTIME               = '$ENDTIME' '$ENDTIME_S'\n"
 # PRESALE_START_DATE = +1m
 `perl -pi -e "s/START_DATE = 1498136400;/START_DATE = $STARTTIME; \/\/ $STARTTIME_S/" $TOKENCONFIGTEMPSOL`
 `perl -pi -e "s/END_DATE = 1500728400;/END_DATE = $ENDTIME; \/\/ $ENDTIME_S/" $TOKENCONFIGTEMPSOL`
-`perl -pi -e "s/LOCKED_1Y_DATE \= START_DATE \+ 365 days;/LOCKED_1Y_DATE \= START_DATE \+ 4 minutes;/" $TOKENCONFIGTEMPSOL`
-`perl -pi -e "s/LOCKED_2Y_DATE \= START_DATE \+ 2 \* 365 days;/LOCKED_2Y_DATE \= START_DATE \+ 5 minutes;/" $TOKENCONFIGTEMPSOL`
+`perl -pi -e "s/LOCKED_1Y_DATE \= START_DATE \+ 365 days;/LOCKED_1Y_DATE \= START_DATE \+ 3 minutes;/" $TOKENCONFIGTEMPSOL`
+`perl -pi -e "s/LOCKED_2Y_DATE \= START_DATE \+ 2 \* 365 days;/LOCKED_2Y_DATE \= START_DATE \+ 4 minutes;/" $TOKENCONFIGTEMPSOL`
 
 # --- Un-internal safeMaths ---
 #`perl -pi -e "s/internal/constant/" $TOKENTEMPSOL`
@@ -285,6 +285,74 @@ failIfGasEqualsGasUsed(tx6_1_3, testMessage + " - approve 0.03 OAX ac3 -> ac5");
 failIfGasEqualsGasUsed(tx6_1_4, testMessage + " - approve 4 OAX ac4 -> ac5");
 failIfGasEqualsGasUsed(tx6_1_5, testMessage + " - transferFrom 0.03 OAX ac3 -> ac5. CHECK for movement");
 passIfGasEqualsGasUsed(tx6_1_6, testMessage + " - transferFrom 4 OAX ac4 -> ac6. CHECK no movement");
+printTokenContractDynamicDetails();
+console.log("RESULT: ");
+
+
+// -----------------------------------------------------------------------------
+// Wait for 1Y unlocked date
+// -----------------------------------------------------------------------------
+var locked1YDateTime = token.LOCKED_1Y_DATE();
+var locked1YDateTimeDate = new Date(locked1YDateTime * 1000);
+console.log("RESULT: Waiting until locked 1Y date at " + locked1YDateTime + " " + locked1YDateTimeDate +
+  " currentDate=" + new Date());
+while ((new Date()).getTime() <= locked1YDateTimeDate.getTime()) {
+}
+console.log("RESULT: Waited until locked 1Y date at " + locked1YDateTime + " " + locked1YDateTimeDate +
+  " currentDate=" + new Date());
+
+
+var lockedTokens = eth.contract(lockedTokensAbi).at(token.lockedTokens());
+
+
+// -----------------------------------------------------------------------------
+var testMessage = "Test 7.1 Unlock 1Y Locked Token";
+console.log("RESULT: " + testMessage);
+var tx7_1_1 = lockedTokens.unlock1Y({from: earlyBackersAccount, gas: 4000000});
+while (txpool.status.pending > 0) {
+}
+printTxData("tx7_1_1", tx7_1_1);
+printBalances();
+failIfGasEqualsGasUsed(tx7_1_1, testMessage);
+printTokenContractDynamicDetails();
+console.log("RESULT: ");
+
+
+// -----------------------------------------------------------------------------
+var testMessage = "Test 7.2 Unsuccessfully Unlock 2Y Locked Token";
+console.log("RESULT: " + testMessage);
+var tx7_2_1 = lockedTokens.unlock2Y({from: earlyBackersAccount, gas: 4000000});
+while (txpool.status.pending > 0) {
+}
+printTxData("tx7_2_1", tx7_2_1);
+printBalances();
+passIfGasEqualsGasUsed(tx7_2_1, testMessage);
+printTokenContractDynamicDetails();
+console.log("RESULT: ");
+
+
+// -----------------------------------------------------------------------------
+// Wait for 2Y unlocked date
+// -----------------------------------------------------------------------------
+var locked2YDateTime = token.LOCKED_2Y_DATE();
+var locked2YDateTimeDate = new Date(locked2YDateTime * 1000);
+console.log("RESULT: Waiting until locked 2Y date at " + locked2YDateTime + " " + locked2YDateTimeDate +
+  " currentDate=" + new Date());
+while ((new Date()).getTime() <= locked2YDateTimeDate.getTime()) {
+}
+console.log("RESULT: Waited until locked 2Y date at " + locked2YDateTime + " " + locked2YDateTimeDate +
+  " currentDate=" + new Date());
+
+
+// -----------------------------------------------------------------------------
+var testMessage = "Test 8.1 Successfully Unlock 2Y Locked Token";
+console.log("RESULT: " + testMessage);
+var tx8_2_1 = lockedTokens.unlock2Y({from: earlyBackersAccount, gas: 4000000});
+while (txpool.status.pending > 0) {
+}
+printTxData("tx8_2_1", tx8_2_1);
+printBalances();
+failIfGasEqualsGasUsed(tx8_2_1, testMessage);
 printTokenContractDynamicDetails();
 console.log("RESULT: ");
 

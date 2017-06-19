@@ -21,11 +21,16 @@ contract LockedTokens is OpenANXTokenConfig {
     using SafeMath for uint;
 
     // ------------------------------------------------------------------------
-    // 1y and 2y locked totals, not including unsold tranche1 and all tranch2
+    // 1y and 2y locked totals, not including unsold tranche1 and all tranche2
     // tokens
     // ------------------------------------------------------------------------
     uint public constant TOKENS_LOCKED_1Y_TOTAL = 14000000 * DECIMALSFACTOR;
     uint public constant TOKENS_LOCKED_2Y_TOTAL = 26000000 * DECIMALSFACTOR;
+    
+    // ------------------------------------------------------------------------
+    // Tokens locked for 1 year for sale 2 in the following account
+    // ------------------------------------------------------------------------
+    address public TRANCHE2_ACCOUNT = 0xBbBB34FA53A801b5F298744490a1596438bbBe50;
 
     // ------------------------------------------------------------------------
     // Current totalSupply of 1y and 2y locked tokens
@@ -92,7 +97,7 @@ contract LockedTokens is OpenANXTokenConfig {
         // Minus 2y locked tokens
         remainingTokens = remainingTokens.sub(totalSupplyLocked2Y);
         // Unsold tranche1 and tranche2 tokens to be locked for 1y 
-        add1Y(address(tokenContract), remainingTokens);
+        add1Y(TRANCHE2_ACCOUNT, remainingTokens);
     }
 
 

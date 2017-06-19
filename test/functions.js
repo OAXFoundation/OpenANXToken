@@ -23,6 +23,7 @@ addAccount(eth.accounts[12], "Account #12 - Directors");
 addAccount(eth.accounts[13], "Account #13 - Early Backers");
 addAccount(eth.accounts[14], "Account #14 - Developers");
 addAccount(eth.accounts[15], "Account #15 - Precommitments");
+addAccount(eth.accounts[16], "Account #16 - Tranche 2 Locked");
 
 var minerAccount = eth.accounts[0];
 var tokenOwnerAccount = eth.accounts[1];
@@ -40,12 +41,12 @@ var directorsAccount = eth.accounts[12];
 var earlyBackersAccount = eth.accounts[13];
 var developersAccount = eth.accounts[14];
 var precommitmentsAccount = eth.accounts[15];
-
+var tranche2Account = eth.accounts[16];
 
 var baseBlock = eth.blockNumber;
 
 function unlockAccounts(password) {
-  for (var i = 0; i < 15; i++) {
+  for (var i = 0; i < eth.accounts.length; i++) {
     personal.unlockAccount(eth.accounts[i], password, 100000);
   }
 }

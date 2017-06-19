@@ -358,7 +358,7 @@ console.log("RESULT: ");
 
 
 // -----------------------------------------------------------------------------
-var testMessage = "Test 8.2 Successfully Unlock All Tokens - except for the Tranche 2 remaining and Tranche 3 remaining";
+var testMessage = "Test 8.2 Successfully Unlock All Tokens - except for the Tranche 1 remaining and Tranche 2 30M";
 console.log("RESULT: " + testMessage);
 var tx8_2_1 = lockedTokens.unlock2Y({from: foundationAccount, gas: 4000000});
 var tx8_2_2 = lockedTokens.unlock1Y({from: advisorsAccount, gas: 4000000});
@@ -366,14 +366,16 @@ var tx8_2_3 = lockedTokens.unlock2Y({from: advisorsAccount, gas: 4000000});
 var tx8_2_4 = lockedTokens.unlock1Y({from: directorsAccount, gas: 4000000});
 var tx8_2_5 = lockedTokens.unlock2Y({from: directorsAccount, gas: 4000000});
 var tx8_2_6 = lockedTokens.unlock1Y({from: developersAccount, gas: 4000000});
+var tx8_2_7 = lockedTokens.unlock1Y({from: tranche2Account, gas: 4000000});
 while (txpool.status.pending > 0) {
 }
 printTxData("tx8_2_1", tx8_2_1);
-printTxData("tx8_2_2", tx8_2_1);
-printTxData("tx8_2_3", tx8_2_1);
-printTxData("tx8_2_4", tx8_2_1);
-printTxData("tx8_2_5", tx8_2_1);
-printTxData("tx8_2_6", tx8_2_1);
+printTxData("tx8_2_2", tx8_2_2);
+printTxData("tx8_2_3", tx8_2_3);
+printTxData("tx8_2_4", tx8_2_4);
+printTxData("tx8_2_5", tx8_2_5);
+printTxData("tx8_2_6", tx8_2_6);
+printTxData("tx8_2_7", tx8_2_7);
 printBalances();
 failIfGasEqualsGasUsed(tx8_2_1, testMessage);
 failIfGasEqualsGasUsed(tx8_2_2, testMessage);
@@ -381,6 +383,7 @@ failIfGasEqualsGasUsed(tx8_2_3, testMessage);
 failIfGasEqualsGasUsed(tx8_2_4, testMessage);
 failIfGasEqualsGasUsed(tx8_2_5, testMessage);
 failIfGasEqualsGasUsed(tx8_2_6, testMessage);
+failIfGasEqualsGasUsed(tx8_2_7, testMessage);
 printTokenContractDynamicDetails();
 console.log("RESULT: ");
 

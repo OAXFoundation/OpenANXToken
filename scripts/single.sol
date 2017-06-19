@@ -437,7 +437,6 @@ contract ERC20Token is ERC20Interface, Owned {
 }
 
 
-
 // ----------------------------------------------------------------------------
 // openANX crowdsale token smart contract
 // ----------------------------------------------------------------------------
@@ -545,7 +544,7 @@ contract OpenANXToken is ERC20Token, OpenANXTokenConfig {
         require(now <= END_DATE);
 
         // No contributions below the minimum (can be 0 ETH)
-        require(msg.value > 0 && msg.value >= CONTRIBUTIONS_MIN);
+        require(msg.value >= CONTRIBUTIONS_MIN);
         // No contributions above a maximum (if maximum is set to non-0)
         require(CONTRIBUTIONS_MAX == 0 || msg.value < CONTRIBUTIONS_MAX);
 

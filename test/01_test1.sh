@@ -358,7 +358,7 @@ console.log("RESULT: ");
 
 
 // -----------------------------------------------------------------------------
-var testMessage = "Test 8.2 Successfully Unlock All Tokens - except for the Tranche 1 remaining and Tranche 2 30M";
+var testMessage = "Test 8.2 Successfully Unlock All Tokens including Tranche 1 remaining + Tranche 2 30M";
 console.log("RESULT: " + testMessage);
 var tx8_2_1 = lockedTokens.unlock2Y({from: foundationAccount, gas: 4000000});
 var tx8_2_2 = lockedTokens.unlock1Y({from: advisorsAccount, gas: 4000000});

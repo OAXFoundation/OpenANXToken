@@ -18,8 +18,8 @@
 # Requirements
 
 * The tests works on OS/X. Should work in Linux. May work in Windows with Cygwin
-* Geth/v1.6.0-stable-facc47cb/darwin-amd64/go1.8.1
-* Solc 0.4.9+commit.364da425.Darwin.appleclang
+* Geth/v1.6.5-stable-cf87713d/darwin-amd64/go1.8.3
+* Solc 0.4.11+commit.68ef5810.Darwin.appleclang
 
 <br />
 
@@ -52,11 +52,16 @@
   * `transfer(...)`, `approve(...)` and `transferFrom(...)`
 * Test 4 Finalising
 * Test 5 KYC Verify
-* Test 6.1 Move Tokens After Finalising
+* Test 6 Move Tokens After Finalising
+* Test 7 Unlock Tokens 1
+  * Test 7.1 Unlock 1Y Locked Token
+  * Test 7.2 Unsuccessfully Unlock 2Y Locked Token
+* Test 8 Unlock Tokens 2
+  * Test 8.1 Successfully Unlock 2Y Locked Token
+  * Test 8.2 Successfully Unlock All Tokens including Tranche 1 remaining + Tranche 2 30M
+* Test 9 Burn Tokens
 
 ## Todo
-* Burn function
-* `finalise()` at the end of the crowdsale period
 * Execute un-permissioned functions
 * Safe maths
 * Other edge cases

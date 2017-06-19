@@ -179,12 +179,6 @@ contract OpenANXToken is ERC20Token, OpenANXTokenConfig {
 
 
     // ------------------------------------------------------------------------
-    // Controller contract for upgrade of token contract or membership burning
-    // ------------------------------------------------------------------------
-    address public controller;
-
-
-    // ------------------------------------------------------------------------
     // Constructor
     // ------------------------------------------------------------------------
     function OpenANXToken(address _wallet) 
@@ -357,27 +351,24 @@ contract OpenANXToken is ERC20Token, OpenANXTokenConfig {
 
 
     // ------------------------------------------------------------------------
-    // openANX set controller contract for contract upgrade or membership 
-    // token burning
+    // Any account can burn _from's tokens as long as the _from account has 
+    // approved the _amount to be burnt using
+    //   approve(0x0, _amount)
     // ------------------------------------------------------------------------
-    function setController(address _controller) onlyOwner {
-        controller = _controller;
-    }
-
-
-    // ------------------------------------------------------------------------
-    // controller contract can burn tokens for contract upgrade or membership
-    // token burning
-    // ------------------------------------------------------------------------
-    function burn(
-        address _participant, 
-        uint256 _amount
+    function burnFrom(
+        address _from,
+        uint _amount
     ) returns (bool success) {
-        require(controller == msg.sender);
-        if (balances[_participant] >= _amount && _amount > 0) {
-            balances[_participant] = balances[_participant].sub(_amount);
+        if (balances[_from] >= _amount                  // From a/c has balance
+            && allowed[_from][0x0] >= _amount           // Transfer approved
+            && _amount > 0                              // Non-zero transfer
+            && balances[0x0] + _amount > balances[0x0]  // Overflow check
+        ) {
+            balances[_from] = balances[_from].sub(_amount);
+            allowed[_from][0x0] = allowed[_from][0x0].sub(_amount);
+            balances[0x0] = balances[0x0].add(_amount);
             totalSupply = totalSupply.sub(_amount);
-            Transfer(_participant, 0x0, _amount);
+            Transfer(_from, 0x0, _amount);
             return true;
         } else {
             return false;

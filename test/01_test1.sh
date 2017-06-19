@@ -387,6 +387,37 @@ failIfGasEqualsGasUsed(tx8_2_7, testMessage);
 printTokenContractDynamicDetails();
 console.log("RESULT: ");
 
+
+// -----------------------------------------------------------------------------
+var testMessage = "Test 9.1 Burn Tokens";
+console.log("RESULT: " + testMessage);
+var tx9_1_1 = token.burnFrom(account5, "100000000000000", {from: account2, gas: 100000});
+var tx9_1_2 = token.transfer(account6, "20000000000000000", {from: account6, gas: 100000});
+var tx9_1_3 = token.approve("0x0", "3000000000000000000", {from: account3, gas: 100000});
+var tx9_1_4 = token.approve("0x0", "400000000000000000000", {from: account4, gas: 100000});
+while (txpool.status.pending > 0) {
+}
+var tx9_1_5 = token.burnFrom(account3, "3000000000000000000", {from: account3, gas: 100000});
+var tx9_1_6 = token.burnFrom(account4, "400000000000000000000", {from: account8, gas: 100000});
+while (txpool.status.pending > 0) {
+}
+printTxData("tx9_1_1", tx9_1_1);
+printTxData("tx9_1_2", tx9_1_2);
+printTxData("tx9_1_3", tx9_1_3);
+printTxData("tx9_1_4", tx9_1_4);
+printTxData("tx9_1_5", tx9_1_5);
+printTxData("tx9_1_6", tx9_1_6);
+printBalances();
+failIfGasEqualsGasUsed(tx9_1_1, testMessage + " - burn 0.0001 OAX ac2. CHECK no movement");
+passIfGasEqualsGasUsed(tx9_1_2, testMessage + " - burn 0.02 OAX ac6. CHECK no movement");
+failIfGasEqualsGasUsed(tx9_1_3, testMessage + " - approve burn 3 OAX ac3");
+failIfGasEqualsGasUsed(tx9_1_4, testMessage + " - approve burn 400 OAX ac4");
+failIfGasEqualsGasUsed(tx9_1_5, testMessage + " - burn 3 OAX ac3 from ac3. CHECK for movement");
+passIfGasEqualsGasUsed(tx9_1_6, testMessage + " - burn 400 OAX ac4 from ac8. CHECK for movement");
+printTokenContractDynamicDetails();
+console.log("RESULT: ");
+
+
 exit;
 
 

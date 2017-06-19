@@ -24,6 +24,9 @@ addAccount(eth.accounts[13], "Account #13 - Early Backers");
 addAccount(eth.accounts[14], "Account #14 - Developers");
 addAccount(eth.accounts[15], "Account #15 - Precommitments");
 addAccount(eth.accounts[16], "Account #16 - Tranche 2 Locked");
+addAccount("0x0000000000000000000000000000000000000000", "Burn Account");
+
+
 
 var minerAccount = eth.accounts[0];
 var tokenOwnerAccount = eth.accounts[1];

@@ -10,15 +10,6 @@ pragma solidity ^0.4.11;
 // ----------------------------------------------------------------------------
 
 
-// ----------------------------------------------------------------------------
-// OAX 'openANX Token' crowdfunding contract - ERC20 Token Interface
-//
-// Refer to http://openanx.org/ for further information.
-//
-// Enjoy. (c) openANX and BokkyPooBah / Bok Consulting Pty Ltd 2017. 
-// The MIT Licence.
-// ----------------------------------------------------------------------------
-
 
 // ----------------------------------------------------------------------------
 // ERC Token Standard #20 Interface
@@ -39,14 +30,6 @@ contract ERC20Interface {
 }
 
 
-// ----------------------------------------------------------------------------
-// OAX 'openANX Token' crowdfunding contract - Owned contracts
-//
-// Refer to http://openanx.org/ for further information.
-//
-// Enjoy. (c) openANX and BokkyPooBah / Bok Consulting Pty Ltd 2017. 
-// The MIT Licence.
-// ----------------------------------------------------------------------------
 
 // ----------------------------------------------------------------------------
 // Owned contract
@@ -96,15 +79,6 @@ contract Owned {
 }
 
 
-// ----------------------------------------------------------------------------
-// OAX 'openANX Token' crowdfunding contract
-//
-// Refer to http://openanx.org/ for further information.
-//
-// Enjoy. (c) openANX and BokkyPooBah / Bok Consulting Pty Ltd 2017. 
-// The MIT Licence.
-// ----------------------------------------------------------------------------
-
 
 // ----------------------------------------------------------------------------
 // Safe maths, borrowed from OpenZeppelin
@@ -130,14 +104,6 @@ library SafeMath {
 }
 
 
-// ----------------------------------------------------------------------------
-// OAX 'openANX Token' crowdfunding contract - Configuration
-//
-// Refer to http://openanx.org/ for further information.
-//
-// Enjoy. (c) openANX and BokkyPooBah / Bok Consulting Pty Ltd 2017. 
-// The MIT Licence.
-// ----------------------------------------------------------------------------
 
 // ----------------------------------------------------------------------------
 // openANX crowdsale token smart contract - configuration parameters
@@ -187,16 +153,6 @@ contract OpenANXTokenConfig {
     uint public CONTRIBUTIONS_MIN = 0 ether;
     uint public CONTRIBUTIONS_MAX = 0 ether;
 }
-
-
-// ----------------------------------------------------------------------------
-// OAX 'openANX Token' crowdfunding contract - locked tokens
-//
-// Refer to http://openanx.org/ for further information.
-//
-// Enjoy. (c) openANX and BokkyPooBah / Bok Consulting Pty Ltd 2017. 
-// The MIT Licence.
-// ----------------------------------------------------------------------------
 
 
 
@@ -481,6 +437,7 @@ contract ERC20Token is ERC20Interface, Owned {
 }
 
 
+
 // ----------------------------------------------------------------------------
 // openANX crowdsale token smart contract
 // ----------------------------------------------------------------------------
@@ -520,6 +477,12 @@ contract OpenANXToken is ERC20Token, OpenANXTokenConfig {
     // the participant can move their tokens
     // ------------------------------------------------------------------------
     mapping(address => bool) public kycRequired;
+
+
+    // ------------------------------------------------------------------------
+    // Controller contract for upgrade of token contract or membership burning
+    // ------------------------------------------------------------------------
+    address public controller;
 
 
     // ------------------------------------------------------------------------
@@ -695,13 +658,31 @@ contract OpenANXToken is ERC20Token, OpenANXTokenConfig {
 
 
     // ------------------------------------------------------------------------
-    // openANX can burn tokens
+    // openANX set controller contract for contract upgrade or membership 
+    // token burning
     // ------------------------------------------------------------------------
-    function burnTokens(uint256 value) onlyOwner {
-        require(balances[owner] >= value);
-        balances[owner] -= value;
-        totalSupply -= value;
-        Transfer(owner, 0, value);
+    function setController(address _controller) onlyOwner {
+        controller = _controller;
+    }
+
+
+    // ------------------------------------------------------------------------
+    // controller contract can burn tokens for contract upgrade or membership
+    // token burning
+    // ------------------------------------------------------------------------
+    function burn(
+        address _participant, 
+        uint256 _amount
+    ) returns (bool success) {
+        require(controller == msg.sender);
+        if (balances[_participant] >= _amount && _amount > 0) {
+            balances[_participant] = balances[_participant].sub(_amount);
+            totalSupply = totalSupply.sub(_amount);
+            Transfer(_participant, 0x0, _amount);
+            return true;
+        } else {
+            return false;
+        }
     }
 
 

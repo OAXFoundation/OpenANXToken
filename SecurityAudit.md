@@ -618,6 +618,12 @@ contract OpenANXToken is ERC20Token, OpenANXTokenConfig {
 
 
     // ------------------------------------------------------------------------
+    // Controller contract for upgrade of token contract or membership burning
+    // ------------------------------------------------------------------------
+    address public controller;
+
+
+    // ------------------------------------------------------------------------
     // Constructor
     // ------------------------------------------------------------------------
     function OpenANXToken(address _wallet) 
@@ -796,13 +802,31 @@ contract OpenANXToken is ERC20Token, OpenANXTokenConfig {
 
 
     // ------------------------------------------------------------------------
-    // openANX can burn tokens
+    // openANX set controller contract for contract upgrade or membership 
+    // token burning
     // ------------------------------------------------------------------------
-    function burnTokens(uint256 value) onlyOwner {
-        require(balances[owner] >= value);
-        balances[owner] -= value;
-        totalSupply -= value;
-        Transfer(owner, 0, value);
+    function setController(address _controller) onlyOwner {
+        controller = _controller;
+    }
+
+
+    // ------------------------------------------------------------------------
+    // controller contract can burn tokens for contract upgrade or membership
+    // token burning
+    // ------------------------------------------------------------------------
+    function burn(
+        address _participant, 
+        uint256 _amount
+    ) returns (bool success) {
+        require(controller == msg.sender);
+        if (balances[_participant] >= _amount && _amount > 0) {
+            balances[_participant] = balances[_participant].sub(_amount);
+            totalSupply = totalSupply.sub(_amount);
+            Transfer(_participant, 0x0, _amount);
+            return true;
+        } else {
+            return false;
+        }
     }
 
 

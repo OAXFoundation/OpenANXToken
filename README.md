@@ -1,8 +1,14 @@
-# OpenANX Token
+# openANX Decentralised Exchange Token Sale Smart Contract
 
-Refer to [http://openanx.org/](http://openanx.org/) for further information.
+Website: [http://openanx.org/](http://openanx.org/)
 
-There is a subreddit at [https://www.reddit.com/r/OpenANX/](https://www.reddit.com/r/OpenANX/), and a slack at [https://openanx.slack.com/](https://openanx.slack.com/).
+Whitepaper: [https://www.openanx.org/en/assets/whitepaper/openANX_White_Paper_ENU.pdf](https://www.openanx.org/en/assets/whitepaper/openANX_White_Paper_ENU.pdf)
+
+Reddit: [https://www.reddit.com/r/OpenANX/](https://www.reddit.com/r/OpenANX/)
+
+Slack: [https://openanx.slack.com/](https://openanx.slack.com/)
+
+Bug bounty program: [https://medium.com/@OAX_Foundation/openanx-bug-bounty-program-ccc6e981fd6a](https://medium.com/@OAX_Foundation/openanx-bug-bounty-program-ccc6e981fd6a)
 
 <br />
 
@@ -105,14 +111,14 @@ There is a subreddit at [https://www.reddit.com/r/OpenANX/](https://www.reddit.c
 ## TODO
 
 * [x] BK Complete KYC functions
-* [ ] BK Testing different scenarios
+* [x] BK Testing different scenarios
   * [x] Scenario where funding below soft cap and above soft cap
   * [x] Unlocking of tokens in 1 year and 2 years
   * [x] Public crowdsale participant can also have locked tokens
 * [x] BK Add functions in the main contract to query the locked balances for accounts
 * [x] BK Develop and test token contract upgrade path
 * [x] BK Develop test membership contract to test users burning tokens for membership
-* [ ] BK Security audit - see [SecurityAudit.md](SecurityAudit.md).
+* [ ] BK Complete [Security Audit](SecurityAudit.md).
 * [ ] JB Security audit
 
 <br />

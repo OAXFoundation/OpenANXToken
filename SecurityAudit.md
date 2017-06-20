@@ -33,16 +33,16 @@ See [README.md](README.md).
   * [x] Deployment, with correct `symbol()`, `name()`, `decimals()` and `totalSupply()`
   * [x] `transfer(...)` from one account to another
   * [x] `approve(...)` and `transferFrom(...)` from one account to another
-  * [ ] `transferOwnership(...)` and `acceptOwnership()` of the token contract
   * While the `transfer(...)` and `transferFrom(...)` uses safe maths, there are checks so the function is able to return **true** and **false** instead of throwing an error
+* [x] `transferOwnership(...)` and `acceptOwnership()` of the token contract
 * [x] ETH contributed to this contract is immediately moved to a separate wallet
 * [x] ETH cannot be trapped in this contract due to the logic preventing ETH being sent to this contract outside the crowdfunding dates
 * [x] The testing has been done using geth v1.6.5-stable-cf87713d/darwin-amd64/go1.8.3 and solc 0.4.11+commit.68ef5810.Darwin.appleclang instead of one of the testing frameworks and JavaScript VMs to simulate the live environment as closely as possible
 * [x] There is only one statement with a division, and the divisor is a non-zero constant, so there should be no division by zero errors
   * `uint tokens = msg.value * tokensPerKEther / 10**uint(18 - decimals + 3);`
 * [x] All numbers used are **uint** (which is **uint256**), with the exception of `decimals`, reducing the risk of errors from type conversions
-* [ ] Areas with potential overflow errors in `transfer(...)` and `transferFrom(...)` have the logic to prevent overflows
-* [ ] Areas with potential underflow errors in `transfer(...)` and `transferFrom(...)` have the logic to prevent underflows
+* [x] Areas with potential overflow errors in `transfer(...)`, `transferFrom(...)`, and `burnFrom(...)` have the logic to prevent overflows
+* [x] Areas with potential underflow errors in `transfer(...)`, `transferFrom(...)` and `burnFrom(...)` have the logic to prevent underflows
 * [x] Function and event names are differentiated by case - function names begin with a lowercase character and event names begin with an uppercase character
 * [x] The default function will receive contributions during the crowdsale phase and mint tokens. Users can also directly call `proxyPayment(...)` to purchase tokens on behalf of another account
 * [x] The function `transferAnyERC20Token(...)` has been added in case the owner has to free any accidentally trapped ERC20 tokens
@@ -79,6 +79,7 @@ See [README.md](README.md).
 ## Other Notes
 
 * This audit has been conducted by the author of the contract. An independent audit of this contract should be conducted
+* Details of the bug bounty program on this smart contract can be found at [https://medium.com/@OAX_Foundation/openanx-bug-bounty-program-ccc6e981fd6a](https://medium.com/@OAX_Foundation/openanx-bug-bounty-program-ccc6e981fd6a)
 
 <br />
 

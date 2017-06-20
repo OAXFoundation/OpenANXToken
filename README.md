@@ -106,13 +106,12 @@ There is a subreddit at [https://www.reddit.com/r/OpenANX/](https://www.reddit.c
 
 * [x] BK Complete KYC functions
 * [ ] BK Testing different scenarios
-  * [ ] Scenario where funding below soft cap and above soft cap
+  * [x] Scenario where funding below soft cap and above soft cap
   * [x] Unlocking of tokens in 1 year and 2 years
   * [x] Public crowdsale participant can also have locked tokens
 * [x] BK Add functions in the main contract to query the locked balances for accounts
-* [ ] BK May have to add the ability to fill locked addresses if the number of locked address increases deployment or `finalise()` gas too much
-* [ ] BK Develop and test token contract upgrade path
-* [ ] BK Develop test membership contract to test users burning tokens for membership
+* [x] BK Develop and test token contract upgrade path
+* [x] BK Develop test membership contract to test users burning tokens for membership
 * [ ] BK Security audit - see [SecurityAudit.md](SecurityAudit.md).
 * [ ] JB Security audit
 

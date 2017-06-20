@@ -163,11 +163,16 @@ contract LockedTokens is OpenANXTokenConfig {
     using SafeMath for uint;
 
     // ------------------------------------------------------------------------
-    // 1y and 2y locked totals, not including unsold tranche1 and all tranch2
+    // 1y and 2y locked totals, not including unsold tranche1 and all tranche2
     // tokens
     // ------------------------------------------------------------------------
     uint public constant TOKENS_LOCKED_1Y_TOTAL = 14000000 * DECIMALSFACTOR;
     uint public constant TOKENS_LOCKED_2Y_TOTAL = 26000000 * DECIMALSFACTOR;
+    
+    // ------------------------------------------------------------------------
+    // Tokens locked for 1 year for sale 2 in the following account
+    // ------------------------------------------------------------------------
+    address public TRANCHE2_ACCOUNT = 0xBbBB34FA53A801b5F298744490a1596438bbBe50;
 
     // ------------------------------------------------------------------------
     // Current totalSupply of 1y and 2y locked tokens
@@ -234,7 +239,7 @@ contract LockedTokens is OpenANXTokenConfig {
         // Minus 2y locked tokens
         remainingTokens = remainingTokens.sub(totalSupplyLocked2Y);
         // Unsold tranche1 and tranche2 tokens to be locked for 1y 
-        add1Y(address(tokenContract), remainingTokens);
+        add1Y(TRANCHE2_ACCOUNT, remainingTokens);
     }
 
 
@@ -479,12 +484,6 @@ contract OpenANXToken is ERC20Token, OpenANXTokenConfig {
 
 
     // ------------------------------------------------------------------------
-    // Controller contract for upgrade of token contract or membership burning
-    // ------------------------------------------------------------------------
-    address public controller;
-
-
-    // ------------------------------------------------------------------------
     // Constructor
     // ------------------------------------------------------------------------
     function OpenANXToken(address _wallet) 
@@ -657,27 +656,24 @@ contract OpenANXToken is ERC20Token, OpenANXTokenConfig {
 
 
     // ------------------------------------------------------------------------
-    // openANX set controller contract for contract upgrade or membership 
-    // token burning
+    // Any account can burn _from's tokens as long as the _from account has 
+    // approved the _amount to be burnt using
+    //   approve(0x0, _amount)
     // ------------------------------------------------------------------------
-    function setController(address _controller) onlyOwner {
-        controller = _controller;
-    }
-
-
-    // ------------------------------------------------------------------------
-    // controller contract can burn tokens for contract upgrade or membership
-    // token burning
-    // ------------------------------------------------------------------------
-    function burn(
-        address _participant, 
-        uint256 _amount
+    function burnFrom(
+        address _from,
+        uint _amount
     ) returns (bool success) {
-        require(controller == msg.sender);
-        if (balances[_participant] >= _amount && _amount > 0) {
-            balances[_participant] = balances[_participant].sub(_amount);
+        if (balances[_from] >= _amount                  // From a/c has balance
+            && allowed[_from][0x0] >= _amount           // Transfer approved
+            && _amount > 0                              // Non-zero transfer
+            && balances[0x0] + _amount > balances[0x0]  // Overflow check
+        ) {
+            balances[_from] = balances[_from].sub(_amount);
+            allowed[_from][0x0] = allowed[_from][0x0].sub(_amount);
+            balances[0x0] = balances[0x0].add(_amount);
             totalSupply = totalSupply.sub(_amount);
-            Transfer(_participant, 0x0, _amount);
+            Transfer(_from, 0x0, _amount);
             return true;
         } else {
             return false;

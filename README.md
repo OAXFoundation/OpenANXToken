@@ -16,6 +16,7 @@ Bug bounty program: [https://medium.com/@OAX_Foundation/openanx-bug-bounty-progr
 
 # Table of contents
 
+* [Updates](#updates)
 * [Requirements](#requirements)
 * [TODO](#todo)
 * [Operations On The Crowdsale Contract](#operations-on-the-crowdsale-contract)
@@ -26,6 +27,30 @@ Bug bounty program: [https://medium.com/@OAX_Foundation/openanx-bug-bounty-progr
   * [After 1 Year And 2 Years](#after-1-year-and-2-years)
 * [Testing](#testing)
 * [Deployment Checklist](#deployment-checklist)
+
+<br />
+
+<hr />
+
+# Updates
+
+* Jun 19 2017 - **LOW IMPORTANCE** - Jordi Baylina has pointed out that the first part of `require(msg.value > 0 && msg.value >= CONTRIBUTIONS_MIN);` is not necessary. This first part has been removed.
+* Jun 20 2017 - **LOW IMPORTANCE** - Darryl Morris has pointed out that `CONTRIBUTION_MIN` and `CONTRIBUTION_MAX` should be marked as **const**. The code has been left as-is.
+* Jun 21 2017 - **LOW IMPORTANCE** - Brian See has pointed out that `PrecommitmentAdded(...)` is not used, as the `Transfer(0x, participant, balance)` provides the same data. The code has been left as-is.
+* Jun 21 2017 - Hugh Madden has provided provided the following, and will update the OpenANXToken.sol code or update this rate using `setTokensPerKEther(...)`:
+
+      20 June 2017 23:59:59 eth close data = $359.01
+      Price in USD    359.01
+      Value of 1k ETH    359010
+      price per token    0.75
+      tokens per K of ETH    478680
+
+  I have confirmed using an alternate method:
+
+      ETH per token = .75 / 359.01 = 0.002089078
+      This is the same as 1 / .002089078 = 478.680000001 OAX per ETH
+      tokensPerEther = 478.680000001
+      tokensPerKEther = 478,680
 
 <br />
 

@@ -36,6 +36,7 @@ Bug bounty program: [https://medium.com/@OAX_Foundation/openanx-bug-bounty-progr
 
 * Jun 19 2017 - **LOW IMPORTANCE** - Jordi Baylina has pointed out that the first part of `require(msg.value > 0 && msg.value >= CONTRIBUTIONS_MIN);` is not necessary. This first part has been removed.
 * Jun 20 2017 - **LOW IMPORTANCE** - Darryl Morris has pointed out that `CONTRIBUTION_MIN` and `CONTRIBUTION_MAX` should be marked as **const**. The code has been left as-is.
+* Jun 21 2017 - Loi Luu - [openANX Audit](https://gist.github.com/loiluu/a80ba9c6df0d3a18773698644d988969)
 * Jun 21 2017 - **LOW IMPORTANCE** - Brian See has pointed out that `PrecommitmentAdded(...)` is not used, as the `Transfer(0x, participant, balance)` provides the same data. The code has been left as-is.
 * Jun 21 2017 - Hugh Madden has provided provided the following, and will update the OpenANXToken.sol code or update this rate using `setTokensPerKEther(...)`:
 

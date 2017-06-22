@@ -1,6 +1,6 @@
 token.address=0x701c244b988a513c945973defa05de933b23fe1d
 token.lockedTokensAddress=0x3866259bc60e5b69d5c438db238d3b4c9db37bcb
-currentTime=1498117311.299 Thu, 22 Jun 2017 07:41:51 UTC / Thu, 22 Jun 2017 07:41:51 GMT
+currentTime=1498117594.555 Thu, 22 Jun 2017 07:46:34 UTC / Thu, 22 Jun 2017 07:46:34 GMT
 token.START_DATE=1498136400 Thu, 22 Jun 2017 13:00:00 UTC / Thu, 22 Jun 2017 13:00:00 GMT
 token.END_DATE=1500728400 Sat, 22 Jul 2017 13:00:00 UTC / Sat, 22 Jul 2017 13:00:00 GMT
 token.symbol=OAX
@@ -12,7 +12,7 @@ token.TOKENS_HARD_CAP=30000000
 token.TOKENS_TOTAL=100000000
 token.finalised=false
 token.tokensPerKEther=478680
-token.totalSupply=0
+token.totalSupply=9302486
 token.totalSupplyLocked(1Y/2Y)=0 / 0
 token.totalSupplyLocked=0
 token.totalSupplyUnlocked=0

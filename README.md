@@ -124,7 +124,7 @@ Bug bounty program: [https://medium.com/@OAX_Foundation/openanx-bug-bounty-progr
   * OAX tokens are otherwise able to be transferred freely without further KYC requirements 
 
 * Unsold Tranche 1 Tokens
-  * Any tokens unsold from the tranche 1 quote will be locked away from 1 year along with the tranche 2 tokens
+  * Any tokens unsold from the tranche 1 quota will be locked away for 1 year along with the tranche 2 tokens
 
 * Locked Tokens
   * Accounts holding 1 or 2 year locked tokens will also be able to participant in the public crowdsale

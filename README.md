@@ -1,8 +1,14 @@
-# OpenANX Token
+# openANX Decentralised Exchange Token Sale Smart Contract
 
-Refer to [http://openanx.org/](http://openanx.org/) for further information.
+Website: [http://openanx.org/](http://openanx.org/)
 
-There is a subreddit at [https://www.reddit.com/r/OpenANX/](https://www.reddit.com/r/OpenANX/), and a slack at [https://openanx.slack.com/](https://openanx.slack.com/).
+Whitepaper: [https://www.openanx.org/en/assets/whitepaper/openANX_White_Paper_ENU.pdf](https://www.openanx.org/en/assets/whitepaper/openANX_White_Paper_ENU.pdf)
+
+Reddit: [https://www.reddit.com/r/OpenANX/](https://www.reddit.com/r/OpenANX/)
+
+Slack: [https://openanx.slack.com/](https://openanx.slack.com/)
+
+Bug bounty program: [https://medium.com/@OAX_Foundation/openanx-bug-bounty-program-ccc6e981fd6a](https://medium.com/@OAX_Foundation/openanx-bug-bounty-program-ccc6e981fd6a)
 
 <br />
 
@@ -10,6 +16,7 @@ There is a subreddit at [https://www.reddit.com/r/OpenANX/](https://www.reddit.c
 
 # Table of contents
 
+* [Updates](#updates)
 * [Requirements](#requirements)
 * [TODO](#todo)
 * [Operations On The Crowdsale Contract](#operations-on-the-crowdsale-contract)
@@ -20,6 +27,32 @@ There is a subreddit at [https://www.reddit.com/r/OpenANX/](https://www.reddit.c
   * [After 1 Year And 2 Years](#after-1-year-and-2-years)
 * [Testing](#testing)
 * [Deployment Checklist](#deployment-checklist)
+
+<br />
+
+<hr />
+
+# Updates
+
+* Jun 19 2017 - **LOW IMPORTANCE** - Jordi Baylina has pointed out that the first part of `require(msg.value > 0 && msg.value >= CONTRIBUTIONS_MIN);` is not necessary. This first part has been removed.
+* Jun 20 2017 - **LOW IMPORTANCE** - Darryl Morris has pointed out that `CONTRIBUTION_MIN` and `CONTRIBUTION_MAX` should be marked as **const**. The code has been left as-is.
+* Jun 21 2017 - **LOW IMPORTANCE** - Brian See has pointed out that `PrecommitmentAdded(...)` is not used, as the `Transfer(0x, participant, balance)` provides the same data. The code has been left as-is.
+* Jun 21 2017 - Hugh Madden has provided provided the following, and will update the OpenANXToken.sol code or update this rate using `setTokensPerKEther(...)`:
+
+      20 June 2017 23:59:59 eth close data = $359.01
+      Price in USD    359.01
+      Value of 1k ETH    359010
+      price per token    0.75
+      tokens per K of ETH    478680
+
+  I have confirmed using an alternate method:
+
+      ETH per token = .75 / 359.01 = 0.002089078
+      This is the same as 1 / .002089078 = 478.680000001 OAX per ETH
+      tokensPerEther = 478.680000001
+      tokensPerKEther = 478,680
+
+* Jun 22 2017 - Darryl Morris - [code review report](audits/DarrylMorris_OpenANXOAXContractCodeReview_20170622.pdf). From his review, Darryl has also reported to the Solidity team bug [#2441 Address literals not being treated as "compile-time constant"](https://github.com/ethereum/solidity/issues/2441) as [`address public TRANCHE2_ACCOUNT = 0xBbBB34FA53A801b5F298744490a1596438bbBe50;`](https://github.com/openanx/OpenANXToken/blob/master/contracts/LockedTokens.sol#L33) could not be set as a constant. 
 
 <br />
 
@@ -105,15 +138,14 @@ There is a subreddit at [https://www.reddit.com/r/OpenANX/](https://www.reddit.c
 ## TODO
 
 * [x] BK Complete KYC functions
-* [ ] BK Testing different scenarios
-  * [ ] Scenario where funding below soft cap and above soft cap
+* [x] BK Testing different scenarios
+  * [x] Scenario where funding below soft cap and above soft cap
   * [x] Unlocking of tokens in 1 year and 2 years
   * [x] Public crowdsale participant can also have locked tokens
 * [x] BK Add functions in the main contract to query the locked balances for accounts
-* [ ] BK May have to add the ability to fill locked addresses if the number of locked address increases deployment or `finalise()` gas too much
-* [ ] BK Develop and test token contract upgrade path
-* [ ] BK Develop test membership contract to test users burning tokens for membership
-* [ ] BK Security audit - see [SecurityAudit.md](SecurityAudit.md).
+* [x] BK Develop and test token contract upgrade path
+* [x] BK Develop test membership contract to test users burning tokens for membership
+* [ ] BK Complete [Security Audit](SecurityAudit.md).
 * [ ] JB Security audit
 
 <br />

@@ -413,10 +413,27 @@ passIfGasEqualsGasUsed(tx9_1_2, testMessage + " - burn 0.02 OAX ac6. CHECK no mo
 failIfGasEqualsGasUsed(tx9_1_3, testMessage + " - approve burn 3 OAX ac3");
 failIfGasEqualsGasUsed(tx9_1_4, testMessage + " - approve burn 400 OAX ac4");
 failIfGasEqualsGasUsed(tx9_1_5, testMessage + " - burn 3 OAX ac3 from ac3. CHECK for movement");
-passIfGasEqualsGasUsed(tx9_1_6, testMessage + " - burn 400 OAX ac4 from ac8. CHECK for movement");
+failIfGasEqualsGasUsed(tx9_1_6, testMessage + " - burn 400 OAX ac4 from ac8. CHECK for movement");
 printTokenContractDynamicDetails();
 console.log("RESULT: ");
 
+
+// -----------------------------------------------------------------------------
+var testMessage = "Test 10.1 Change Ownership";
+console.log("RESULT: " + testMessage);
+var tx10_1_1 = token.transferOwnership(minerAccount, {from: tokenOwnerAccount, gas: 100000});
+while (txpool.status.pending > 0) {
+}
+var tx10_1_2 = token.acceptOwnership({from: minerAccount, gas: 100000});
+while (txpool.status.pending > 0) {
+}
+printTxData("tx10_1_1", tx10_1_1);
+printTxData("tx10_1_2", tx10_1_2);
+printBalances();
+failIfGasEqualsGasUsed(tx10_1_1, testMessage + " - Change owner");
+failIfGasEqualsGasUsed(tx10_1_2, testMessage + " - Accept ownership");
+printTokenContractDynamicDetails();
+console.log("RESULT: ");
 
 exit;
 

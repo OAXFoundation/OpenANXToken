@@ -52,6 +52,8 @@ Bug bounty program: [https://medium.com/@OAX_Foundation/openanx-bug-bounty-progr
       tokensPerEther = 478.680000001
       tokensPerKEther = 478,680
 
+* Jun 22 2017 - Darryl Morris - [code review report](audits/DarrylMorris_OpenANXOAXContractCodeReview_20170622.pdf)
+
 <br />
 
 <hr />

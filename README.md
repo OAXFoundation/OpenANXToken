@@ -52,7 +52,7 @@ Bug bounty program: [https://medium.com/@OAX_Foundation/openanx-bug-bounty-progr
       tokensPerEther = 478.680000001
       tokensPerKEther = 478,680
 
-* Jun 22 2017 - Darryl Morris - [code review report](audits/DarrylMorris_OpenANXOAXContractCodeReview_20170622.pdf)
+* Jun 22 2017 - Darryl Morris - [code review report](audits/DarrylMorris_OpenANXOAXContractCodeReview_20170622.pdf). From his review, Darryl has also reported to the Solidity team bug [#2441 Address literals not being treated as "compile-time constant"](https://github.com/ethereum/solidity/issues/2441) as [`address public TRANCHE2_ACCOUNT = 0xBbBB34FA53A801b5F298744490a1596438bbBe50;`](https://github.com/openanx/OpenANXToken/blob/master/contracts/LockedTokens.sol#L33) could not be set as a constant. 
 
 <br />
 

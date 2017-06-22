@@ -118,11 +118,13 @@ approvalEvent.stopWatching();
 
 var transferEvent = contract.Transfer({}, { fromBlock: tokenDeploymentBlock, toBlock: latestBlock });
 i = 0;
-console.log("TRANSFER: No\tFrom\tTo\tTokens\tBlock\tTxIndex\tTxHash");
+var totalTokens = new BigNumber(0);
+console.log("TRANSFER: No\tFrom\tTo\tTokens\tTokenBalance\tBlock\tTxIndex\tTxHash");
 transferEvent.watch(function (error, result) {
   // console.log("TRANSFER: " + JSON.stringify(result));
-  console.log("TRANSFER: " + i++ + "\t" + result.args._from + "\t" + result.args._to + "\t" + result.args._value.shift(-decimals) + "\t" + result.blockNumber + "\t" +
-    result.transactionIndex + "\t" + result.transactionHash);
+  totalTokens = totalTokens.add(result.args._value);
+  console.log("TRANSFER: " + i++ + "\t" + result.args._from + "\t" + result.args._to + "\t" + result.args._value.shift(-decimals) + 
+    "\t" + totalTokens.shift(-decimals) + "\t" + result.blockNumber + "\t" + result.transactionIndex + "\t" + result.transactionHash);
 });
 transferEvent.stopWatching();
 

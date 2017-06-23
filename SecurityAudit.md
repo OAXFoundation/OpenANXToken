@@ -1,4 +1,4 @@
-# Security Audit (Work in progress)
+# Security Audit
 
 See [README.md](README.md).
 

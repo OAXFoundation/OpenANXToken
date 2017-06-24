@@ -1,0 +1,29 @@
+token.address=0x701c244b988a513c945973defa05de933b23fe1d
+token.lockedTokensAddress=0x3866259bc60e5b69d5c438db238d3b4c9db37bcb
+currentTime=1498319940.794 Sat, 24 Jun 2017 15:59:00 UTC / Sat, 24 Jun 2017 15:59:00 GMT
+token.START_DATE=1498136400 Thu, 22 Jun 2017 13:00:00 UTC / Thu, 22 Jun 2017 13:00:00 GMT
+token.END_DATE=1500728400 Sat, 22 Jul 2017 13:00:00 UTC / Sat, 22 Jul 2017 13:00:00 GMT
+token.symbol=OAX
+token.name=openANX Token
+token.decimals=18
+token.DECIMALSFACTOR=1000000000000000000
+token.TOKENS_SOFT_CAP=13000000
+token.TOKENS_HARD_CAP=30000000
+token.TOKENS_TOTAL=100000000
+token.finalised=false
+token.tokensPerKEther=478680
+token.totalSupply=21891419.576925276757073699
+token.totalSupplyLocked(1Y/2Y)=0 / 0
+token.totalSupplyLocked=0
+token.totalSupplyUnlocked=0
+token.LOCKED_1Y_DATE=1529672400 Fri, 22 Jun 2018 13:00:00 UTC / Fri, 22 Jun 2018 13:00:00 GMT
+token.LOCKED_2Y_DATE=1561208400 Sat, 22 Jun 2019 13:00:00 UTC / Sat, 22 Jun 2019 13:00:00 GMT
+lockedToken.TOKENS_LOCKED_1Y_TOTAL=14000000
+lockedToken.TOKENS_LOCKED_2Y_TOTAL=26000000
+lockedToken.totalSupplyLocked1Y=14000000
+lockedToken.totalSupplyLocked2Y=26000000
+lockedToken.totalSupplyLocked=40000000
+token.owner=0x030dd623523019f1608d0a9b9b1277a71f8c52cd
+token.newOwner=0x030dd623523019f1608d0a9b9b1277a71f8c52cd
+OwnershipTransferred Event 0: from=0xa0c81e7bca6b95b6cb1d6d4e5db744228ed6f5c1 to=0x030dd623523019f1608d0a9b9b1277a71f8c52cd 3912183
+TokensPerKEtherUpdated Event 0: tokensPerKEther=478680 block=3910899

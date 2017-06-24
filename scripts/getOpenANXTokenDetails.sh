@@ -13,10 +13,10 @@ DATE=`date "+%Y%m%d_%H%M%S"`
 # DATE=`date "+%Y%m%d"`
 echo "Date: $DATE"
 
-TEMPFILE=Temp-$DATE.txt
-MAINFILE=Main-$DATE.txt
-TOKENSBOUGHTFILE=TokensBought-$DATE.tsv
-TRANSFERFILE=Transfers-$DATE.tsv
+TEMPFILE=Temp_$DATE.txt
+MAINFILE=Main_$DATE.txt
+TOKENSBOUGHTFILE=TokensBought_$DATE.tsv
+TRANSFERFILE=Transfers_$DATE.tsv
 
 geth --verbosity 3 attach $GETHATTACHPOINT << EOF | tee $TEMPFILE
 
@@ -92,12 +92,12 @@ walletUpdatedEvent.stopWatching();
 var tokensBoughtEvent = contract.TokensBought({}, { fromBlock: tokenDeploymentBlock, toBlock: latestBlock });
 i = 0;
 var totalEthers = new BigNumber(0);
-console.log("TOKENSBOUGHT: No\tBuyer\tEthers\tEtherBalance\tTokens\tTokenBalance\tTokensPerKEther\tBlock\tTxIndex\tTxHash");
+console.log("TOKENSBOUGHT: No\tBuyer\tEthers\tTokens\tTokenBalance\tTokensPerKEther\tTxIndex\tTxHash\tBlock\tEtherBalance");
 tokensBoughtEvent.watch(function (error, result) {
   totalEthers = totalEthers.add(result.args.ethers);
-  console.log("TOKENSBOUGHT: " + i++ + "\t" + result.args.buyer + "\t" + web3.fromWei(result.args.ethers, "ether") + "\t" + web3.fromWei(totalEthers, "ether") + 
-    "\t" + result.args.tokens.shift(-decimals) + "\t" + result.args.newTotalSupply.shift(-decimals) + "\t" + result.args.tokensPerKEther + "\t" + result.blockNumber + "\t" +
-    result.transactionIndex + "\t" + result.transactionHash);
+  console.log("TOKENSBOUGHT: " + i++ + "\t" + result.args.buyer + "\t" + web3.fromWei(result.args.ethers, "ether") + 
+    "\t" + result.args.tokens.shift(-decimals) + "\t" + result.args.newTotalSupply.shift(-decimals) + "\t" + result.args.tokensPerKEther + "\t" +
+    result.transactionIndex + "\t" + result.transactionHash + "\t" + result.blockNumber + "\t" + web3.fromWei(totalEthers, "ether"));
 });
 tokensBoughtEvent.stopWatching();
 

@@ -36,6 +36,7 @@ Bug bounty program: [https://medium.com/@OAX_Foundation/openanx-bug-bounty-progr
 
 * Jun 19 2017 - **LOW IMPORTANCE** - Jordi Baylina has pointed out that the first part of `require(msg.value > 0 && msg.value >= CONTRIBUTIONS_MIN);` is not necessary. This first part has been removed.
 * Jun 20 2017 - **LOW IMPORTANCE** - Darryl Morris has pointed out that `CONTRIBUTION_MIN` and `CONTRIBUTION_MAX` should be marked as **const**. The code has been left as-is.
+* Jun 21 2017 - Loi Luu - [openANX Audit](https://gist.github.com/loiluu/a80ba9c6df0d3a18773698644d988969)
 * Jun 21 2017 - **LOW IMPORTANCE** - Brian See has pointed out that `PrecommitmentAdded(...)` is not used, as the `Transfer(0x, participant, balance)` provides the same data. The code has been left as-is.
 * Jun 21 2017 - Hugh Madden has provided provided the following, and will update the OpenANXToken.sol code or update this rate using `setTokensPerKEther(...)`:
 
@@ -52,7 +53,8 @@ Bug bounty program: [https://medium.com/@OAX_Foundation/openanx-bug-bounty-progr
       tokensPerEther = 478.680000001
       tokensPerKEther = 478,680
 
-* Jun 22 2017 - Darryl Morris - [code review report](audits/DarrylMorris_OpenANXOAXContractCodeReview_20170622.pdf). From his review, Darryl has also reported to the Solidity team bug [#2441 Address literals not being treated as "compile-time constant"](https://github.com/ethereum/solidity/issues/2441) as [`address public TRANCHE2_ACCOUNT = 0xBbBB34FA53A801b5F298744490a1596438bbBe50;`](https://github.com/openanx/OpenANXToken/blob/master/contracts/LockedTokens.sol#L33) could not be set as a constant. 
+* Jun 22 2017 - Darryl Morris - [code review report](audits/DarrylMorris_OpenANXOAXContractCodeReview_20170622.pdf). From his review, Darryl has also reported to the Solidity team bug [#2441 Address literals not being treated as "compile-time constant"](https://github.com/ethereum/solidity/issues/2441) as [`address public TRANCHE2_ACCOUNT = 0xBbBB34FA53A801b5F298744490a1596438bbBe50;`](https://github.com/openanx/OpenANXToken/blob/master/contracts/LockedTokens.sol#L33) could not be set as a constant.
+* Jun 22 2017 - OpenANXToken deployed to [0x701c244b988a513c945973defa05de933b23fe1d](https://etherscan.io/address/0x701c244b988a513c945973defa05de933b23fe1d#code), LockedTokens address is [0x3866259bc60e5b69d5c438db238d3b4c9db37bcb](https://etherscan.io/address/0x3866259bc60e5b69d5c438db238d3b4c9db37bcb#code) and wallet at [0x2b3b67c6dffc2bcdda2315491eac9bbe868fbcdd](https://etherscan.io/address/0x2b3b67c6dffc2bcdda2315491eac9bbe868fbcdd) 
 
 <br />
 
@@ -123,7 +125,7 @@ Bug bounty program: [https://medium.com/@OAX_Foundation/openanx-bug-bounty-progr
   * OAX tokens are otherwise able to be transferred freely without further KYC requirements 
 
 * Unsold Tranche 1 Tokens
-  * Any tokens unsold from the tranche 1 quote will be locked away from 1 year along with the tranche 2 tokens
+  * Any tokens unsold from the tranche 1 quota will be locked away for 1 year along with the tranche 2 tokens
 
 * Locked Tokens
   * Accounts holding 1 or 2 year locked tokens will also be able to participant in the public crowdsale

@@ -53,7 +53,7 @@ Bug bounty program: [https://medium.com/@OAX_Foundation/openanx-bug-bounty-progr
       tokensPerEther = 478.680000001
       tokensPerKEther = 478,680
 
-* Jun 22 2017 - Darryl Morris - [code review report](audits/DarrylMorris_OpenANXOAXContractCodeReview_20170622.pdf). From his review, Darryl has also reported to the Solidity team bug [#2441 Address literals not being treated as "compile-time constant"](https://github.com/ethereum/solidity/issues/2441) as [`address public TRANCHE2_ACCOUNT = 0xBbBB34FA53A801b5F298744490a1596438bbBe50;`](https://github.com/openanx/OpenANXToken/blob/master/contracts/LockedTokens.sol#L33) could not be set as a constant.
+* Jun 22 2017 - Darryl Morris - [code review report](https://docs.google.com/document/d/1HBMY3v-_-JGZ9hzzcNYnyMyfQRukfetNifNUr57MW8g/edit) with [local copy](audits/DarrylMorris_OpenANXOAXContractCodeReview_20170622.pdf). From his review, Darryl has also reported to the Solidity team bug [#2441 Address literals not being treated as "compile-time constant"](https://github.com/ethereum/solidity/issues/2441) as [`address public TRANCHE2_ACCOUNT = 0xBbBB34FA53A801b5F298744490a1596438bbBe50;`](https://github.com/openanx/OpenANXToken/blob/master/contracts/LockedTokens.sol#L33) could not be set as a constant.
 * Jun 22 2017 - OpenANXToken deployed to [0x701c244b988a513c945973defa05de933b23fe1d](https://etherscan.io/address/0x701c244b988a513c945973defa05de933b23fe1d#code), LockedTokens address is [0x3866259bc60e5b69d5c438db238d3b4c9db37bcb](https://etherscan.io/address/0x3866259bc60e5b69d5c438db238d3b4c9db37bcb#code) and wallet at [0x2b3b67c6dffc2bcdda2315491eac9bbe868fbcdd](https://etherscan.io/address/0x2b3b67c6dffc2bcdda2315491eac9bbe868fbcdd) 
 
 <br />

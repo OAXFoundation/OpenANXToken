@@ -1,0 +1,5 @@
+snapshot at block=3971324 time=1499144474 Tue, 04 Jul 2017 05:01:14 UTC
+number of accounts, some may have a zero balances=3702
+Total balance=100000000000000000000000000
+totalSupply=100000000000000000000000000
+number of accounts+balances, only with non-zero balances=0

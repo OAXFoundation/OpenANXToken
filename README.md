@@ -16,6 +16,7 @@ Bug bounty program: [https://medium.com/@OAX_Foundation/openanx-bug-bounty-progr
 
 # Table of contents
 
+* [Finalised Crowdsale Statistics](#finalised-crowdsale-statistics)
 * [Updates](#updates)
 * [Requirements](#requirements)
 * [TODO](#todo)
@@ -27,6 +28,45 @@ Bug bounty program: [https://medium.com/@OAX_Foundation/openanx-bug-bounty-progr
   * [After 1 Year And 2 Years](#after-1-year-and-2-years)
 * [Testing](#testing)
 * [Deployment Checklist](#deployment-checklist)
+
+<br />
+
+<hr />
+
+# Finalised Crowdsale Statistics
+
+The public crowdsale was finalised at Jul-04-2017 05:01:14 AM +UTC, 12 days after the start, in block [3971324](https://etherscan.io/block/3971324) with tx [0xf7ba25c7](https://etherscan.io/tx/0xf7ba25c71bedc47d5237fd0e92cba266e627f32ca0de2946254359fa1dcedd0e).
+
+Following are the statistics for the public contributions to this crowdsale:
+
+<kbd><img src="images/openANX-PublicCrowdsaleStatistics-20170704153927.png" /></kbd>
+
+<br />
+
+Following is a chart of the public contributions to this crowdsale:
+
+<kbd><img src="images/openANX-PublicCrowdsaleChart-20170704-154010.png" /></kbd>
+
+<br />
+
+Raw data for the statistics above can be found in [scripts/TokensBought_20170704_150051-final.xls](scripts/TokensBought_20170704_150051-final.xls).
+
+<br />
+
+Following is the [EtherScan token page for openANX](https://etherscan.io/token/0x701C244b988a513c945973dEFA05de933b23Fe1D):
+
+<kbd><img src="images/openANX-EtherScan-AfterFinalise-20170704153213.png" /></kbd>
+
+<br />
+
+The token distribution at the end of the crowdsale can be found in [scripts/tokenBalancesByAccounts.xls](scripts/tokenBalancesByAccounts.xls). 
+
+<br />
+
+Statistics from [https://www.openanx.org/en/](https://www.openanx.org/en/):
+
+<kbd><img src="images/openANX-WebpageStatistics-20170706-155350.png" /></kbd>
+
 
 <br />
 
@@ -54,7 +94,8 @@ Bug bounty program: [https://medium.com/@OAX_Foundation/openanx-bug-bounty-progr
       tokensPerKEther = 478,680
 
 * Jun 22 2017 - Darryl Morris - [code review report](https://docs.google.com/document/d/1HBMY3v-_-JGZ9hzzcNYnyMyfQRukfetNifNUr57MW8g/edit) with [local copy](audits/DarrylMorris_OpenANXOAXContractCodeReview_20170622.pdf). From his review, Darryl has also reported to the Solidity team bug [#2441 Address literals not being treated as "compile-time constant"](https://github.com/ethereum/solidity/issues/2441) as [`address public TRANCHE2_ACCOUNT = 0xBbBB34FA53A801b5F298744490a1596438bbBe50;`](https://github.com/openanx/OpenANXToken/blob/master/contracts/LockedTokens.sol#L33) could not be set as a constant.
-* Jun 22 2017 - OpenANXToken deployed to [0x701c244b988a513c945973defa05de933b23fe1d](https://etherscan.io/address/0x701c244b988a513c945973defa05de933b23fe1d#code), LockedTokens address is [0x3866259bc60e5b69d5c438db238d3b4c9db37bcb](https://etherscan.io/address/0x3866259bc60e5b69d5c438db238d3b4c9db37bcb#code) and wallet at [0x2b3b67c6dffc2bcdda2315491eac9bbe868fbcdd](https://etherscan.io/address/0x2b3b67c6dffc2bcdda2315491eac9bbe868fbcdd) 
+* Jun 22 2017 - OpenANXToken deployed to [0x701c244b988a513c945973defa05de933b23fe1d](https://etherscan.io/address/0x701c244b988a513c945973defa05de933b23fe1d#code), LockedTokens address is [0x3866259bc60e5b69d5c438db238d3b4c9db37bcb](https://etherscan.io/address/0x3866259bc60e5b69d5c438db238d3b4c9db37bcb#code) and wallet at [0x2b3b67c6dffc2bcdda2315491eac9bbe868fbcdd](https://etherscan.io/address/0x2b3b67c6dffc2bcdda2315491eac9bbe868fbcdd)
+* Jul 04 2017 - Hugh Madden executed the `finalise()` function in transaction [0xf7ba25c7](https://etherscan.io/tx/0xf7ba25c71bedc47d5237fd0e92cba266e627f32ca0de2946254359fa1dcedd0e) at Jul-04-2017 05:01:14 AM +UTC.
 
 <br />
 

@@ -1,5 +1,7 @@
 # openANX Decentralised Exchange Token Sale Smart Contract
 
+# *Notice: Further development on the broader project is moved to the [OAX GitLab group](https://gitlab.com/oax)*
+
 Website: [http://openanx.org/](http://openanx.org/)
 
 Whitepaper: [https://www.openanx.org/en/assets/whitepaper/openANX_White_Paper_ENU.pdf](https://www.openanx.org/en/assets/whitepaper/openANX_White_Paper_ENU.pdf)
